@@ -12,6 +12,8 @@ import '../module/donate_payment_setection/support_payment_controller.dart';
 import '../module/donate_payment_setection/support_payment_view.dart';
 import '../module/home/home_controller.dart';
 import '../module/home/home_view.dart';
+import '../module/input_profile_details/input_profile_details_controller.dart';
+import '../module/input_profile_details/input_profile_details_view.dart';
 import '../module/language/language_controller.dart';
 import '../module/language/language_view.dart';
 import '../module/launch/launch_screen_controller.dart';
@@ -40,7 +42,7 @@ import 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static final initial = Routes.language;
+  static final initial = Routes.inputProfileDetails;
 
   static final routes = <GetPage>[
     GetPage(
@@ -173,6 +175,17 @@ class AppPages {
         Get.lazyPut<RequestRideController>(() => RequestRideController());
       }),
     ),
+
+    GetPage(
+      name: Routes.inputProfileDetails,
+      page: () => const InputProfileDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<InputProfileDetailsController>(
+              () => InputProfileDetailsController(),
+        );
+      }),
+    ),
+
 
 
   ];

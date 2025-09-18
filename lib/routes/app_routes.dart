@@ -17,5 +17,6 @@ abstract class Routes {
   static const supportRequestReview = '/support-request-review';
   static const requestSubmissionSuccess = '/request-submission-success';
   static const requestRide = '/request-ride';
+  static const inputProfileDetails = '/input-profile-details';
 
 }

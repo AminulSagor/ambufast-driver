@@ -9,7 +9,7 @@ class AppTranslations extends Translations {
       // ----- Common -----
       'back': 'Back',
       'powered':
-      'Powered By SafeCare24/7 Medical Services Limited\nBeta Version 1.0',
+      'Powered By SafeCare24/7 Medical Services Limited \nISO 9001 & 27001 certified \nBeta Version 1.0 ',
       'choose': 'Choose',
       'done': 'Done',
       'select': 'Select',
@@ -324,6 +324,49 @@ class AppTranslations extends Translations {
       'signup_subtitle': 'Sign up or book emergency service in seconds.',
 
 
+      // ===== Add to 'en_US' =====
+      'profile_info_title': 'Profile Information',
+      'upload_profile_photo': 'Upload profile photo',
+      'contact_info_title': 'Contact information',
+
+      'country': 'Country*',
+      'zip_code': 'ZIP Code*',
+      'state': 'State*',
+      'city': 'City*',
+      'street_address': 'Street Address*',
+      'apartment_optional': 'Apartment, Suite, Unit (optional)',
+
+      'hint_country': 'Choose country',
+      'hint_zip': '(e.g., 90210)',
+      'hint_state': 'Choose your zila',
+      'hint_city': '(e.g., Los Angeles)',
+      'hint_street': '(e.g., 123 Main Street)',
+      'hint_apartment': '(e.g., Apt 4B, Suite 201)',
+
+      'validation_full_name': 'Please enter your full name',
+      'validation_dob': 'Please select your date of birth',
+      'validation_gender': 'Please select gender',
+      'validation_blood': 'Please select blood group',
+      'validation_password': 'Password must be at least 6 characters',
+      'validation_confirm_password': 'Confirm password is required',
+      'validation_password_mismatch': 'Passwords do not match',
+      'validation_country': 'Please choose a country',
+      'validation_zip': 'Please enter ZIP / Postal code',
+      'validation_state': 'Please enter state / division',
+      'validation_city': 'Please enter city',
+      'validation_street': 'Please enter street address',
+
+// simple lists
+      'blood_groups': 'A+,A-,B+,B-,AB+,AB-,O+,O-',
+      'countries': 'Bangladesh,United States,United Kingdom,India',
+      // en_US
+      'profile_photo_required': 'Please upload a profile photo.',
+
+
+
+
+
+
 
 
     },
@@ -633,6 +676,44 @@ class AppTranslations extends Translations {
 
       'signup_subtitle': 'সেকেন্ডের মধ্যে সাইন আপ করুন বা জরুরি সেবা বুক করুন।',
 
+
+      // ===== Add to 'bn_BD' =====
+      'profile_info_title': 'প্রোফাইল তথ্য',
+      'upload_profile_photo': 'প্রোফাইল ছবি আপলোড করুন',
+      'contact_info_title': 'যোগাযোগের তথ্য',
+
+      'country': 'দেশ*',
+      'zip_code': 'জিপ কোড*',
+      'state': 'রাজ্য/বিভাগ*',
+      'city': 'শহর*',
+      'street_address': 'রাস্তার ঠিকানা*',
+      'apartment_optional': 'অ্যাপার্টমেন্ট, স্যুইট, ইউনিট (ঐচ্ছিক)',
+
+      'hint_country': 'দেশ নির্বাচন করুন',
+      'hint_zip': '(যেমন, ১২১২)',
+      'hint_state': 'আপনার জেলা/বিভাগ লিখুন',
+      'hint_city': 'শহরের নাম লিখুন',
+      'hint_street': '(যেমন, ১২৩ মেইন স্ট্রিট)',
+      'hint_apartment': '(যেমন, অ্যাপ্ট 4B, স্যুইট ২০১)',
+
+      'validation_full_name': 'পূর্ণ নাম লিখুন',
+      'validation_dob': 'জন্ম তারিখ নির্বাচন করুন',
+      'validation_gender': 'লিঙ্গ নির্বাচন করুন',
+      'validation_blood': 'রক্তের গ্রুপ নির্বাচন করুন',
+      'validation_password': 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',
+      'validation_confirm_password': 'কনফার্ম পাসওয়ার্ড লিখুন',
+      'validation_password_mismatch': 'পাসওয়ার্ড মেলেনি',
+      'validation_country': 'দেশ নির্বাচন করুন',
+      'validation_zip': 'জিপ/পোস্টাল কোড লিখুন',
+      'validation_state': 'রাজ্য/বিভাগ লিখুন',
+      'validation_city': 'শহরের নাম লিখুন',
+      'validation_street': 'রাস্তার ঠিকানা লিখুন',
+
+      'blood_groups': 'A+,A-,B+,B-,AB+,AB-,O+,O-',
+      'countries': 'বাংলাদেশ,United States,United Kingdom,India',
+
+// bn_BD
+      'profile_photo_required': 'অনুগ্রহ করে প্রোফাইল ছবি আপলোড করুন।',
     },
   };
 }
