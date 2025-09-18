@@ -1,0 +1,53 @@
+name: ambufast_driver
+description: "A new Flutter project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"   # adjust to match your local Dart version
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences:
+  get:
+  intl:
+  flutter_screenutil:
+  geolocator:
+  geocoding:
+  file_picker:
+  dotted_border: ^2.1.0
+  flutter_dotenv:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/icon/
+    - assets/icon/home_page_icon/
+    - assets/bottom_navigation/
+    - assets/ride_icons/
+    - .env
+
+flutter_native_splash:
+  # Common (Android + iOS)
+  color: "#E53935"
+  image: assets/logo.png
+  android: true
+  ios: true
+  android_gravity: center
+  ios_content_mode: center
+
+  # Android 12+ specific (must be nested under flutter_native_splash)
+  android_12:
+    color: "#E53935"
+    image: assets/logo.png
+    # color_dark: "#000000"
+    # image_dark: assets/logo.png
