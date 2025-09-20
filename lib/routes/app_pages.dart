@@ -1,11 +1,10 @@
-// lib/routes/app_pages.dart
 import 'package:get/get.dart';
-
-
 import '../module/account/create_account_controller.dart';
 import '../module/account/create_account_view.dart';
 import '../module/bkash_payment/bkash_payment_controller.dart';
 import '../module/bkash_payment/bkash_payment_view.dart';
+import '../module/car/car_details_controller.dart';
+import '../module/car/car_details_view.dart';
 import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
@@ -18,6 +17,8 @@ import '../module/language/language_controller.dart';
 import '../module/language/language_view.dart';
 import '../module/launch/launch_screen_controller.dart';
 import '../module/launch/launch_screen_view.dart';
+import '../module/licence/licence_details_controller.dart';
+import '../module/licence/licence_details_view.dart';
 import '../module/login/login_controller.dart';
 import '../module/login/login_view.dart';
 import '../module/payment_success/payment_success_controller.dart';
@@ -36,13 +37,15 @@ import '../module/support_request_review/support_request_review_controller.dart'
 import '../module/support_request_review/support_request_review_view.dart';
 import '../module/verify/verify_controller.dart';
 import '../module/verify/verify_view.dart';
+import '../module/waiting_approval/waiting_approval_controller.dart';
+import '../module/waiting_approval/waiting_approval_view.dart';
 import 'app_routes.dart';
 
 
 class AppPages {
   AppPages._();
 
-  static final initial = Routes.inputProfileDetails;
+  static final initial = Routes.carDetails;
 
   static final routes = <GetPage>[
     GetPage(
@@ -185,7 +188,30 @@ class AppPages {
         );
       }),
     ),
+    GetPage(
+      name: Routes.licenceDetails,
+      page: () => const LicenceDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.put(LicenceDetailsController());
+      }),
+    ),
 
+
+    GetPage(
+      name: Routes.carDetails,
+      page: () => const CarDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.put(CarDetailsController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.waitingApproval,
+      page: () => const WaitingApprovalView(),
+      binding: BindingsBuilder(() {
+        Get.put(WaitingApprovalController());
+      }),
+    ),
 
 
   ];

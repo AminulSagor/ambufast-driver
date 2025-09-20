@@ -3,7 +3,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../combine_service/single_file_upload_service.dart';
+
 class InputProfileDetailsController extends GetxController {
+  late final SingleFileUploadService uploader =
+  SingleFileUploadService( // base comes from .env automatically
+    authToken: null, // plug your token if you have one
+  );
   // Text fields
   final fullNameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
@@ -31,7 +37,9 @@ class InputProfileDetailsController extends GetxController {
   final hideConfirm = true.obs;
 
   // Photo
-  final photoPath = RxString('');
+  final photoPath = ''.obs;
+  final photoUrl  = ''.obs;
+  final isUploadingPhoto = false.obs;
 
   // Internal flag to avoid feedback loops when we update dobTextCtrl programmatically
   bool _isProgrammaticDobEdit = false;
@@ -272,7 +280,22 @@ class InputProfileDetailsController extends GetxController {
       allowMultiple: false,
     );
     if (res != null && res.files.single.path != null) {
-      photoPath.value = res.files.single.path!;
+      final path = res.files.single.path!;
+      photoPath.value = path;
+      await uploadPickedPhoto(File(path)); // ⬅️ upload immediately
+    }
+  }
+
+
+  Future<void> uploadPickedPhoto(File file) async {
+    try {
+      isUploadingPhoto.value = true;
+      final url = await uploader.upload(file);
+      photoUrl.value = url;
+    } on UploadException catch (e) {
+      Get.snackbar('Upload failed', e.message);
+    } finally {
+      isUploadingPhoto.value = false;
     }
   }
 
@@ -321,7 +344,7 @@ class InputProfileDetailsController extends GetxController {
     'city': cityCtrl.text.trim(),
     'street': streetCtrl.text.trim(),
     'apartment': apartmentCtrl.text.trim(),
-    'photoPath': photoPath.value,
+    'photoUrl': photoUrl.value,
   };
 
   void submit() {

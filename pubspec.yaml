@@ -20,6 +20,7 @@ dependencies:
   file_picker:
   dotted_border: ^2.1.0
   flutter_dotenv:
+  image_picker: ^1.2.0
 
 dev_dependencies:
   flutter_test:

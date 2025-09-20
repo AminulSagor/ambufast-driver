@@ -364,6 +364,89 @@ class AppTranslations extends Translations {
 
 
 
+      // ========== Add under 'en_US' ==========
+      'licence_title': "Driver’s License Information",
+      'licence_number': "License Number*",
+      'licence_number_hint': "Enter full number",
+      'licence_expiry': "License Expiry Date*",
+      'licence_expiry_hint': "YYYY-MM-DD or Select",
+      'licence_category': "License Category*",
+      'licence_category_hint': "YYYY-MM-DD",
+      'upload_licence_title': "Upload License",
+      'front_side_title': "Front Side of Card*",
+      'back_side_title': "Back Side of Card*",
+      'click_to_upload_front': "Click to Upload Front Side of Card",
+      'click_to_upload_back': "Click to Upload Back Side of Card",
+      'max_file_size_25': "(Max. File size: 25 MB)",
+      'next': "Next",
+
+// validation (EN)
+      'v_lic_no': "Please enter license number.",
+      'v_lic_exp': "Please enter a valid expiry date (YYYY-MM-DD).",
+      'v_lic_cat': "Please select a license category.",
+      'v_front': "Please upload front side of the license.",
+      'v_back': "Please upload back side of the license.",
+
+// category samples
+      'lic_cat_list': "A,B,C,Professional,Non-Professional",
+
+      // ===== en_US additions =====
+      'car_title': 'Vehicle Information',
+      'car_vehicle_photo': 'Vehicle Photo Upload',
+      'car_vehicle_photo_sub': 'Add your Vehicle photo here, and you can upload up to 5 files max',
+      'car_vehicle_reg': 'Vehicle Registration Sticker Upload',
+      'car_vehicle_reg_sub': 'Add your Vehicle Registration Sticker photo here, and you can upload up to 5 files max',
+      'car_only_types': 'Only support .jpg, .png files',
+      'car_max_10mb': 'Max 10 MB files are allowed',
+
+      'car_vehicle_number': 'Vehicle Number*',
+      'car_vehicle_number_hint': 'Enter vehicle number',
+      'car_vehicle_type': 'Vehicle Type*',
+      'car_vehicle_type_hint': 'Select',
+      'car_brand_model': 'Brand & Model*',
+      'car_brand_model_hint': 'Enter Brand and model',
+      'car_manufacturing_year': 'Manufacturing Year*',
+      'car_manufacturing_year_hint': 'Enter manufacturing year',
+
+      'car_ins_comp_section': 'Insurance & Compliance',
+      'car_ins_upload': 'Vehicle Insurance Upload',
+      'car_ins_provider': 'Insurance Provider*',
+      'car_ins_provider_hint': 'Choose',
+      'car_ins_expiry': 'Insurance Expiry Date*',
+      'car_fit_expiry': 'Fitness Certificate Expiry Date*',
+      'car_road_permit_expiry': 'Road Permit Expiry Date*',
+      'car_select': 'Select',
+      'car_emission_status': 'Emission Test Status*',
+
+      'car_additional_services': 'Additional Services',
+      'car_submit': 'Submit',
+
+// validation
+      'car_v_photo': 'Please upload vehicle photo.',
+      'car_v_reg': 'Please upload registration sticker.',
+      'car_v_number': 'Please enter vehicle number.',
+      'car_v_type': 'Please select vehicle type.',
+      'car_v_brand': 'Please enter brand & model.',
+      'car_v_year': 'Please enter a valid year (e.g., 2020).',
+      'car_v_ins_photo': 'Please upload insurance photo.',
+      'car_v_ins_provider': 'Please select insurance provider.',
+      'car_v_date': 'Please enter a valid date (YYYY-MM-DD).',
+
+// lists
+      'car_vehicle_types': 'Sedan,SUV,Microbus,Truck,Ambulance',
+      'car_emission_status_list': 'Passed,Failed,Pending',
+      'car_ins_providers': 'Company A,Company B,Company C',
+
+// list used for selectable Additional Services (comma-separated)
+      'car_additional_services_list':
+      'Paramedic Assistance,Wheelchair & Stretcher Support,Oxygen Supply,First Aid Kit & Basic Medications,Vitals Monitoring Equipment,Patient Escort Services,Family Member Seating,Specialized Cardiac Support',
+
+// ===== en_US additions =====
+      'waiting_approval_title': 'Your application is submitted and is under review.',
+      'waiting_approval_body':
+      'You will be notified with application status or check the status by going to Settings.',
+      'waiting_approval_cta': 'Explore the app',
+
 
 
 
@@ -714,6 +797,90 @@ class AppTranslations extends Translations {
 
 // bn_BD
       'profile_photo_required': 'অনুগ্রহ করে প্রোফাইল ছবি আপলোড করুন।',
+
+
+      // ========== Add under 'bn_BD' ==========
+      'licence_title': "ড্রাইভিং লাইসেন্স তথ্য",
+      'licence_number': "লাইসেন্স নম্বর*",
+      'licence_number_hint': "পুরো নম্বর লিখুন",
+      'licence_expiry': "লাইসেন্সের মেয়াদ শেষ হওয়ার তারিখ*",
+      'licence_expiry_hint': "YYYY-MM-DD বা নির্বাচন করুন",
+      'licence_category': "লাইসেন্স বিভাগ*",
+      'licence_category_hint': "নির্বাচন করুন",
+      'upload_licence_title': "লাইসেন্স আপলোড",
+      'front_side_title': "কার্ডের সামনের দিক*",
+      'back_side_title': "কার্ডের পিছনের দিক*",
+      'click_to_upload_front': "কার্ডের সামনের দিকটি আপলোড করতে ক্লিক করুন",
+      'click_to_upload_back': "কার্ডের পিছনের দিকটি আপলোড করতে ক্লিক করুন",
+      'max_file_size_25': "(সর্বোচ্চ ফাইল সাইজ: ২৫ এমবি)",
+      'next': "পরবর্তী",
+
+// validation (BN)
+      'v_lic_no': "লাইসেন্স নম্বর লিখুন।",
+      'v_lic_exp': "সঠিক মেয়াদ শেষের তারিখ দিন (YYYY-MM-DD)।",
+      'v_lic_cat': "একটি লাইসেন্স বিভাগ নির্বাচন করুন।",
+      'v_front': "লাইসেন্সের সামনের অংশ আপলোড করুন।",
+      'v_back': "লাইসেন্সের পেছনের অংশ আপলোড করুন।",
+
+// category samples
+      'lic_cat_list': "A,B,C,Professional,Non-Professional",
+
+      // ===== bn_BD additions =====
+      'car_title': 'যানবাহনের তথ্য',
+      'car_vehicle_photo': 'গাড়ির ছবি আপলোড',
+      'car_vehicle_photo_sub': 'যানবাহন আপনার গাড়ির ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ ৫টি ফাইল আপলোড করতে পারবেন।',
+      'car_vehicle_reg': 'যানবাহনের রেজিস্ট্রেশন স্টিকার আপলোড',
+      'car_vehicle_reg_sub': 'আপনার যানবাহন নিবন্ধন স্টিকার ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ ৫টি ফাইল আপলোড করতে পারবেন',
+      'car_only_types': 'শুধু .jpg, .png ফাইল সমর্থিত',
+      'car_max_10mb': 'সর্বোচ্চ ১০ এমবি ফাইল অনুমোদিত',
+
+      'car_vehicle_number': 'গাড়ির নম্বর*',
+      'car_vehicle_number_hint': 'গাড়ির নম্বর লিখুন',
+      'car_vehicle_type': 'যানবাহনের ধরন*',
+      'car_vehicle_type_hint': 'নির্বাচন করুন',
+      'car_brand_model': 'ব্র্যান্ড ও মডেল*',
+      'car_brand_model_hint': 'ব্র্যান্ড ও মডেল লিখুন',
+      'car_manufacturing_year': 'উৎপাদনের বছর*',
+      'car_manufacturing_year_hint': 'উৎপাদনের বছর লিখুন',
+
+      'car_ins_comp_section': 'বীমা এবং সামঞ্জস্য',
+      'car_ins_upload': 'যানবাহনের বীমা আপলোড',
+      'car_ins_provider': 'বীমা প্রদানকারী*',
+      'car_ins_provider_hint': 'নির্বাচন করুন',
+      'car_ins_expiry': 'বীমার মেয়াদ শেষ হওয়ার তারিখ*',
+      'car_fit_expiry': 'ফিটনেস সার্টিফিকেটের মেয়াদ শেষ হওয়ার তারিখ*',
+      'car_road_permit_expiry': 'রোড পারমিটের মেয়াদ শেষ হওয়ার তারিখ*',
+      'car_select': 'নির্বাচন করুন',
+      'car_emission_status': 'এমিশন টেস্ট স্ট্যাটাস*',
+
+      'car_additional_services': 'অতিরিক্ত পরিষেবা',
+      'car_submit': 'জমা দিন',
+
+// validation
+      'car_v_photo': 'অনুগ্রহ করে গাড়ির ছবি আপলোড করুন।',
+      'car_v_reg': 'অনুগ্রহ করে রেজিস্ট্রেশন স্টিকার আপলোড করুন।',
+      'car_v_number': 'অনুগ্রহ করে গাড়ির নম্বর লিখুন।',
+      'car_v_type': 'অনুগ্রহ করে যানবাহনের ধরন নির্বাচন করুন।',
+      'car_v_brand': 'অনুগ্রহ করে ব্র্যান্ড ও মডেল লিখুন।',
+      'car_v_year': 'সঠিক বছর লিখুন (যেমন, ২০২০)।',
+      'car_v_ins_photo': 'অনুগ্রহ করে বীমার ছবি আপলোড করুন।',
+      'car_v_ins_provider': 'অনুগ্রহ করে বীমা প্রদানকারী নির্বাচন করুন।',
+      'car_v_date': 'সঠিক তারিখ লিখুন (YYYY-MM-DD)।',
+
+// lists
+      'car_vehicle_types': 'সেডান,SUV,মাইক্রোবাস,ট্রাক,অ্যাম্বুলেন্স',
+      'car_emission_status_list': 'পাস,ফেল,অপেক্ষমাণ',
+      'car_ins_providers': 'কোম্পানি A,কোম্পানি B,কোম্পানি C',
+// নির্বাচনযোগ্য অতিরিক্ত পরিষেবা (কমা দিয়ে আলাদা)
+      'car_additional_services_list':
+      'প্যারামেডিক সহায়তা,হুইলচেয়ার ও স্ট্রেচার সাপোর্ট,অক্সিজেন সরবরাহ,ফার্স্ট এইড কিট ও মৌলিক ওষুধপত্র,ভাইটালস মনিটরিং যন্ত্রপাতি,পেশেন্ট এস্কর্ট সার্ভিস,পরিবারের সদস্যের জন্য বসার ব্যবস্থা,বিশেষায়িত কার্ডিয়াক সাপোর্ট',
+
+// ===== bn_BD additions =====
+      'waiting_approval_title': 'আপনার আবেদন জমা দেওয়া হয়েছে এবং পর্যালোচনাধীন।',
+      'waiting_approval_body':
+      'আপনাকে আবেদনটির স্থিতি সম্পর্কে অবহিত করা হবে অথবা সেটিংসে গিয়ে স্থিতি পরীক্ষা করুন।',
+      'waiting_approval_cta': 'অ্যাপটি ঘুরে দেখুন',
+
     },
   };
 }

@@ -18,5 +18,8 @@ abstract class Routes {
   static const requestSubmissionSuccess = '/request-submission-success';
   static const requestRide = '/request-ride';
   static const inputProfileDetails = '/input-profile-details';
+  static const licenceDetails = '/licence-details';
+  static const carDetails = '/car-details';
+  static const waitingApproval = '/waiting-approval';
 
 }
