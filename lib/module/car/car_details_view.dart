@@ -28,6 +28,8 @@ class CarDetailsView extends GetView<CarDetailsController> {
         padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 24.h),
         child: Form(
           key: controller.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction, // 👈 show errors as soon as user types/taps
+          onChanged: controller.onFormChanged,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -77,7 +79,9 @@ class CarDetailsView extends GetView<CarDetailsController> {
                   hint: 'car_vehicle_type_hint'.tr,
                   suffix: const Icon(Icons.arrow_drop_down),
                 ),
-                onTap: () => controller.pickFromList(context, controller.vehicleTypes, controller.vehicleTypeCtrl),
+                // Vehicle Type field
+                onTap: () => controller.pickVehicleType(context),
+
                 validator: (v)=> (v==null || v.trim().isEmpty) ? 'car_v_type'.tr : null,
               ),
 
@@ -110,7 +114,7 @@ class CarDetailsView extends GetView<CarDetailsController> {
               SizedBox(height: 20.h),
               _MultiUploadCard(
                 title: 'car_ins_upload'.tr,
-                subtitle: 'car_vehicle_photo_sub'.tr,
+                subtitle: 'car_vehicle_insurance'.tr,
                 maxNote: 'car_max_10mb'.tr,
                 typeNote: 'car_only_types'.tr,
                 photosRx: controller.insurancePhotos,
@@ -210,11 +214,32 @@ class CarDetailsView extends GetView<CarDetailsController> {
               ),
 
               SizedBox(height: 20.h),
+              // --- Additional services ---
+
               _DividerWithTitle(title: 'car_additional_services'.tr),
               SizedBox(height: 10.h),
-              // simple check-list placeholder (static)
+
               Obx(() {
-                final items = controller.extraServices;
+                final hasType = controller.vehicleTypeCtrl.text.trim().isNotEmpty;
+                final items   = controller.extraServices; // derived from availableAddServices
+
+                // 1) No vehicle type picked yet
+                if (!hasType) {
+                  return const _HintTile(
+                    text: 'Select vehicle type to see additional services',
+                    // if you have i18n: text: 'car_pick_type_for_services'.tr,
+                  );
+                }
+
+                // 2) Type picked but that type has no services
+                if (items.isEmpty) {
+                  return const _HintTile(
+                    text: 'No additional services available for this vehicle type',
+                    // if you have i18n: text: 'car_no_extra_services'.tr,
+                  );
+                }
+
+                // 3) Show selectable services
                 return Column(
                   children: items.map((label) {
                     final selected = controller.isServiceSelected(label);
@@ -227,7 +252,8 @@ class CarDetailsView extends GetView<CarDetailsController> {
                             height: 22.w,
                             child: Checkbox(
                               value: selected,
-                              onChanged: (v) => controller.toggleService(label, v ?? false),
+                              onChanged: (v) =>
+                                  controller.toggleService(label, v ?? false),
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
                           ),
@@ -239,6 +265,7 @@ class CarDetailsView extends GetView<CarDetailsController> {
                   }).toList(),
                 );
               }),
+
 
 
               SizedBox(height: 20.h),
@@ -419,8 +446,8 @@ class _MultiUploadCard extends StatelessWidget {
                         text: TextSpan(
                           style: TextStyle(fontSize: 13.sp, color: const Color(0xFF263238)),
                           children: const [
-                            TextSpan(text: 'Drag your file(s) or '),
-                            TextSpan(text: 'browse', style: TextStyle(fontWeight: FontWeight.w700)),
+                            TextSpan(text: 'Click to upload your'),
+                            TextSpan(text: ' photo', style: TextStyle(fontWeight: FontWeight.w700)),
                           ],
                         ),
                       ),
@@ -553,5 +580,31 @@ String _formatBytes(int bytes) {
   } else {
     final v = (bytes / kb);
     return '${v.toStringAsFixed(v >= 10 ? 0 : 1)} KB';
+  }
+}
+
+class _HintTile extends StatelessWidget {
+  const _HintTile({required this.text, super.key});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F9FC),
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: const Color(0xFFE3E8EF)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13.sp,
+          color: const Color(0xFF6B7280),
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+    );
   }
 }

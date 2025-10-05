@@ -62,6 +62,7 @@ class InputProfileDetailsView extends GetView<InputProfileDetailsController> {
         child: ScreenUtilInit(
           builder: (_, __) => Form(
             key: controller.formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                 child: Column(
@@ -188,6 +189,7 @@ class InputProfileDetailsView extends GetView<InputProfileDetailsController> {
                           ),
                         ),
                         validator: controller.validatePassword,
+                        onChanged: (_) => controller.formKey.currentState?.validate(),
                       )),
                     ),
 
@@ -207,6 +209,7 @@ class InputProfileDetailsView extends GetView<InputProfileDetailsController> {
                           ),
                         ),
                         validator: controller.validateConfirmPassword,
+                        onChanged: (_) => controller.formKey.currentState?.validate(),
                       )),
                     ),
 

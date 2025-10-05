@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'dart:convert';
 class AuthService extends GetConnect {
   AuthService() {
     final base = dotenv.maybeGet('API_BASE_URL')?.trim();
@@ -13,28 +13,53 @@ class AuthService extends GetConnect {
   }
 
   // ---------- helpers ----------
-  String _errMsg(Response res, String fallback) {
-    try {
-      final body = res.body;
-      if (body is Map && body['message'] is String && (body['message'] as String).isNotEmpty) {
-        return body['message'] as String;
+  String _messageFromResponse(Response res, String fallback) {
+    // Case 1: body is already a Map
+    final body = res.body;
+    if (body is Map) {
+      if (body['message'] is String && (body['message'] as String).trim().isNotEmpty) {
+        return body['message'];
       }
-      // some backends only return raw string
-      if (res.bodyString != null && res.bodyString!.isNotEmpty) {
-        return res.bodyString!;
+      if (body['error'] is String && (body['error'] as String).trim().isNotEmpty) {
+        return body['error'];
       }
-    } catch (_) {}
+      if (body['errors'] is List && body['errors'].isNotEmpty) {
+        final first = body['errors'].first;
+        if (first is Map && first['msg'] is String) return first['msg'];
+        if (first is String) return first;
+      }
+    }
+
+    // Case 2: parse bodyString
+    final raw = res.bodyString;
+    if (raw != null && raw.isNotEmpty) {
+      try {
+        final j = jsonDecode(raw);
+        if (j is Map<String, dynamic>) {
+          if (j['message'] is String) return j['message'];
+          if (j['error'] is String) return j['error'];
+        }
+      } catch (_) {
+        return raw; // not JSON, return raw string
+      }
+      return raw;
+    }
+
     return fallback;
   }
 
+
   void _ensureOk(Response res, String fallback) {
     if (res.statusCode != 200) {
-      throw Exception(_errMsg(res, fallback));
+      final msg = _messageFromResponse(res, fallback);
+      throw Exception(msg);
     }
-    if (res.body is! Map || (res.body['data'] == null)) {
+
+    if (res.body is! Map || (res.body as Map)['data'] == null) {
       throw Exception('Unexpected response from server.');
     }
   }
+
 
   // ---------- Request OTP ----------
   Future<void> requestOtpSms({
@@ -76,7 +101,7 @@ class AuthService extends GetConnect {
     debugPrint('verifyOtpSms → status: ${res.statusCode}');
     debugPrint('verifyOtpSms → body: ${res.bodyString}');
     if (res.statusCode != 200) {
-      throw Exception(_errMsg(res, 'OTP verification failed'));
+      throw Exception(_messageFromResponse(res, 'Something went wrong'));
     }
     return Map<String, dynamic>.from(res.body as Map);
   }
@@ -93,7 +118,7 @@ class AuthService extends GetConnect {
     debugPrint('verifyOtpEmail → status: ${res.statusCode}');
     debugPrint('verifyOtpEmail → body: ${res.bodyString}');
     if (res.statusCode != 200) {
-      throw Exception(_errMsg(res, 'OTP verification failed'));
+      throw Exception(_messageFromResponse(res, 'Something went wrong'));
     }
     return Map<String, dynamic>.from(res.body as Map);
   }
@@ -115,7 +140,7 @@ class AuthService extends GetConnect {
 
     // Success contract per your Postman screenshots: 201 + {"data":"..."}
     if (res.statusCode != 201) {
-      throw Exception(_extractErrorMessage(res));
+      throw Exception(_messageFromResponse(res, 'Something went wrong'));
     }
     if (res.body is! Map || res.body['data'] == null) {
       throw Exception('Unexpected response from server.');
@@ -123,28 +148,7 @@ class AuthService extends GetConnect {
   }
 
   // ---------- shared error parser ----------
-  String _extractErrorMessage(Response res) {
-    try {
-      final b = res.body;
-      if (b is Map) {
-        if (b['message'] is String && (b['message'] as String).isNotEmpty) {
-          return b['message'];
-        }
-        // Sometimes validation errors are nested
-        final details = b['errDetails'];
-        if (details is Map && details['errors'] != null) {
-          final errs = details['errors'];
-          if (errs is List && errs.isNotEmpty) {
-            final first = errs.first;
-            if (first is Map && first['message'] is String) {
-              return first['message'];
-            }
-          }
-        }
-      }
-    } catch (_) {}
-    return 'Request failed (${res.statusCode}).';
-  }
+
 
 
 
@@ -205,7 +209,7 @@ class AuthService extends GetConnect {
     debugPrint('requestRecoverOtpEmail → ${res.bodyString}');
 
     if (res.statusCode != 200) {
-      throw Exception(_errMsg(res, 'Failed to send email OTP'));
+      throw Exception(_messageFromResponse(res, 'Something went wrong'));
     }
   }
 
@@ -219,11 +223,11 @@ class AuthService extends GetConnect {
       headers: {'Content-Type': 'application/json'},
     );
 
-    debugPrint('requestRecoverOtpSms → ${res.statusCode}');
-    debugPrint('requestRecoverOtpSms → ${res.bodyString}');
+    print('requestRecoverOtpSms → ${res.statusCode}');
+    print('requestRecoverOtpSms → ${res.bodyString}');
 
     if (res.statusCode != 200) {
-      throw Exception(_errMsg(res, 'Failed to send SMS OTP'));
+      throw Exception(_messageFromResponse(res, 'Something went wrong'));
     }
   }
 

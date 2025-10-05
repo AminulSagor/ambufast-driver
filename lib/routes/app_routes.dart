@@ -21,5 +21,12 @@ abstract class Routes {
   static const licenceDetails = '/licence-details';
   static const carDetails = '/car-details';
   static const waitingApproval = '/waiting-approval';
-
+  static const profileCreating = '/profile-creating';
+  static const account = '/account';
+  static const profileDetails = '/profile-details';
+  static const editProfileDetails = '/edit-profile-details';
+  static const allReview = '/all-review';
+  static const selectLanguage = '/select-language';
+  static const emergencySos = '/emergency-sos';
+  static const myVehicles = '/my-vehicles';
 }

@@ -1,4 +1,6 @@
 // lib/module/licence/licence_details_view.dart
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +34,7 @@ class LicenceDetailsView extends GetView<LicenceDetailsController> {
         padding: EdgeInsets.fromLTRB(16.w, 0.h, 16.w, 24.h),
         child: Form(
           key: controller.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -70,6 +73,7 @@ class LicenceDetailsView extends GetView<LicenceDetailsController> {
                   LengthLimitingTextInputFormatter(10), // YYYY-MM-DD
                 ],
                 validator: controller.validateDate,
+                onChanged: (_) => controller.formKey.currentState?.validate(),
               ),
 
               SizedBox(height: 16.h),
@@ -85,6 +89,7 @@ class LicenceDetailsView extends GetView<LicenceDetailsController> {
                 onTap: () => controller.pickCategory(context),
                 validator: (v) =>
                 (v == null || v.trim().isEmpty) ? 'v_lic_cat'.tr : null,
+                onChanged: (_) => controller.formKey.currentState?.validate(),
               ),
 
               SizedBox(height: 20.h),
@@ -284,10 +289,58 @@ class _UploadBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final value = valueRx.value;
-      final hasFile = value != null && value.isNotEmpty;
+      final path = valueRx.value;
+      final hasFile = path != null && path.isNotEmpty;
+
+      Widget preview() {
+        // Image preview with rounded corners and cover fit
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(12.r),
+          child: SizedBox(
+            width: double.infinity,
+            height: 160.h,
+            child: Image.file(
+              File(path!),
+              fit: BoxFit.cover,
+              errorBuilder: (c, e, s) => Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.broken_image_outlined, size: 28, color: Colors.grey),
+                    SizedBox(height: 6),
+                    Text('Preview unavailable', style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      Widget placeholder() {
+        return Column(
+          children: [
+            Container(
+              width: 48.w,
+              height: 68.h,
+              decoration: const BoxDecoration(
+                color: Color(0xFFF3F7FB),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.cloud_upload, size: 22, color: Colors.redAccent),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12.sp, color: Colors.black87),
+            ),
+          ],
+        );
+      }
+
       return GestureDetector(
-        onTap: onTap,
+        onTap: onTap, // tap anywhere to (re)pick
         child: DottedBorder(
           borderType: BorderType.RRect,
           radius: Radius.circular(12.r),
@@ -296,37 +349,24 @@ class _UploadBox extends StatelessWidget {
           strokeWidth: 1,
           child: Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 24.h),
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
             alignment: Alignment.center,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 48.w,
-                  height: 68.h,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF3F7FB),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.cloud_upload,
-                      size: 22, color: Colors.redAccent),
-                ),
-                SizedBox(height: 10.h),
+                hasFile ? preview() : placeholder(),
+                SizedBox(height: 8.h),
                 Text(
-                  hasFile ? value! : title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: Colors.black87,
-                    fontWeight:
-                    hasFile ? FontWeight.w600 : FontWeight.w400,
+                  subtitle, // keep your “Max 25 MB” line
+                  style: TextStyle(fontSize: 11.sp, color: Colors.red),
+                ),
+                if (hasFile) ...[
+                  SizedBox(height: 6.h),
+                  Text(
+                    'Tap to change',
+                    style: TextStyle(fontSize: 11.sp, color: Colors.grey[700]),
                   ),
-                ),
-                SizedBox(height: 6.h),
-                Text(
-                  subtitle,
-                  style:
-                  TextStyle(fontSize: 11.sp, color: Colors.red),
-                ),
+                ],
               ],
             ),
           ),
@@ -335,3 +375,4 @@ class _UploadBox extends StatelessWidget {
     });
   }
 }
+

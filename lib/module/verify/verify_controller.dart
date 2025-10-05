@@ -157,7 +157,7 @@ class VerifyController extends GetxController {
         Get.offNamed(Routes.setPassword, arguments: commonArgs);
       } else {
         // ✅ normal onboarding
-        Get.offNamed(Routes.createAccount, arguments: commonArgs);
+        Get.offNamed(Routes.inputProfileDetails, arguments: commonArgs);
       }
     } catch (e) {
       final msg = e.toString().replaceFirst('Exception: ', '');

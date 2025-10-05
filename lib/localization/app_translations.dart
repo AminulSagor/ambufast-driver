@@ -224,7 +224,7 @@ class AppTranslations extends Translations {
 
       'doc_upload_title': 'Document Upload (Optional)',
       'doc_upload_sub': 'Add bill or prescriptions',
-      'doc_upload_drop': 'Drag your file(s) or browse',
+      'doc_upload_drop': 'Click your file your photo',
       'doc_upload_max': 'Max 10 MB files are allowed',
       'doc_upload_types': 'Only support .jpg, .png files',
 
@@ -394,8 +394,9 @@ class AppTranslations extends Translations {
       'car_title': 'Vehicle Information',
       'car_vehicle_photo': 'Vehicle Photo Upload',
       'car_vehicle_photo_sub': 'Add your Vehicle photo here, and you can upload up to 5 files max',
+      'car_vehicle_insurance': 'Add your Vehicle photo here, and you can upload only one file',
       'car_vehicle_reg': 'Vehicle Registration Sticker Upload',
-      'car_vehicle_reg_sub': 'Add your Vehicle Registration Sticker photo here, and you can upload up to 5 files max',
+      'car_vehicle_reg_sub': 'Add your Vehicle Registration Sticker photo here, and you can upload only one file',
       'car_only_types': 'Only support .jpg, .png files',
       'car_max_10mb': 'Max 10 MB files are allowed',
 
@@ -434,7 +435,7 @@ class AppTranslations extends Translations {
 
 // lists
       'car_vehicle_types': 'Sedan,SUV,Microbus,Truck,Ambulance',
-      'car_emission_status_list': 'Passed,Failed,Pending',
+      'car_emission_status_list': 'Valid,Expiring Soon,Expired',
       'car_ins_providers': 'Company A,Company B,Company C',
 
 // list used for selectable Additional Services (comma-separated)
@@ -447,15 +448,123 @@ class AppTranslations extends Translations {
       'You will be notified with application status or check the status by going to Settings.',
       'waiting_approval_cta': 'Explore the app',
 
+      'validation_invalid_format': 'Invalid format.',
+      'validation_dob_range': 'Age must be between 10 and 100 years.',
 
 
 
+      'validation_name_min3': 'Name must be at least 3 characters.',
+      // en_US additions
+      'err_over_25mb': 'File is larger than 25 MB.',
+      'err_over_10mb': 'File is larger than 10 MB.',
+      'err_file_pick': 'Couldn’t pick the file. Please try again.',
+
+      'v_lic_exp_past': 'Expiry date cannot be in the past.',
 
 
+      // Header
+      'good_morning': 'Good Morning, @name!',
+      'verified': 'Verified',
+      'premium_pilot': 'Premium Pilot',
+      'expire_on': 'Expire: @date',
+      'trips_completed': 'Trips Completed',
+      'trips_completed_value': '@count trips over @years years',
+      'acceptance_rate': 'Acceptance Rate',
+      'cancellation_rate': 'Cancellation Rate',
+      // Sections
+      'basic_info': 'Basic Info',
+      'documents': 'Documents',
+      'settings_prefs': 'Settings & Preferences',
+      'security_privacy': 'Security & Privacy',
+      'support_legal': 'Support & Legal',
+      // Items
+      'profile': 'Profile',
+      'subscription': 'Subscription',
+      'reviews': 'Reviews',
+      'my_earning': 'My Earning',
+      'my_vehicles': 'My Vehicles',
+      'driving_license': 'Driving License',
+      'vehicle_papers': 'Vehicle Papers',
+      'language': 'Language',
+      'notification': 'Notification',
+      'change_password': 'Change Password',
+      'tap_sos': 'Tap Emergency SOS',
+      'help_center': 'Help Center / FAQs',
+      'cancellation_policy': 'Cancellation Policy',
+      'terms_conditions': 'Terms & Conditions',
+      'privacy_policy': 'Privacy Policy',
+      'logout': 'Logout',
+      // Misc
+      'english_us': 'English (US)',
+
+      'profile_details': 'Profile details',
+
+      'date_of_birth': 'Date Of Birth',
+      'blood_group_p': 'Blood Group',
+      'apartment_suite_unit': 'Apartment, Suite, Unit',
+      'member_since': 'Member since',
+      'basic_information': 'Basic Information',
+      'edit_profile_details': 'Edit profile details',
+      'enter_full_name': 'Enter full name',
+      'select_gender': 'Select Gender',
+      'select_blood_group': 'Select blood Group',
+      'email_address': 'Email Address',
+      'enter_street_address': 'Enter street address',
+      'apartment_suite_unit_optional': 'Apartment, Suite, Unit (optional)',
+      'enter_city': 'Enter city',
+      'select_state': 'Select State',
+      'enter_zip_code': 'Enter ZIP code',
+      'select_country': 'Select Country',
+      'update_success_title': 'Update successfully',
+      'update_success_body': 'Your profile has been updated successfully',
+      'contact_information': 'Contact information',
+
+      // My Vehicles
+      'my_vehicles_title': 'My Vehicles',
+      'search_vehicle': 'Search vehicle',
+      'add_vehicle': 'Add Vehicle',
+      'no_vehicle': 'No vehicle available',
+
+      // Confirm dialog
+      'confirm_change_vehicle_title': 'Are you sure you want to change this vehicle?',
+      'confirm_change_vehicle_body_1': "You’re about to switch your active ambulance",
+      'from': 'from:',
+      'to': 'to:',
+      'confirm_note':
+      'This change will take effect immediately for new trip requests.',
+      'go_back': 'Go Back',
     },
 
     // ======================= BANGLA =======================
     'bn_BD': {
+      // My Vehicles
+      'my_vehicles_title': 'আমার যানবাহন',
+      'search_vehicle': 'যানবাহন অনুসন্ধান করুন',
+      'add_vehicle': 'যানবাহন যোগ করুন',
+      'no_vehicle': 'কোনো যানবাহন উপলব্ধ নেই',
+
+      // Confirm dialog
+      'confirm_change_vehicle_title':
+      'আপনি কি নিশ্চিত যে আপনি এই গাড়িটি পরিবর্তন করতে চান?',
+      'confirm_change_vehicle_body_1':
+      'আপনি আপনার সক্রিয় অ্যাম্বুলেন্সটি এখান থেকে পরিবর্তন করতে চলেছেন',
+      'from': 'চলেছেন:',
+      'to': 'থেকে',
+      'confirm_note':
+      'নতুন ট্রিপের অনুরোধের ক্ষেত্রে এই পরিবর্তন অবিলম্বে কার্যকর হবে।',
+      'confirm': 'বাতিল নিশ্চিত করুন', // If you prefer just "Confirm": 'নিশ্চিত করুন'
+      'go_back': 'ফিরে যান',
+      'contact_information': 'যোগাযোগের তথ্য',
+      'update_success_title': 'আপডেট সফলভাবে হয়েছে',
+      'update_success_body': 'আপনার প্রোফাইল সফলভাবে আপডেট করা হয়েছে',
+      'select_country': 'দেশ নির্বাচন করুন',
+      'select_state': 'রাজ্য নির্বাচন করুন',
+      'enter_zip_code': 'জিপ কোড লিখুন',
+      'enter_city': 'শহরের নাম লিখুন',
+      'select_blood_group': 'রক্তের গ্রুপ নির্বাচন করুন',
+      'email_address': 'ইমেইল ঠিকানা',
+      'enter_street_address': 'রাস্তার ঠিকানা লিখুন',
+      'apartment_suite_unit_optional': 'অ্যাপার্টমেন্ট, সুইট, ইউনিট (ঐচ্ছিক)',
       // ----- Common -----
       'back': 'পিছনে',
       'powered':
@@ -829,8 +938,9 @@ class AppTranslations extends Translations {
       'car_title': 'যানবাহনের তথ্য',
       'car_vehicle_photo': 'গাড়ির ছবি আপলোড',
       'car_vehicle_photo_sub': 'যানবাহন আপনার গাড়ির ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ ৫টি ফাইল আপলোড করতে পারবেন।',
+      'car_vehicle_insurance': 'আপনার যানবাহনের বীমার ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ ১টি ফাইল আপলোড করতে পারবেন',
       'car_vehicle_reg': 'যানবাহনের রেজিস্ট্রেশন স্টিকার আপলোড',
-      'car_vehicle_reg_sub': 'আপনার যানবাহন নিবন্ধন স্টিকার ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ ৫টি ফাইল আপলোড করতে পারবেন',
+      'car_vehicle_reg_sub': 'আপনার যানবাহন নিবন্ধন স্টিকার ছবি এখানে যোগ করুন, এবং আপনি সর্বোচ্চ 1টি ফাইল আপলোড করতে পারবেন',
       'car_only_types': 'শুধু .jpg, .png ফাইল সমর্থিত',
       'car_max_10mb': 'সর্বোচ্চ ১০ এমবি ফাইল অনুমোদিত',
 
@@ -881,6 +991,61 @@ class AppTranslations extends Translations {
       'আপনাকে আবেদনটির স্থিতি সম্পর্কে অবহিত করা হবে অথবা সেটিংসে গিয়ে স্থিতি পরীক্ষা করুন।',
       'waiting_approval_cta': 'অ্যাপটি ঘুরে দেখুন',
 
+      'validation_invalid_format': 'ফরম্যাট সঠিক নয়।',
+      'validation_dob_range': 'বয়স ১০ থেকে ১০০ বছরের মধ্যে হতে হবে।',
+
+      'validation_name_min3': 'নাম কমপক্ষে ৩ অক্ষরের হতে হবে।',
+
+      // bn_BD additions
+      'err_over_25mb': 'ফাইল ২৫ এমবির বেশি।',
+      'err_over_10mb': 'ফাইল ১০ এমবির বেশি।',
+      'err_file_pick': 'ফাইল নির্বাচন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+
+      'v_lic_exp_past': 'মেয়াদোত্তীর্ণ তারিখ অতীতে হতে পারবে না।',
+
+      // Header
+      'good_morning': 'শুভ সকাল, @name!',
+      'verified': 'ভেরিফাইড',
+      'premium_pilot': 'প্রিমিয়াম পাইলট',
+      'expire_on': 'মেয়াদ শেষ: @date',
+      'trips_completed': 'ট্রিপ সম্পন্ন হয়েছে',
+      'trips_completed_value': '@count ট্রিপ, @years বছরে',
+      'acceptance_rate': 'এক্সেপ্টেন্স রেট',
+      'cancellation_rate': 'বাতিলকরণ হার',
+      // Sections
+      'basic_info': 'বেসিক তথ্য',
+      'documents': 'ডকুমেন্টস',
+      'settings_prefs': 'সেটিংস ও পছন্দসমূহ',
+      'security_privacy': 'নিরাপত্তা ও গোপনীয়তা',
+      'support_legal': 'সহায়তা এবং আইনি',
+      // Items
+      'profile': 'প্রোফাইল',
+      'subscription': 'সাবস্ক্রিপশন',
+      'reviews': 'রিভিউ',
+      'my_earning': 'আমার উপার্জন',
+      'my_vehicles': 'আমার যানবাহন',
+      'driving_license': 'ড্রাইভিং লাইসেন্স',
+      'vehicle_papers': 'যানবাহনের কাগজপত্র',
+      'language': 'ভাষা',
+      'notification': 'নোটিফিকেশন',
+      'change_password': 'পাসওয়ার্ড পরিবর্তন করুন',
+      'tap_sos': 'জরুরি SOS-এ ট্যাপ করুন',
+      'help_center': 'হেল্প সেন্টার / সাধারণ জিজ্ঞাসা',
+      'cancellation_policy': 'বাতিলকরণ নীতি',
+      'terms_conditions': 'শর্তাবলী',
+      'privacy_policy': 'গোপনীয়তা নীতি',
+      'logout': 'লগআউট',
+      // Misc
+      'english_us': 'English (US)',
+      'profile_details': 'প্রোফাইলের বিস্তারিত',
+      'date_of_birth': 'জন্ম তারিখ',
+      'blood_group_p': 'রক্তের গ্রুপ',
+      'apartment_suite_unit_optional': 'অ্যাপার্টমেন্ট, সুইট, ইউনিট (ঐচ্ছিক)',
+      'member_since': 'সদস্য হয়েছেন',
+      'basic_information': 'বেসিক তথ্য',
+      'edit_profile_details': 'রোফাইলের এডিট করুন',
+      'enter_full_name': 'পূর্ণ নাম লিখুন',
+      'select_gender': 'লিঙ্গ নির্বাচন করুন',
     },
   };
 }

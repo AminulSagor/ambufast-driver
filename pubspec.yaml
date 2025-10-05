@@ -21,6 +21,7 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_dotenv:
   image_picker: ^1.2.0
+  url_launcher:
 
 dev_dependencies:
   flutter_test:
@@ -37,11 +38,12 @@ flutter:
     - assets/bottom_navigation/
     - assets/ride_icons/
     - .env
+    - assets/account/
 
 flutter_native_splash:
   # Common (Android + iOS)
   color: "#E53935"
-  image: assets/logo.png
+  image: assets/splash_screen.png
   android: true
   ios: true
   android_gravity: center
@@ -50,6 +52,6 @@ flutter_native_splash:
   # Android 12+ specific (must be nested under flutter_native_splash)
   android_12:
     color: "#FFFFFF"
-    image: assets/logo.png
+    image: assets/splash_screen.png
     # color_dark: "#000000"
     # image_dark: assets/logo.png

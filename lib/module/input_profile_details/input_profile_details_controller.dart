@@ -1,15 +1,10 @@
-import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../combine_service/single_file_upload_service.dart';
+import '../../routes/app_routes.dart';
+import '../../utils/snackbar_helper.dart';
 
 class InputProfileDetailsController extends GetxController {
-  late final SingleFileUploadService uploader =
-  SingleFileUploadService( // base comes from .env automatically
-    authToken: null, // plug your token if you have one
-  );
   // Text fields
   final fullNameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
@@ -20,7 +15,12 @@ class InputProfileDetailsController extends GetxController {
   final streetCtrl = TextEditingController();
   final apartmentCtrl = TextEditingController();
 
-  // 👇 NEW: text controller for DOB
+  // Contact (API requires either phone or email; optional to collect both)
+  final extCtrl   = TextEditingController(text: '880'); // default BD dial code
+  final phoneCtrl = TextEditingController();
+  final emailCtrl = TextEditingController();
+
+  // DOB text controller (shown as yyyy-MM-dd, sent as ISO)
   final dobTextCtrl = TextEditingController();
 
   // Form key
@@ -28,7 +28,7 @@ class InputProfileDetailsController extends GetxController {
 
   // Selections
   final dob = Rxn<DateTime>();
-  final gender = RxString(''); // 'male' | 'female' | 'others'
+  final gender = RxString('');      // 'male' | 'female' | 'others' from UI
   final bloodGroup = RxString('');
   final country = RxString('');
 
@@ -36,12 +36,13 @@ class InputProfileDetailsController extends GetxController {
   final hidePassword = true.obs;
   final hideConfirm = true.obs;
 
-  // Photo
+  // Photo (local path only; we won’t upload here)
   final photoPath = ''.obs;
-  final photoUrl  = ''.obs;
+
+  // Legacy/compat
+  final photoUrl = ''.obs;
   final isUploadingPhoto = false.obs;
 
-  // Internal flag to avoid feedback loops when we update dobTextCtrl programmatically
   bool _isProgrammaticDobEdit = false;
 
   // Helpers
@@ -68,7 +69,6 @@ class InputProfileDetailsController extends GetxController {
       '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
   DateTime? _tryParseFlexible(String input) {
-    // expects yyyy-MM-dd (flexible 1–2 digits for month/day ok)
     final parts = input.split('-');
     if (parts.length == 3) {
       final year = int.tryParse(parts[0]);
@@ -77,7 +77,6 @@ class InputProfileDetailsController extends GetxController {
       if (year != null && month != null && day != null) {
         try {
           final candidate = DateTime(year, month, day);
-          // ensure valid calendar date (no 31/04, etc.)
           if (candidate.year == year &&
               candidate.month == month &&
               candidate.day == day) {
@@ -88,23 +87,32 @@ class InputProfileDetailsController extends GetxController {
     }
     return null;
   }
+
+  String _normalizeGender(String raw) {
+    final s = raw.trim().toUpperCase();
+    if (s == 'MALE' || s == 'FEMALE' || s == 'OTHER') return s;
+    if (s == 'M' || s == 'MALE') return 'MALE';
+    if (s == 'F' || s == 'FEMALE' || s == 'WOMAN') return 'FEMALE';
+    if (s == 'OTHERS' || s == 'OTHER') return 'OTHER';
+    return 'OTHER';
+  }
+
   String? validatePhoto() =>
       photoPath.value.isEmpty ? 'profile_photo_required'.tr : null;
-  /// --- on DOB manual input (no normalization) ---
-  void onDobTextChanged(String v) {
-    if (_isProgrammaticDobEdit) return; // ignore echoes from our own writes
 
+  /// on DOB manual input (no normalization)
+  void onDobTextChanged(String v) {
+    if (_isProgrammaticDobEdit) return;
     final t = v.trim();
     if (t.isEmpty) {
-      dob.value = null; // allow clearing
+      dob.value = null;
     } else {
-      // only parse; do NOT set dobTextCtrl.text here
       dob.value = _tryParseFlexible(t);
     }
     formKey.currentState?.validate();
   }
 
-  /// Set DOB from picker and format text once (explicit user action)
+  /// Set DOB from picker and format text once
   void setDob(DateTime d) {
     dob.value = d;
     final formatted = _fmt(d);
@@ -116,6 +124,22 @@ class InputProfileDetailsController extends GetxController {
       _isProgrammaticDobEdit = false;
     }
     formKey.currentState?.validate();
+  }
+
+  Future<void> pickDOB(BuildContext context) async {
+    final now = DateTime.now();
+    final first = DateTime(now.year - 100, 1, 1);
+    final last = DateTime(now.year - 10, now.month, now.day);
+    final initial = dob.value ?? DateTime(now.year - 20, now.month, now.day);
+
+    final result = await showDatePicker(
+      context: context,
+      initialDate: initial,
+      firstDate: first,
+      lastDate: last,
+    );
+
+    if (result != null) setDob(result);
   }
 
   Future<String?> _showSelectBottomSheet({
@@ -210,8 +234,9 @@ class InputProfileDetailsController extends GetxController {
                       elevation: 0,
                     ),
                     onPressed: () => Get.back(
-                        result:
-                        selected.value.isNotEmpty ? selected.value : null),
+                        result: selected.value.isNotEmpty
+                            ? selected.value
+                            : null),
                     child: const Text(
                       'done',
                       style: TextStyle(
@@ -227,24 +252,6 @@ class InputProfileDetailsController extends GetxController {
         );
       },
     );
-  }
-
-  Future<void> pickDOB(BuildContext context) async {
-    final now = DateTime.now();
-    final first = DateTime(now.year - 100, 1, 1);
-    final last = DateTime(now.year - 10, now.month, now.day);
-    final initial = dob.value ?? DateTime(now.year - 20, now.month, now.day);
-
-    final result = await showDatePicker(
-      context: context,
-      initialDate: initial,
-      firstDate: first,
-      lastDate: last,
-    );
-
-    if (result != null) {
-      setDob(result); // <- format once on pick
-    }
   }
 
   Future<void> chooseBloodGroup(BuildContext context) async {
@@ -274,6 +281,7 @@ class InputProfileDetailsController extends GetxController {
     }
   }
 
+  /// Pick photo (do NOT upload here)
   Future<void> pickPhoto() async {
     final res = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -282,38 +290,57 @@ class InputProfileDetailsController extends GetxController {
     if (res != null && res.files.single.path != null) {
       final path = res.files.single.path!;
       photoPath.value = path;
-      await uploadPickedPhoto(File(path)); // ⬅️ upload immediately
     }
   }
 
-
-  Future<void> uploadPickedPhoto(File file) async {
-    try {
-      isUploadingPhoto.value = true;
-      final url = await uploader.upload(file);
-      photoUrl.value = url;
-    } on UploadException catch (e) {
-      Get.snackbar('Upload failed', e.message);
-    } finally {
-      isUploadingPhoto.value = false;
-    }
-  }
-
-  /// --- Validators ---
+  // Validators
   String? _req(String? v, String key) =>
       (v == null || v.trim().isEmpty) ? key.tr : null;
 
-  String? validateFullName(String? v) => _req(v, 'validation_full_name');
+  String? validateFullName(String? v) {
+    final s = (v ?? '').trim();
+    if (s.isEmpty) return 'validation_full_name'.tr;         // required
+    if (s.runes.length < 3) return 'validation_name_min3'.tr; // at least 3 chars
+    return null;
+  }
 
-  // DOB required; make it optional by returning null when dob == null.
-  String? validateDOB() => dob.value == null ? 'validation_dob'.tr : null;
+
+  String? validateDOB() {
+    final raw = dobTextCtrl.text.trim();
+    if (raw.isEmpty) return 'validation_dob'.tr; // required
+
+    // allow YYYY-M-D or YYYY-MM-DD (hyphen only)
+    final looksRight = RegExp(r'^\d{4}-\d{1,2}-\d{1,2}$').hasMatch(raw);
+    final parsed = looksRight ? _tryParseFlexible(raw) : null;
+    if (parsed == null) return 'validation_invalid_format'.tr;
+
+    // age 10–100
+    final now = DateTime.now();
+    var age = now.year - parsed.year;
+    if (now.month < parsed.month ||
+        (now.month == parsed.month && now.day < parsed.day)) {
+      age--;
+    }
+    if (age < 10 || age > 100) return 'validation_dob_range'.tr;
+
+    // normalize text to YYYY-MM-DD and sync state
+    final normalized = _fmt(parsed); // zero-padded month/day
+    if (dobTextCtrl.text != normalized) {
+      _isProgrammaticDobEdit = true;
+      dobTextCtrl
+        ..text = normalized
+        ..selection = TextSelection.collapsed(offset: normalized.length);
+      _isProgrammaticDobEdit = false;
+    }
+    dob.value = parsed;
+    return null;
+  }
+
 
   String? validateGender() =>
       gender.value.isEmpty ? 'validation_gender'.tr : null;
-
   String? validateBlood() =>
       bloodGroup.value.isEmpty ? 'validation_blood'.tr : null;
-
   String? validatePassword(String? v) {
     if (v == null || v.length < 6) return 'validation_password'.tr;
     return null;
@@ -332,48 +359,95 @@ class InputProfileDetailsController extends GetxController {
   String? validateCity(String? v) => _req(v, 'validation_city');
   String? validateStreet(String? v) => _req(v, 'validation_street');
 
+  String? validateEmail(String? v) {
+    final s = (v ?? '').trim();
+    if (s.isEmpty) return null; // optional
+    final ok = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(s);
+    return ok ? null : 'validation_email'.tr;
+  }
+
+  String? validatePhone(String? v) {
+    final s = (v ?? '').trim();
+    if (s.isEmpty) return null; // optional
+    final ok = RegExp(r'^\d{6,15}$').hasMatch(s);
+    return ok ? null : 'validation_phone'.tr;
+  }
+
+  /// Build payload with API exact keys/format
   Map<String, dynamic> toPayload() => {
-    'fullName': fullNameCtrl.text.trim(),
-    'dob': dob.value?.toIso8601String(),
-    'gender': gender.value,
-    'bloodGroup': bloodGroup.value,
+    // Scalars expected by API
+    'fullname': fullNameCtrl.text.trim(),
+    'dob': dob.value?.toUtc().toIso8601String(), // ISO
+    'gender': _normalizeGender(gender.value),     // MALE/FEMALE/OTHER
+    'bloodgroup': bloodGroup.value,
     'password': passwordCtrl.text,
-    'country': country.value,
-    'zip': zipCtrl.text.trim(),
-    'state': stateCtrl.text.trim(),
-    'city': cityCtrl.text.trim(),
+
+    // Contact
+    'ext': extCtrl.text.trim(),
+    'phone': phoneCtrl.text.trim(),
+    'email': emailCtrl.text.trim(),
+
+    // Address parts; Car step will compose the JSON string
     'street': streetCtrl.text.trim(),
     'apartment': apartmentCtrl.text.trim(),
-    'photoUrl': photoUrl.value,
+    'city': cityCtrl.text.trim(),
+    'state': stateCtrl.text.trim(),
+    'zipcode': zipCtrl.text.trim(), // exact key
+    'country': country.value,
   };
 
   void submit() {
-    final errors = [
+    final errors = <String?>[
       validatePhoto(),
       validateDOB(),
       validateGender(),
       validateBlood(),
       validateCountry(),
+      validateEmail(emailCtrl.text),
+      validatePhone(phoneCtrl.text),
     ].whereType<String>().toList();
 
+
+    // Require at least one of phone or email
+    final hasPhone = phoneCtrl.text.trim().isNotEmpty;
+    final hasEmail = emailCtrl.text.trim().isNotEmpty;
+    if (!hasPhone && !hasEmail) {
+      errors.add('Provide phone or email'); // localizable if you want
+    }
+
     if (!(formKey.currentState?.validate() ?? false) || errors.isNotEmpty) {
-      Get.snackbar('invalid_title'.tr, 'invalid_msg'.tr,
-          snackPosition: SnackPosition.BOTTOM);
+      final msg = errors.isEmpty ? 'invalid_msg'.tr : errors.join('\n');
+      showErrorSnackbar(msg); // reuse your custom top snackbar
       return;
     }
 
+
     final payload = toPayload();
-    Get.toNamed('/profile-address', arguments: payload);
+
+    // ➜ Go to Licence Details page with everything needed
+    Get.toNamed(
+      Routes.licenceDetails,
+      arguments: {
+        'payload': payload,
+        'photoPath': photoPath.value,
+      },
+    );
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    // Keep parsed DOB in sync with what user types (no normalization)
-    dobTextCtrl.addListener(() => onDobTextChanged(dobTextCtrl.text));
+    // Prefill from Verify → commonArgs (ext/phone/email)
+    final args = Get.arguments as Map<dynamic, dynamic>?;
+    final ext   = (args?['ext'] as String?)?.trim();
+    final phone = (args?['phone'] as String?)?.trim();
+    final email = (args?['email'] as String?)?.trim();
+    if (ext != null && ext.isNotEmpty) extCtrl.text = ext;
+    if (phone != null && phone.isNotEmpty) phoneCtrl.text = phone;
+    if (email != null && email.isNotEmpty) emailCtrl.text = email;
 
-    // Other live validations
+    dobTextCtrl.addListener(() => onDobTextChanged(dobTextCtrl.text));
     fullNameCtrl.addListener(() => formKey.currentState?.validate());
     passwordCtrl.addListener(() => formKey.currentState?.validate());
     confirmPasswordCtrl.addListener(() => formKey.currentState?.validate());
@@ -382,6 +456,9 @@ class InputProfileDetailsController extends GetxController {
     cityCtrl.addListener(() => formKey.currentState?.validate());
     streetCtrl.addListener(() => formKey.currentState?.validate());
     apartmentCtrl.addListener(() => formKey.currentState?.validate());
+    extCtrl.addListener(() => formKey.currentState?.validate());
+    phoneCtrl.addListener(() => formKey.currentState?.validate());
+    emailCtrl.addListener(() => formKey.currentState?.validate());
   }
 
   @override
@@ -395,6 +472,9 @@ class InputProfileDetailsController extends GetxController {
     cityCtrl.dispose();
     streetCtrl.dispose();
     apartmentCtrl.dispose();
+    extCtrl.dispose();
+    phoneCtrl.dispose();
+    emailCtrl.dispose();
     super.onClose();
   }
 }

@@ -1,6 +1,11 @@
 import 'package:get/get.dart';
+import '../module/account/account_controller.dart';
+import '../module/account/account_view.dart';
 import '../module/account/create_account_controller.dart';
 import '../module/account/create_account_view.dart';
+import '../module/account/profile_creating_view.dart';
+import '../module/all_review/all_review_controller.dart';
+import '../module/all_review/all_review_view.dart';
 import '../module/bkash_payment/bkash_payment_controller.dart';
 import '../module/bkash_payment/bkash_payment_view.dart';
 import '../module/car/car_details_controller.dart';
@@ -9,6 +14,10 @@ import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
 import '../module/donate_payment_setection/support_payment_view.dart';
+import '../module/edit_profile_details/edit_profile_details_controller.dart';
+import '../module/edit_profile_details/edit_profile_details_view.dart';
+import '../module/emergency_sos/emergency_sos_controller.dart';
+import '../module/emergency_sos/emergency_sos_view.dart';
 import '../module/home/home_controller.dart';
 import '../module/home/home_view.dart';
 import '../module/input_profile_details/input_profile_details_controller.dart';
@@ -23,6 +32,8 @@ import '../module/login/login_controller.dart';
 import '../module/login/login_view.dart';
 import '../module/payment_success/payment_success_controller.dart';
 import '../module/payment_success/payment_success_view.dart';
+import '../module/profile_details/profile_details_controller.dart';
+import '../module/profile_details/profile_details_view.dart';
 import '../module/recover/recover_controller.dart';
 import '../module/recover/recover_view.dart';
 import '../module/request_submission_success/request_submission_success_controller.dart';
@@ -39,13 +50,14 @@ import '../module/verify/verify_controller.dart';
 import '../module/verify/verify_view.dart';
 import '../module/waiting_approval/waiting_approval_controller.dart';
 import '../module/waiting_approval/waiting_approval_view.dart';
+import '../vehicles/my_vehicles_controller.dart';
+import '../vehicles/my_vehicles_view.dart';
 import 'app_routes.dart';
 
 
 class AppPages {
   AppPages._();
 
-  static final initial = Routes.carDetails;
 
   static final routes = <GetPage>[
     GetPage(
@@ -210,6 +222,71 @@ class AppPages {
       page: () => const WaitingApprovalView(),
       binding: BindingsBuilder(() {
         Get.put(WaitingApprovalController());
+      }),
+    ),
+    GetPage(name: Routes.profileCreating, page: () => const ProfileCreatingView()),
+
+    GetPage(
+      name: Routes.account,
+      page: () => const AccountView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<AccountController>(() => AccountController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.profileDetails,
+      page: () => const ProfileDetailsView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<ProfileDetailsController>()) {
+          Get.delete<ProfileDetailsController>(force: true);
+        }
+        Get.put(ProfileDetailsController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.editProfileDetails,
+      page: () => const EditProfileDetailsView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<EditProfileDetailsController>()) {
+          Get.delete<EditProfileDetailsController>(force: true);
+        }
+        Get.put(EditProfileDetailsController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.allReview,
+      page: () => const AllReviewView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<AllReviewController>()) {
+          Get.delete<AllReviewController>(force: true);
+        }
+        Get.put(AllReviewController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.emergencySos,
+      page: () => const EmergencySosView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<EmergencySosController>()) {
+          Get.delete<EmergencySosController>(force: true);
+        }
+        Get.put(EmergencySosController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.myVehicles,
+      page: () => const MyVehiclesView(),
+      binding: BindingsBuilder(() {
+        // Ensure a fresh controller each time you open the screen
+        if (Get.isRegistered<MyVehiclesController>()) {
+          Get.delete<MyVehiclesController>(force: true);
+        }
+        Get.put(MyVehiclesController());
       }),
     ),
 

@@ -1,5 +1,4 @@
 // lib/modules/account/create_account_controller.dart
-
 import 'package:ambufast_driver/module/account/profile_creating_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,8 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../combine_service/auth_service.dart';
 import '../../utils/snackbar_helper.dart';
-
-
 
 class CreateAccountController extends GetxController {
   CreateAccountController({AuthService? auth}) : _auth = auth ?? AuthService();

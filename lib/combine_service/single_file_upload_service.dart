@@ -18,9 +18,8 @@ class SingleFileUploadService {
   final String _baseUrl;
   final String? authToken;
 
-  /// returns the uploaded file URL (string)
   Future<String> upload(File file) async {
-    final uri = Uri.parse('$_baseUrl/v1/user/profile/upload-files-and-photos');
+    final uri = Uri.parse('$_baseUrl/v1/user/profile/upload-file-and-photo');
 
     final req = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('asset', file.path));
@@ -29,10 +28,12 @@ class SingleFileUploadService {
       req.headers['Authorization'] = 'Bearer $authToken';
     }
 
-    // Optional: req.headers['Accept'] = 'application/json';
-
     final streamed = await req.send();
     final res = await http.Response.fromStream(streamed);
+
+    // ✅ Debug: print status and body
+    print('Upload status: ${res.statusCode}');
+    print('Upload response body: ${res.body}');
 
     if (res.statusCode == 200) {
       // response like: { "data":"https://storage.googleapis.com/..." }
@@ -51,4 +52,5 @@ class SingleFileUploadService {
       throw UploadException('Upload failed (${res.statusCode})');
     }
   }
+
 }
