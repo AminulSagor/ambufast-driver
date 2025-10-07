@@ -42,6 +42,9 @@ class MyVehiclesView extends StatelessWidget {
 
             Expanded(
               child: Obx(() {
+                if (c.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
                 final items = c.filtered;
                 if (items.isEmpty) return _EmptyState(message: 'no_vehicle'.tr);
 
@@ -179,10 +182,18 @@ class _VehicleTile extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: const Color(0xFFE9EEF2), width: 6.r),
           ),
-          child: ClipOval(
-            child: Image.network(v.imageUrl, fit: BoxFit.cover),
+            // inside _VehicleTile.build()
+            child: ClipOval(
+              child: (v.imageUrl != null && v.imageUrl!.isNotEmpty)
+                  ? Image.network(
+                v.imageUrl!, // now non-null
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => const Icon(Icons.directions_car),
+              )
+                  : const Icon(Icons.directions_car),
+            ),
+
           ),
-        ),
           SizedBox(width: 12.w),
             Expanded(
               child: Column(

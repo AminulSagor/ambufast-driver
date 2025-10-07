@@ -533,10 +533,23 @@ class AppTranslations extends Translations {
       'confirm_note':
       'This change will take effect immediately for new trip requests.',
       'go_back': 'Go Back',
+
+      'help_center_title': 'Help Center / FAQs',
+      'faq_heading': 'Current Frequently Asked Questions',
+      'faq_search_hint': 'Search FAQs',
+      'faq_cant_find': 'Can’t find what you’re looking for?',
+      'faq_contact_support': 'Contact Support',
+
     },
 
     // ======================= BANGLA =======================
     'bn_BD': {
+
+      'help_center_title': 'Help Center / FAQs',
+      'faq_heading': 'Current Frequently Asked Questions',
+      'faq_search_hint': 'Search FAQs',
+      'faq_cant_find': 'Can’t find what you’re looking for?',
+      'faq_contact_support': 'Contact Support',
       // My Vehicles
       'my_vehicles_title': 'আমার যানবাহন',
       'search_vehicle': 'যানবাহন অনুসন্ধান করুন',

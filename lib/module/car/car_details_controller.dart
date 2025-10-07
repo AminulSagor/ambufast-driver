@@ -1,12 +1,15 @@
 // lib/module/car/car_details_controller.dart
 import 'dart:async';
+import 'dart:io';
 import 'package:ambufast_driver/module/car/service_models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../../combine_service/multi_file_upload_service.dart';
 import '../../combine_service/public_services_service.dart';
+import '../../combine_service/single_file_upload_service.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/snackbar_helper.dart';
 import '../../vehicles/add_vehicle_service.dart';
@@ -297,7 +300,7 @@ class CarDetailsController extends GetxController {
 
     final names = services.map((e) => e.name).toList();
 
-    double _initialFactor(BuildContext c, int count) {
+    double initialFactor(BuildContext c, int count) {
       final f = count * 0.10; // ≈ one row = 10% height
       return f.clamp(0.25, 0.85);
     }
@@ -307,7 +310,7 @@ class CarDetailsController extends GetxController {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (sheetCtx) {
-        final init = _initialFactor(sheetCtx, names.length);
+        final init = initialFactor(sheetCtx, names.length);
         return DraggableScrollableSheet(
           initialChildSize: (init - 0.05).clamp(0.25, 0.90),
           minChildSize: 0.25,
@@ -384,12 +387,48 @@ class CarDetailsController extends GetxController {
           (Get.arguments?['fromAddVehicle'] as bool?) ?? false;
 
       if (fromAddVehicle) {
-        // ➜ PATCH /v1/user/profile/update-user-info with addNewVehicle
-        final vehicleJson = _buildAddNewVehicleJson();
-        await _addVehicleSvc.addNewVehicle(vehicleJson);
-        Get.back(result: true); // notify caller (My Vehicles) to refresh
+        // Validate required uploads for add-vehicle
+        if (regStickerPhotos.isEmpty) {
+          showErrorSnackbar('car_v_reg'.tr);
+          isSubmitting.value = false;
+          return;
+        }
+        if (vehiclePhotos.isEmpty) {
+          showErrorSnackbar('car_v_photo'.tr);
+          isSubmitting.value = false;
+          return;
+        }
+
+        // 1) Ensure URLs (upload local files first; keep http URLs as-is)
+        final vehiclePhotoUrls  = await _ensureUrls(vehiclePhotos.toList());
+        final regStickerUrl     = await _ensureUrl(regStickerPhotos.first);
+        final insuranceUrl      = insurancePhotos.isNotEmpty
+            ? await _ensureUrl(insurancePhotos.first)
+            : null;
+
+        // 2) Build payload with URLs
+        final payload = _buildAddNewVehicleJsonFromUrls(
+          vehiclePhotoUrls: vehiclePhotoUrls,
+          regStickerUrl: regStickerUrl,
+          insuranceUrl: insuranceUrl,
+        );
+
+        // 3) Debug prints you asked for
+        print('➡️ [AddVehicle] Request payload: $payload');
+
+        try {
+          final res = await _addVehicleSvc.addNewVehicle(payload);
+          print('✅ [AddVehicle] Success: $res');
+          Get.back(result: true); // refresh caller
+        } catch (e) {
+          print('❌ [AddVehicle] Error: $e');
+          showErrorSnackbar(e.toString());
+        } finally {
+          isSubmitting.value = false;
+        }
         return;
       }
+
 
       // ---- Original create-driver multipart flow (unchanged) ----
       final address = {
@@ -495,10 +534,44 @@ class CarDetailsController extends GetxController {
   }
 
 
-  Map<String, dynamic> _buildAddNewVehicleJson() {
-    List<String> onlyUrls(List<String> list) =>
-        list.where((p) => p.startsWith('http')).toList();
 
+  /// Returns a single URL: if local path => upload; if already URL => return as-is.
+  Future<String> _ensureUrl(String path) async {
+    if (path.startsWith('http')) return path;
+    final uploader = SingleFileUploadService();
+    return uploader.upload(File(path));
+  }
+
+  /// Returns list of URLs: upload local paths; keep existing URLs.
+  Future<List<String>> _ensureUrls(List<String> paths) async {
+    if (paths.isEmpty) return const [];
+    // If *all* are already URLs, just return them (no network)
+    final allAreUrls = paths.every((p) => p.startsWith('http'));
+    if (allAreUrls) return paths;
+
+    // Otherwise upload only local ones
+    final locals = paths.where((p) => !p.startsWith('http')).map((p) => File(p)).toList();
+    final urlsFromUpload = await MultiFileUploadService().uploadMany(locals);
+
+    // Stitch back preserving order: uploaded URLs for locals, original URLs for already-URL entries
+    final result = <String>[];
+    int uploadIdx = 0;
+    for (final p in paths) {
+      if (p.startsWith('http')) {
+        result.add(p);
+      } else {
+        result.add(urlsFromUpload[uploadIdx++]);
+      }
+    }
+    return result;
+  }
+
+  /// Builds the final JSON for addNewVehicle given URL values.
+  Map<String, dynamic> _buildAddNewVehicleJsonFromUrls({
+    required List<String> vehiclePhotoUrls,
+    required String regStickerUrl,
+    String? insuranceUrl,
+  }) {
     return {
       "vehicleNumber": vehicleNumberCtrl.text.trim(),
       "vehicleCategory": "EMERGENCY",
@@ -511,12 +584,11 @@ class CarDetailsController extends GetxController {
       "roadPermitExpiryDate": _toIsoFromYmd(roadPermitExpiryCtrl.text.trim()),
       "emissionTestStatus": emissionStatusCtrl.text.trim(),
       "additionalServices": getSelectedServices(),
-      "vehiclePhotos": onlyUrls(vehiclePhotos),
-      "vehicleInsurance":
-      onlyUrls(insurancePhotos).isNotEmpty ? onlyUrls(insurancePhotos).first : null,
-      "vehicleRegistrationSticker":
-      onlyUrls(regStickerPhotos).isNotEmpty ? onlyUrls(regStickerPhotos).first : null,
+      "vehiclePhotos": vehiclePhotoUrls,
+      "vehicleInsurance": insuranceUrl,               // nullable → removed below if null
+      "vehicleRegistrationSticker": regStickerUrl,    // required
     }..removeWhere((k, v) => v == null);
   }
+
 
 }

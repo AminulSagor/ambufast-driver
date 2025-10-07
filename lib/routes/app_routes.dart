@@ -29,4 +29,6 @@ abstract class Routes {
   static const selectLanguage = '/select-language';
   static const emergencySos = '/emergency-sos';
   static const myVehicles = '/my-vehicles';
+  static const helpCenter = '/help-center';
+  static const contactSupport = '/contact-support';
 }

@@ -18,9 +18,9 @@ Future<Locale> _loadInitialLocale() async {
 Future<String> _loadInitialRoute() async {
   final token = await TokenStorage.getAccessToken();
   if (token != null && token.isNotEmpty) {
-    return Routes.myVehicles;
+    return Routes.home;
   } else {
-    return Routes.myVehicles;
+    return Routes.language;
   }
 }
 

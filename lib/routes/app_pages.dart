@@ -10,6 +10,8 @@ import '../module/bkash_payment/bkash_payment_controller.dart';
 import '../module/bkash_payment/bkash_payment_view.dart';
 import '../module/car/car_details_controller.dart';
 import '../module/car/car_details_view.dart';
+import '../module/contact_support/contact_support_controller.dart';
+import '../module/contact_support/contact_support_view.dart';
 import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
@@ -18,6 +20,8 @@ import '../module/edit_profile_details/edit_profile_details_controller.dart';
 import '../module/edit_profile_details/edit_profile_details_view.dart';
 import '../module/emergency_sos/emergency_sos_controller.dart';
 import '../module/emergency_sos/emergency_sos_view.dart';
+import '../module/help_center/help_center_controller.dart';
+import '../module/help_center/help_center_view.dart';
 import '../module/home/home_controller.dart';
 import '../module/home/home_view.dart';
 import '../module/input_profile_details/input_profile_details_controller.dart';
@@ -287,6 +291,22 @@ class AppPages {
           Get.delete<MyVehiclesController>(force: true);
         }
         Get.put(MyVehiclesController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.helpCenter,
+      page: () => const HelpCenterView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<HelpCenterController>(() => HelpCenterController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.contactSupport,
+      page: () => const ContactSupportView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<ContactSupportController>(() => ContactSupportController());
       }),
     ),
 

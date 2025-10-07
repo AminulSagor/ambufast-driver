@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:ambufast_driver/module/edit_profile_details/update_profile_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../combine_service/single_file_upload_service.dart';
 import '../../dialog_box/update_success_dialogbox.dart';
 import '../../storage/token_storage.dart';
-import '../profile_details/profile_service.dart';
+import '../../combine_service/profile_service.dart';
 
 
 class EditProfileDetailsController extends GetxController {
@@ -49,6 +50,7 @@ class EditProfileDetailsController extends GetxController {
   final isUploadingAvatar = false.obs;
   final ImagePicker _picker = ImagePicker();
   String? _authToken;
+  final _profileService = ProfileService();
 
   // ---- Realtime validation debounce ----
   Timer? _validateTimer;
@@ -142,7 +144,13 @@ class EditProfileDetailsController extends GetxController {
   Future<void> loadProfile() async {
     isLoading.value = true;
     try {
-      final res = await ProfileService.getUserInfo();
+      final res = await _profileService.getUserInfo(
+        profile: true,
+        address: true,
+        riderinfo: false,
+        vehicleinfo: false,
+        agentinfo: false,
+      );
       final data = res['data'] ?? {};
       final profile = data['profile'] ?? {};
       final addresses = (data['addresses'] ?? []) as List;
@@ -208,14 +216,17 @@ class EditProfileDetailsController extends GetxController {
 
   Future<void> pickPhoto() async {
     try {
+      // Let user pick an image
       final XFile? picked = await _picker.pickImage(
         source: ImageSource.gallery,
         imageQuality: 80,
       );
       if (picked == null) return;
 
+      // Show the local preview immediately
       localAvatarPath.value = picked.path;
 
+      // Get the token (either from injected _authToken or from storage)
       final token = _authToken ?? await TokenStorage.getAccessToken();
       if (token == null || token.isEmpty) {
         Get.snackbar('Error', 'No access token found.');
@@ -223,15 +234,28 @@ class EditProfileDetailsController extends GetxController {
       }
 
       isUploadingAvatar.value = true;
-      final uploader = SingleFileUploadService(authToken: token);
+
+      // Upload using token-aware service
+      final uploader = SingleFileUploadService();
+
       final uploadedUrl = await uploader.upload(File(picked.path));
+
+      // Success → store URL for later submit
       pendingUploadedUrl.value = uploadedUrl;
+
+      // Optional: show a success toast/snackbar
+      Get.snackbar('Uploaded', 'Avatar uploaded successfully.');
+      if (kDebugMode) {
+        print('✅ Avatar uploaded URL: $uploadedUrl');
+      }
     } catch (e) {
+      if (kDebugMode) print('❌ Avatar upload error: $e');
       Get.snackbar('Error', e.toString());
     } finally {
       isUploadingAvatar.value = false;
     }
   }
+
 
   // ---- VALIDATION ----
   String? validateRequired(String? v, String label) {

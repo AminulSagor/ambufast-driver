@@ -35,6 +35,7 @@ class AddVehicleService {
     if (res.statusCode >= 200 && res.statusCode < 300) {
       return jsonDecode(res.body) as Map<String, dynamic>;
     }
+    print('❌ Add vehicle failed (${res.statusCode}): ${res.body}');
     throw Exception('Add vehicle failed (${res.statusCode}): ${res.body}');
   }
 }

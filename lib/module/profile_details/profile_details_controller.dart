@@ -1,4 +1,4 @@
-import 'package:ambufast_driver/module/profile_details/profile_service.dart';
+import 'package:ambufast_driver/combine_service/profile_service.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_routes.dart';
@@ -26,6 +26,7 @@ class ProfileDetailsController extends GetxController {
   // Loading/error flags
   final isLoading = false.obs;
   final errorMessage = ''.obs;
+  final _profileService = ProfileService();
 
   @override
   void onInit() {
@@ -37,7 +38,13 @@ class ProfileDetailsController extends GetxController {
     isLoading.value = true;
     errorMessage.value = '';
     try {
-      final res = await ProfileService.getUserInfo();
+      final res = await _profileService.getUserInfo(
+        profile: true,
+        address: true,
+        riderinfo: false,
+        vehicleinfo: false,
+        agentinfo: false,
+      );
 
       // top-level "data"
       final d = res['data'] as Map<String, dynamic>;

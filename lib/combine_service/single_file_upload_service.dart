@@ -1,56 +1,100 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:ambufast_driver/combine_service/upload_exception_service.dart';
+import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../network/token_http_client.dart';
+import '../combine_service/token_refresh_service.dart';
+import '../storage/token_storage.dart';
 
-class UploadException implements Exception {
-  final String message;
-  UploadException(this.message);
-}
+
 
 class SingleFileUploadService {
-  SingleFileUploadService({String? baseUrl, this.authToken})
-      : _baseUrl = (baseUrl ?? dotenv.env['API_BASE_URL'] ?? '').trim() {
+  SingleFileUploadService({
+    String? baseUrl,
+    http.Client? client,
+  })  : _baseUrl = (baseUrl ?? dotenv.env['API_BASE_URL'] ?? '').trim(),
+        _client = client ?? TokenHttpClient() {
     if (_baseUrl.isEmpty) {
       throw UploadException('API_BASE_URL is missing from .env');
     }
   }
 
   final String _baseUrl;
-  final String? authToken;
+  final http.Client _client;
+
+  static const _maxBytes = 10 * 1024 * 1024; // 10MB per file
+  static const _allowedExt = {'jpg', 'jpeg', 'png', 'webp'};
 
   Future<String> upload(File file) async {
-    final uri = Uri.parse('$_baseUrl/v1/user/profile/upload-file-and-photo');
+    _validate(file);
 
-    final req = http.MultipartRequest('POST', uri)
-      ..files.add(await http.MultipartFile.fromPath('asset', file.path));
+    var res = await _sendOnce(file);
 
-    if (authToken != null && authToken!.isNotEmpty) {
-      req.headers['Authorization'] = 'Bearer $authToken';
+    // 401 → refresh + rebuild + retry once
+    if (res.statusCode == 401) {
+      final ok = await TokenAuthService.refreshAccessToken();
+      if (!ok) {
+        await TokenStorage.clearTokens();
+        throw UploadException('Unauthorized (token refresh failed)', statusCode: 401);
+      }
+      res = await _sendOnce(file);
     }
 
-    final streamed = await req.send();
-    final res = await http.Response.fromStream(streamed);
-
-    // ✅ Debug: print status and body
-    print('Upload status: ${res.statusCode}');
-    print('Upload response body: ${res.body}');
+    if (kDebugMode) {
+      // Safe debug
+      print('⬅️ [SingleUpload] ${res.statusCode}: ${res.body}');
+    }
 
     if (res.statusCode == 200) {
-      // response like: { "data":"https://storage.googleapis.com/..." }
-      final url = RegExp(r'"data"\s*:\s*"([^"]+)"')
-          .firstMatch(res.body)
-          ?.group(1);
-      if (url == null || url.isEmpty) {
-        throw UploadException('Upload succeeded but URL missing');
-      }
-      return url;
-    } else if (res.statusCode == 422) {
-      throw UploadException('File too large or invalid type');
-    } else if (res.statusCode == 400) {
-      throw UploadException('Bad request (check "asset" field & file count)');
-    } else {
-      throw UploadException('Upload failed (${res.statusCode})');
+      try {
+        final map = jsonDecode(res.body);
+        final url = (map is Map) ? map['data']?.toString() : null;
+        if (url != null && url.startsWith('http')) return url;
+      } catch (_) {/* fallthrough to regex */}
+      final url = RegExp(r'"data"\s*:\s*"([^"]+)"').firstMatch(res.body)?.group(1);
+      if (url != null && url.startsWith('http')) return url;
+      throw UploadException('Upload succeeded but URL missing', statusCode: 200);
     }
+
+    if (res.statusCode == 400) {
+      throw UploadException('Bad request (field name should be "asset")', statusCode: 400);
+    }
+    if (res.statusCode == 422) {
+      throw UploadException('Validation failed (type/size)', statusCode: 422);
+    }
+
+    throw UploadException('Upload failed (${res.statusCode})', statusCode: res.statusCode);
   }
 
+  Future<http.Response> _sendOnce(File file) async {
+    final uri = Uri.parse('$_baseUrl/v1/user/profile/upload-file-and-photo');
+
+    final mime = lookupMimeType(file.path) ?? 'application/octet-stream';
+    final mp = http.MultipartRequest('POST', uri)
+      ..headers['Accept'] = 'application/json'
+      ..files.add(await http.MultipartFile.fromPath(
+        'asset', // BE expects 'asset'
+        file.path,
+        contentType: MediaType.parse(mime),
+      ));
+
+    final streamed = await _client.send(mp);
+    return http.Response.fromStream(streamed);
+  }
+
+  Future<void> _validate(File f) async {
+    final path = f.path;
+    final ext = path.split('.').last.toLowerCase();
+    if (!_allowedExt.contains(ext)) {
+      throw UploadException('Only ${_allowedExt.join(", ").toUpperCase()} allowed. Offending: $path');
+    }
+    final length = await f.length();
+    if (length > _maxBytes) {
+      throw UploadException('File too large (> ${_maxBytes ~/ (1024 * 1024)}MB): $path');
+    }
+  }
 }

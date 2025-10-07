@@ -52,7 +52,9 @@ class AccountController extends GetxController {
         Get.toNamed(Routes.emergencySos);
         break;
       case 'help_center':
+        Get.toNamed(Routes.helpCenter);
       case 'contact_support':
+        Get.toNamed(Routes.contactSupport);
       case 'cancellation_policy':
       case 'terms_conditions':
       case 'privacy_policy':
