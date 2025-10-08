@@ -39,6 +39,7 @@ flutter:
     - assets/ride_icons/
     - .env
     - assets/account/
+    - assets/notification/
 
 flutter_native_splash:
   # Common (Android + iOS)

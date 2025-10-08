@@ -76,6 +76,8 @@ class AccountView extends GetView<AccountController> {
                 _Tile(
                     'change_password', 'assets/account/change_password_icon.png'),
                 _Tile('tap_sos', 'assets/account/sos_icon.png'),
+                _Tile('delete_account', 'assets/account/delete_icon.png'),
+
               ],
             ),
             _Section(
@@ -279,27 +281,44 @@ class _Tile extends GetView<AccountController> {
 
   @override
   Widget build(BuildContext context) {
+    // Define conditional color based on keyName
+    final bool isDelete = keyName == 'delete_account';
+
     return InkWell(
       onTap: () => controller.onTapItem(keyName),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         child: Row(
           children: [
-            Image.asset(iconPath, height: 28.h, width:28.h),
+            Image.asset(iconPath, height: 28.h, width: 28.h),
             10.horizontalSpace,
             Expanded(
-              child: Text(keyName.tr,
-                  style:
-                  TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500)),
+              child: Text(
+                keyName.tr,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: isDelete
+                      ? const Color(0xFFEF3D33) // 🔴 Red color for delete
+                      : const Color(0xFF1E293B), // default text color
+                ),
+              ),
             ),
             trailing ??
-                Icon(Icons.chevron_right, size: 18.sp, color: Colors.black45),
+                Icon(
+                  Icons.chevron_right,
+                  size: 18.sp,
+                  color: isDelete
+                      ? const Color(0xFFEF3D33) // also red arrow if you want
+                      : Colors.black45,
+                ),
           ],
         ),
       ),
     );
   }
 }
+
 
 class _LogoutButton extends StatelessWidget {
   final String text;

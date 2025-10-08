@@ -13,8 +13,12 @@ import '../module/bkash_payment/bkash_payment_controller.dart';
 import '../module/bkash_payment/bkash_payment_view.dart';
 import '../module/car/car_details_controller.dart';
 import '../module/car/car_details_view.dart';
+import '../module/change_password/change_password_controller.dart';
+import '../module/change_password/change_password_view.dart';
 import '../module/contact_support/contact_support_controller.dart';
 import '../module/contact_support/contact_support_view.dart';
+import '../module/delete_account/delete_account_controller.dart';
+import '../module/delete_account/delete_account_view.dart';
 import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
@@ -37,6 +41,8 @@ import '../module/licence/licence_details_controller.dart';
 import '../module/licence/licence_details_view.dart';
 import '../module/login/login_controller.dart';
 import '../module/login/login_view.dart';
+import '../module/notification/notification_controller.dart';
+import '../module/notification/notification_view.dart';
 import '../module/payment_success/payment_success_controller.dart';
 import '../module/payment_success/payment_success_view.dart';
 import '../module/profile_details/profile_details_controller.dart';
@@ -326,6 +332,38 @@ class AppPages {
       page: () => const PaymentCancellationInfoView(),
     ),
 
+    GetPage(
+      name: Routes.changePassword,
+      page: () => const ChangePasswordView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<ChangePasswordController>()) {
+          Get.delete<ChangePasswordController>(force: true);
+        }
+        Get.put(ChangePasswordController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.deleteAccount,
+      page: () => const DeleteAccountView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<DeleteAccountController>()) {
+          Get.delete<DeleteAccountController>(force: true);
+        }
+        Get.put(DeleteAccountController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.notification,
+      page: () => const NotificationView(),
+      binding: BindingsBuilder(() {
+        if (Get.isRegistered<NotificationController>()) {
+          Get.delete<NotificationController>(force: true);
+        }
+        Get.put(NotificationController());
+      }),
+    ),
 
   ];
 }

@@ -1,13 +1,11 @@
-// lib/account/account_controller.dart
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../legal/legal_policy_controller.dart';
-import '../../legal/payment_cancellation_view.dart';
 import '../../routes/app_routes.dart';
 import '../../storage/token_storage.dart';
+import '../../widgets/delete_account_sheet.dart';
 
 class AccountController extends GetxController {
-  // Demo values – in your app, inject a repository/service and load these.
   final driverName = 'Kamrul'.obs;
   final rating = 5.0.obs;
   final vehicleTitle = 'Toyota | Dhaka Metro 12 5896'.obs;
@@ -45,10 +43,13 @@ class AccountController extends GetxController {
         Get.snackbar('Open', 'Language');
         break;
       case 'notification':
-        Get.snackbar('Open', 'Notification');
+        Get.toNamed(Routes.notification);
+        break;
+      case 'delete_account':
+        _openDeleteAccountSheet();
         break;
       case 'change_password':
-        Get.to(() => const PaymentCancellationInfoView());
+        Get.toNamed(Routes.changePassword);
         break;
       case 'tap_sos':
         Get.toNamed(Routes.emergencySos);
@@ -79,7 +80,20 @@ class AccountController extends GetxController {
   void _openPolicy(PolicyType type) {
     Get.toNamed(Routes.legalPolicy, arguments: {'type': type.name});
   }
-
+  void _openDeleteAccountSheet() {
+    Get.bottomSheet(
+      DeleteAccountSheet(
+        onNo: () => Get.back(), // just close
+        onYes: () {
+          Get.back(); // close sheet
+          Get.toNamed(Routes.deleteAccount);
+        },
+      ),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black.withOpacity(0.35),
+    );
+  }
   Future<void> logout() async {
     try {
       Get.dialog(

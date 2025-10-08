@@ -33,4 +33,7 @@ abstract class Routes {
   static const contactSupport = '/contact-support';
   static const legalPolicy = '/legal-policy';
   static const cancellationPaymentInfo = '/cancellation-payment-info';
+  static const changePassword = '/change-password';
+  static const deleteAccount = '/delete-account';
+  static const notification = '/notification';
 }
