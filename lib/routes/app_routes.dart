@@ -31,4 +31,6 @@ abstract class Routes {
   static const myVehicles = '/my-vehicles';
   static const helpCenter = '/help-center';
   static const contactSupport = '/contact-support';
+  static const legalPolicy = '/legal-policy';
+  static const cancellationPaymentInfo = '/cancellation-payment-info';
 }

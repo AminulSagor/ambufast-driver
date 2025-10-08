@@ -539,12 +539,13 @@ class AppTranslations extends Translations {
       'faq_search_hint': 'Search FAQs',
       'faq_cant_find': 'Can’t find what you’re looking for?',
       'faq_contact_support': 'Contact Support',
+      'refund_policy': 'Refund Policy',
 
     },
 
     // ======================= BANGLA =======================
     'bn_BD': {
-
+      'refund_policy': 'রিফান্ড নীতি',
       'help_center_title': 'Help Center / FAQs',
       'faq_heading': 'Current Frequently Asked Questions',
       'faq_search_hint': 'Search FAQs',

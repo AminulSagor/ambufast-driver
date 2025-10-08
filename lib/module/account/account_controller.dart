@@ -1,6 +1,8 @@
 // lib/account/account_controller.dart
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../legal/legal_policy_controller.dart';
+import '../../legal/payment_cancellation_view.dart';
 import '../../routes/app_routes.dart';
 import '../../storage/token_storage.dart';
 
@@ -46,7 +48,7 @@ class AccountController extends GetxController {
         Get.snackbar('Open', 'Notification');
         break;
       case 'change_password':
-        Get.snackbar('Open', 'Change Password');
+        Get.to(() => const PaymentCancellationInfoView());
         break;
       case 'tap_sos':
         Get.toNamed(Routes.emergencySos);
@@ -55,13 +57,27 @@ class AccountController extends GetxController {
         Get.toNamed(Routes.helpCenter);
       case 'contact_support':
         Get.toNamed(Routes.contactSupport);
-      case 'cancellation_policy':
       case 'terms_conditions':
+        _openPolicy(PolicyType.terms);
+        break;
       case 'privacy_policy':
-        Get.snackbar('Open', key);
+        _openPolicy(PolicyType.privacy);
+        break;
+      case 'cancellation_policy':
+        _openPolicy(PolicyType.cancellation);
+        break;
+      case 'refund_policy': // ✅ newly added
+        _openPolicy(PolicyType.refund);
+        break;
+
+      default:
         break;
 
     }
+  }
+
+  void _openPolicy(PolicyType type) {
+    Get.toNamed(Routes.legalPolicy, arguments: {'type': type.name});
   }
 
   Future<void> logout() async {

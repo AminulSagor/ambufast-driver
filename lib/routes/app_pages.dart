@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import '../legal/legal_policy_controller.dart';
+import '../legal/legal_policy_view.dart';
+import '../legal/payment_cancellation_view.dart';
 import '../module/account/account_controller.dart';
 import '../module/account/account_view.dart';
 import '../module/account/create_account_controller.dart';
@@ -308,6 +311,19 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut<ContactSupportController>(() => ContactSupportController());
       }),
+    ),
+
+    GetPage(
+      name: Routes.legalPolicy,
+      page: () => const LegalPolicyView(),
+      binding: BindingsBuilder(() {
+        // New instance on every Get.find<LegalPolicyController>()
+        Get.create<LegalPolicyController>(() => LegalPolicyController());
+      }),
+    ),
+    GetPage(
+      name: Routes.cancellationPaymentInfo,
+      page: () => const PaymentCancellationInfoView(),
     ),
 
 

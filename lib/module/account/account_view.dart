@@ -87,6 +87,7 @@ class AccountView extends GetView<AccountController> {
                     'assets/account/cancellation_policy_icon.png'),
                 _Tile('terms_conditions', 'assets/account/notification_icon.png'),
                 _Tile('privacy_policy', 'assets/account/profile_icon.png'),
+                _Tile('refund_policy', 'assets/account/notification_icon.png'),
               ],
             ),
             SliverToBoxAdapter(child: 8.verticalSpace),

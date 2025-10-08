@@ -7,24 +7,24 @@ class HelpCenterController extends GetxController {
       'id': 'book',
       'question': 'How Do I Book An Ambulance?',
       'answer':
-      'Open the AmbuFast app.Select your pick-up and drop-off locations.Choose ambulance type See fare estimate and confirm detailsPay 15–20% advance to confirm bookingReceive live driver/vehicle details after payment'
+      'Open the AmbuFast app.Select your pick-up and drop-off locations.Choose ambulance type See fare estimate and confirm details. Pay 15–20% advance to confirm booking. Receive live driver/vehicle details after payment'
     },
     {
       'id': 'fare',
       'question': 'How Is The Fare Calculated?',
       'answer':
-      'Fares are based on:Distance (base fare + per km) Ambulance type Zone (metro/rural) Waiting time, multi-stop, and return trip optionsYou’ll see a fare estimate before confirming.'
+      'Fares are based on:Distance (base fare + per km). Ambulance type Zone (metro/rural) Waiting time, multi-stop, and return trip options. You’ll see a fare estimate before confirming.'
     },
     {
       'id': 'app_issue',
       'question': 'What If The App Doesn’t Work?',
       'answer':
-      'Check internet/GPS, restart the app. If it persists, go to Help > Contact Support and report.'
+      'Call to hotline number: 09678 911 911.'
     },
     {
       'id': 'payment',
       'question': 'What Payment Methods Are Supported?',
-      'answer': 'bKash, Nagad, Cash on delivery, and selected bank cards (where available).'
+      'answer': 'bKash,Nagad,Visa/MasterCard, More options coming soon.'
     },
     {
       'id': 'cancel',
