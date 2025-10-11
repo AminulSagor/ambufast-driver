@@ -7,6 +7,8 @@ import '../module/account/account_view.dart';
 import '../module/account/create_account_controller.dart';
 import '../module/account/create_account_view.dart';
 import '../module/account/profile_creating_view.dart';
+import '../module/activity/activity_controller.dart';
+import '../module/activity/activity_view.dart';
 import '../module/all_review/all_review_controller.dart';
 import '../module/all_review/all_review_view.dart';
 import '../module/bkash_payment/bkash_payment_controller.dart';
@@ -59,12 +61,12 @@ import '../module/support_request/support_request_controller.dart';
 import '../module/support_request/support_request_view.dart';
 import '../module/support_request_review/support_request_review_controller.dart';
 import '../module/support_request_review/support_request_review_view.dart';
+import '../module/vehicles/my_vehicles_controller.dart';
+import '../module/vehicles/my_vehicles_view.dart';
 import '../module/verify/verify_controller.dart';
 import '../module/verify/verify_view.dart';
 import '../module/waiting_approval/waiting_approval_controller.dart';
 import '../module/waiting_approval/waiting_approval_view.dart';
-import '../vehicles/my_vehicles_controller.dart';
-import '../vehicles/my_vehicles_view.dart';
 import 'app_routes.dart';
 
 
@@ -362,6 +364,15 @@ class AppPages {
           Get.delete<NotificationController>(force: true);
         }
         Get.put(NotificationController());
+      }),
+    ),
+
+
+    GetPage(
+      name: Routes.activity,
+      page: () => const ActivityView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<ActivityController>(() => ActivityController());
       }),
     ),
 

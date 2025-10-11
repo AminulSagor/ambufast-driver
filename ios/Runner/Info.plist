@@ -35,6 +35,11 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UISupportedInterfaceOrientations~ipad</key>
+		<key>NSLocationWhenInUseUsageDescription</key>
+        <string>We use your location to show nearby services.</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>We use your location to show nearby services.</string>
+
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationPortraitUpsideDown</string>

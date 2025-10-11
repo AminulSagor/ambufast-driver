@@ -2,7 +2,9 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../network/token_http_client.dart';
+
+import '../../network/token_http_client.dart';
+
 
 /// Adds a new vehicle to the signed-in user's profile.
 /// Uses TokenHttpClient to attach/refresh the bearer token automatically.

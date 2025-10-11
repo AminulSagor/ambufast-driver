@@ -36,4 +36,5 @@ abstract class Routes {
   static const changePassword = '/change-password';
   static const deleteAccount = '/delete-account';
   static const notification = '/notification';
+  static const activity = '/activity';
 }

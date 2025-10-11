@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'combine_controller/location_controller.dart';
+import 'combine_service/location_service.dart';
 import 'localization/app_translations.dart';
 
 
@@ -51,6 +53,19 @@ class AmbuFastApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       builder: (_, __) => GetMaterialApp(
+        initialBinding: BindingsBuilder(() {
+          final bkKey = dotenv.env['BARIKOI_API_KEY'] ?? '';
+
+          Get.put<LocationService>(
+            LocationService(barikoiApiKey: bkKey),  // <-- pass key here
+            permanent: true,
+          );
+          Get.put<LocationController>(
+            LocationController(Get.find()),
+            permanent: true,
+          );
+        }),
+
         debugShowCheckedModeBanner: false,
         title: 'AmbuFast',
         translations: AppTranslations(),

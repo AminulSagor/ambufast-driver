@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import '../../model/vehicle_model.dart';
 import '../../routes/app_routes.dart';
-import '../model/vehicle_model.dart';
 import 'my_vehicles_controller.dart';
 
 

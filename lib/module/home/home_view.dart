@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../model/service_tile_model.dart';
+import '../../widgets/ambu_app_bar_widget.dart';
 import '../../widgets/bottom_nav_widget.dart';
 import '../../widgets/center_title_divider_widget.dart';
 import '../../widgets/donation_banner_widget.dart';
@@ -13,6 +14,7 @@ import '../../widgets/section_header_widget.dart';
 import '../../widgets/service_tile_card_widget.dart';
 import '../../widgets/upcoming_trip_card_widget.dart';
 import 'home_controller.dart';
+import '../../combine_controller/location_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -20,85 +22,36 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final loc = Get.find<LocationController>();
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8FB),
-      appBar: AppBar(
-      elevation: 0,
-      backgroundColor: const Color(0xFFF6F8FB),
-      // ⛔️ hide default back button
-      automaticallyImplyLeading: false,
-      toolbarHeight: 72,
-      titleSpacing: 0,
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Brand PNG
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 8, top: 6),
-            child: Image.asset(
-              'assets/logo_with_color.png',
-              height: 24,
-              fit: BoxFit.contain,
-            ),
-          ),
-          const SizedBox(height: 6),
-          // Location row with PNG icons
-          GestureDetector(
-            onTap: controller.onLocationTap,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 8),
-              child: Row(
-                children: [
-                  Image.asset('assets/icon/home_page_icon/location_icon.png', height: 14),
-                  const SizedBox(width: 6),
-                  // reactive location text
-                  Obx(() => Text(
-                    controller.location.value,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )),
-                  const SizedBox(width: 6),
-                  Image.asset('assets/icon/arrow.png', height: 10),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        // notification icon (optional red dot)
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications_none_rounded, color: Colors.black87),
-              ),
-              Positioned(
-                right: 15,
-                top: 14,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFF4D3A),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
 
-    body: SafeArea(
+
+      appBar: AmbuAppBar(
+        locationBuilder: (ctx) => Obx(() => Text(
+          loc.locationText.value,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 12.sp,               // <-- was missing
+            color: Colors.black54,
+            fontWeight: FontWeight.w500,
+            height: 1.2,
+          ),
+        )),
+        isLocationMissing: () {
+          final v = loc.locationText.value.trim();
+          return v.isEmpty || v.contains('not available');
+        },
+        onRequestDeviceLocation: loc.refreshFromDevice,
+        showNotificationDot: true,
+      ),
+
+
+
+
+
+      body: SafeArea(
         child: Obx(() => CustomScrollView(
           slivers: [
             SliverToBoxAdapter(child: SearchBarRow(controller: controller)),
@@ -116,9 +69,8 @@ class HomeView extends GetView<HomeController> {
               itemCount: controller.upcomingTrips.length,
               itemBuilder: (_, i) => UpcomingTripCardWidget(
                 trip: controller.upcomingTrips[i],
+                status: TripCardStatus.upcoming,
                 onTap: controller.onTripTap,
-                // Optional: override assets if needed
-                // mapAsset: 'assets/icon/justify.png',
               ),
             ),
 

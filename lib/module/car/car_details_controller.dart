@@ -12,7 +12,8 @@ import '../../combine_service/public_services_service.dart';
 import '../../combine_service/single_file_upload_service.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/snackbar_helper.dart';
-import '../../vehicles/add_vehicle_service.dart';
+
+import '../vehicles/add_vehicle_service.dart';
 import 'create_driver_service.dart';
 
 class CarDetailsController extends GetxController {
