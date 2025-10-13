@@ -49,6 +49,8 @@ import '../module/payment_success/payment_success_controller.dart';
 import '../module/payment_success/payment_success_view.dart';
 import '../module/profile_details/profile_details_controller.dart';
 import '../module/profile_details/profile_details_view.dart';
+import '../module/rating/rating_controller.dart';
+import '../module/rating/rating_view.dart';
 import '../module/recover/recover_controller.dart';
 import '../module/recover/recover_view.dart';
 import '../module/request_submission_success/request_submission_success_controller.dart';
@@ -61,6 +63,8 @@ import '../module/support_request/support_request_controller.dart';
 import '../module/support_request/support_request_view.dart';
 import '../module/support_request_review/support_request_review_controller.dart';
 import '../module/support_request_review/support_request_review_view.dart';
+import '../module/trip_details/trip_details_controller.dart';
+import '../module/trip_details/trip_details_view.dart';
 import '../module/vehicles/my_vehicles_controller.dart';
 import '../module/vehicles/my_vehicles_view.dart';
 import '../module/verify/verify_controller.dart';
@@ -373,6 +377,24 @@ class AppPages {
       page: () => const ActivityView(),
       binding: BindingsBuilder(() {
         Get.lazyPut<ActivityController>(() => ActivityController());
+      }),
+    ),
+
+
+    GetPage(
+      name: Routes.rating,
+      page: () => const RatingView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<RatingController>(() => RatingController());
+      }),
+    ),
+
+
+    GetPage(
+      name: Routes.tripDetails,
+      page: () => const TripDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<TripDetailsController>(() => TripDetailsController());
       }),
     ),
 
