@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../model/service_tile_model.dart';
 import '../../widgets/ambu_app_bar_widget.dart';
 import '../../widgets/bottom_nav_widget.dart';
 import '../../widgets/center_title_divider_widget.dart';
-import '../../widgets/donation_banner_widget.dart';
 import '../../widgets/promo_image_slider_widget.dart';
-import '../../widgets/promo_info_card_widget.dart';
-import '../../widgets/search_bar_widget.dart';
 import '../../widgets/section_header_widget.dart';
-import '../../widgets/service_tile_card_widget.dart';
 import '../../widgets/upcoming_trip_card_widget.dart';
 import 'home_controller.dart';
 import '../../combine_controller/location_controller.dart';
@@ -21,24 +15,21 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final loc = Get.find<LocationController>();
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8FB),
-
-
       appBar: AmbuAppBar(
         locationBuilder: (ctx) => Obx(() => Text(
-          loc.locationText.value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 12.sp,               // <-- was missing
-            color: Colors.black54,
-            fontWeight: FontWeight.w500,
-            height: 1.2,
-          ),
-        )),
+              loc.locationText.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+              ),
+            )),
         isLocationMissing: () {
           final v = loc.locationText.value.trim();
           return v.isEmpty || v.contains('not available');
@@ -46,178 +37,394 @@ class HomeView extends GetView<HomeController> {
         onRequestDeviceLocation: loc.refreshFromDevice,
         showNotificationDot: true,
       ),
-
-
-
-
-
       body: SafeArea(
-        child: Obx(() => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: SearchBarRow(controller: controller)),
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_emergency'.tr, onViewAll: () {})),
-            SliverToBoxAdapter(
-              child: _GridServices(tiles: controller.emergencyTiles, onTap: controller.onTileTap),
-            ),
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_non_emergency'.tr, onViewAll: () {})),
-            SliverToBoxAdapter(
-              child: _GridServices(tiles: controller.nonEmergencyTiles, onTap: controller.onTileTap),
-            ),
-            SliverToBoxAdapter(child: CenterTitleDivider(title: 'home_upcoming_trips'.tr)),
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_upcoming_trips'.tr, onViewAll: () {})),
-            SliverList.builder(
-              itemCount: controller.upcomingTrips.length,
-              itemBuilder: (_, i) => UpcomingTripCardWidget(
-                trip: controller.upcomingTrips[i],
-                status: TripCardStatus.upcoming,
-                onTap: controller.onTripTap,
-              ),
-            ),
+        child: Obx(
+          () => CustomScrollView(
+            slivers: [
+              if (controller.isAccountNotApproved.value) ...[
+                SliverToBoxAdapter(
+                  child: Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.all(12.w),
+                    padding: EdgeInsets.all(16.w),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFDEAEA),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.info_outline,
+                                size: 20.w,
+                                color: Colors.black.withOpacity(0.7)),
+                            SizedBox(width: 8.w),
+                            Text(
+                              'home.account_not_approved_title'.tr,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          'home.account_not_approved_subtitle'.tr,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 1.45,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.all(12.w),
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEAE9E9), // ✅ neutral/50 background
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: const Color(0xFFF7F8F8), // ✅ subtle border (1px)
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black
+                            .withOpacity(0.03), // softer shadow for neutral bg
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// ==== Top Row: Info + Balance ====
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'home.greeting'.trParams({'name': 'Kamrul'}),
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(height: 6.h),
+                                Text(
+                                  'home.vehicle_info'.trParams({
+                                    'number': 'DHA-12–3456',
+                                    'type': 'ICU',
+                                  }),
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                SizedBox(height: 4.h),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Rating: ',
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Icon(Icons.star,
+                                        color: Colors.amber, size: 14.w),
+                                    SizedBox(width: 4.w),
+                                    Text(
+                                      '4.8',
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8.w),
 
-            SliverToBoxAdapter(
-              child: PromoImageSlider(
-                images: const [
-                  'assets/slider_image.png',
-                  // add more if you have them:
-                  'assets/slider_image.png',
-                  'assets/slider_image.png',
-                ],
-                height: 164, // tweak to your taste
-                cornerRadius: 16,
-                autoPlay: true,
-              ),
-            ),
-            // 1) Low Cost Intercity (horizontal list)
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_low_cost_intracity'.tr, onViewAll: () {})),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 180, // ~ image 96 + text + paddings
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: controller.lowCostIntraCity.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                  itemBuilder: (_, i) {
-                    final p = controller.lowCostIntraCity[i];
-                    return PromoInfoCard.intercity(
-                      imageAsset: p.imageAsset,      // or 'assets/ambulance_written.png'
-                      title: p.title,
-                      subtitle: p.subtitle,          // e.g. "30% discount"
-                      bottomLeft: p.dateText,        // e.g. "02 Jul, 10:00 PM" (add this to model if needed)
-                      bottomRight: p.meta,           // e.g. "2hour after"
-                      onTap: () => controller.onPromoRouteTap(p),
-                      width: 220,
-                    );
-                  },
+                                    // Vertical Divider
+                                    Container(
+                                      width: 1.w,
+                                      height: 14.h,
+                                      color: Colors.grey.shade400,
+                                    ),
+                                    SizedBox(width: 8.w),
+
+                                    Text(
+                                      'Trips Today: 3',
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          /// ==== Balance Circle ====
+                          Container(
+                            width: 84.w,
+                            height: 84.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFD32F2F),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              '৳500',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.h),
+
+                      /// ==== Centered Toggle ====
+                      Obx(() {
+                        final isOnline = controller.isOnline.value;
+                        return Center(
+                          child: GestureDetector(
+                            onTap: controller.toggleOnlineOffline,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 250),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 14.w, vertical: 6.h),
+                              decoration: BoxDecoration(
+                                color: isOnline
+                                    ? const Color(0xFF4CAF50) // green
+                                    : Colors.grey.shade300,
+                                borderRadius: BorderRadius.circular(30.r),
+                              ),
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 250),
+                                switchInCurve: Curves.easeInOut,
+                                switchOutCurve: Curves.easeInOut,
+                                child: isOnline
+                                    ? Row(
+                                        key: const ValueKey('online'),
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // ✅ Text first
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 8.w),
+                                            child: Text(
+                                              'home.status_online'.tr,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 12.w),
+                                          // ✅ Icon last (right side)
+                                          Image.asset(
+                                            'assets/icon/home_page_icon/toggle_icon/online.png',
+                                            width: 28.w,
+                                            height: 28.w,
+                                          ),
+                                        ],
+                                      )
+                                    : Row(
+                                        key: const ValueKey('offline'),
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // ✅ Icon first (left side)
+                                          Image.asset(
+                                            'assets/icon/home_page_icon/toggle_icon/offline.png',
+                                            width: 28.w,
+                                            height: 28.w,
+                                          ),
+                                          SizedBox(width: 12.w),
+                                          // ✅ Text after
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 8.w),
+                                            child: Text(
+                                              'home.status_offline'.tr,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Colors.black54,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                              ),
+                            ),
+                          ),
+                        );
+                      })
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-            // 2) Campaign (2-column grid)
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_campaign'.tr, onViewAll: () {})),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 6, 16, 8),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.campaigns.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 170, // image 136 + text + paddings
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  itemBuilder: (_, i) {
-                    final c = controller.campaigns[i];
-                    return PromoInfoCard.campaign(
-                      imageAsset: c.imageAsset,
-                      title: c.titleKey.tr,
-                      subtitle: c.subtitle,
-                      onTap: () => controller.onCampaignTap(c),
-                    );
-                  },
+              SliverToBoxAdapter(
+                child: PromoImageSlider(
+                  images: const [
+                    'assets/slider_image.png',
+                    'assets/slider_image.png',
+                    'assets/slider_image.png',
+                  ],
+                  height: 164,
+                  cornerRadius: 16,
+                  autoPlay: true,
                 ),
               ),
-            ),
-            SliverToBoxAdapter(child: SectionHeader(title: 'home_last_ride_title'.tr)),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  // 1) Support Now — button LEFT, image RIGHT (same gradient & height)
-                  // Support Now — image right (slightly down), button left
-                  DonationBanner(
-                    body: 'Your donation ensures a dignified final journey for those who cannot afford funeral transport.',
-                    buttonText: 'Support Now',
-                    imageAsset: 'assets/donation.png',
-                    onPressed: controller.onSupportNow,         // << use controller method
-                    imageSide: BannerSide.right,
-                    imageVAlign: BannerVAlign.bottom,
-                    buttonSide: BannerSide.left,
-                    buttonVAlign: BannerVAlign.center,
-                    height: 150.h,
-                    imageScale: 0.78, // tweak if you want a touch larger/smaller
-                  ),
-
-
-                  DonationBanner(
-                    body: 'If your family is struggling with funeral transport costs, apply for our donation-based service to ensure a respectful farewell.',
-                    buttonText: 'Request Support',
-                    imageAsset: 'assets/request_support.png',
-                    onPressed: controller.onRequestSupport,     // << use controller method
-                    imageSide: BannerSide.left,
-                    imageVAlign: BannerVAlign.top,
-                    buttonSide: BannerSide.right,
-                    buttonVAlign: BannerVAlign.center,
-                    height: 150.h,
-                    imageScale: 0.60,
-                  ),
-
-
-                ],
+              SliverToBoxAdapter(
+                child: CenterTitleDivider(title: 'home_upcoming_trips'.tr),
               ),
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          ],
-        )),
-      ),
-      // Bottom nav (matching your assets)
-      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
+              SliverToBoxAdapter(
+                child: SectionHeader(
+                  title: 'home_upcoming_trips'.tr,
+                  onViewAll: () {},
+                ),
+              ),
+              SliverList.builder(
+                itemCount: controller.upcomingTrips.length,
+                itemBuilder: (_, i) => UpcomingTripCardWidget(
+                  trip: controller.upcomingTrips[i],
+                  status: TripCardStatus.upcoming,
+                  onTap: controller.onTripTap,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// === Title (outside the card) ===
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 12.h, left: 4.w),
+                        child: Text(
+                          'down.trip.title'.tr,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
 
-    );
-  }
-}
+                      /// === Card ===
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF7F8F8),
+                          borderRadius: BorderRadius.circular(12.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        clipBehavior:
+                            Clip.antiAlias, // ✅ makes image respect radius
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            /// === Image touching top corners ===
+                            Image.asset(
+                              'assets/ambulance_written.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 140.h,
+                            ),
 
+                            /// === Content section ===
+                            Padding(
+                              padding: EdgeInsets.all(12.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'down.trip.description'.tr,
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      color: Colors.black87,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                  SizedBox(height: 16.h),
 
-class _GridServices extends StatelessWidget {
-  final List<ServiceTile> tiles;
-  final void Function(ServiceTile) onTap;
-  const _GridServices({required this.tiles, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(12, 0, 8, 0),
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: tiles.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          mainAxisExtent: 90,
-          crossAxisSpacing: 8,   // match spacing from mock
-          mainAxisSpacing: 12,
+                                  /// === Button ===
+                                  Center(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFFD32F2F),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 30.w,
+                                          vertical: 12.h,
+                                        ),
+                                      ),
+                                      onPressed: () {},
+                                      child: Text(
+                                        'down.trip.cta'.tr,
+                                        style: TextStyle(
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-        itemBuilder: (_, i) {
-          final t = tiles[i];
-          return ServiceTileCard(
-            asset: t.asset,
-            title: t.titleKey.tr,
-            onTap: () => onTap(t),
-          );
-        },
       ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }
-

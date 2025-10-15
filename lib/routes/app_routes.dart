@@ -39,4 +39,7 @@ abstract class Routes {
   static const activity = '/activity';
   static const rating = '/rating';
   static const tripDetails = '/trip-details';
+  static const downTrip = '/down-trip';
+  static const searchTrip = '/search-trip';
+
 }

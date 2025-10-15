@@ -1,74 +1,123 @@
-// lib/home/home_controller.dart
+// lib/module/home/home_controller.dart
 import 'package:get/get.dart';
-import '../../combine_service/location_service.dart';
-import '../../model/low_cost_intercity_model.dart';
-import '../../model/service_tile_model.dart';
 import '../../model/trip_model.dart';
-import '../../routes/app_routes.dart';
+import '../../widgets/online_offline_bottomsheets.dart';
+import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
- // <-- change
-  // --- State
   final upcomingTrips = <Trip>[].obs;
-  final emergencyTiles = <ServiceTile>[].obs;
-  final nonEmergencyTiles = <ServiceTile>[].obs;
-  final campaigns = <Campaign>[].obs;
-  final lowCostIntraCity = <PromoRoute>[].obs;
+  RxBool isOnline = false.obs;
+  final isAccountNotApproved = true.obs;
 
-  // --- Lifecycle
+  // === VEHICLE MANAGEMENT ===
+  final vehicles = [
+    {
+      "id": "v001",
+      "name": "AC Ambulance",
+      "number": "Toyota | Dhaka Metro 12 5896",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v002",
+      "name": "Non AC Ambulance",
+      "number": "Toyota | Dhaka Metro 12 5897",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v003",
+      "name": "ICU Ambulance",
+      "number": "Toyota | Dhaka Metro 12 5898",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v004",
+      "name": "Freezing Ambulance",
+      "number": "Toyota | Dhaka Metro 12 5899",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v005",
+      "name": "Cardiac Ambulance",
+      "number": "Toyota | Dhaka Metro 13 1234",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v006",
+      "name": "Neonatal Ambulance",
+      "number": "Toyota | Dhaka Metro 11 4444",
+      "image": "assets/launch_screen_background.png"
+    },
+    {
+      "id": "v007",
+      "name": "Air Ambulance",
+      "number": "Dhaka Airport | Heli 991",
+      "image": "assets/launch_screen_background.png"
+    },
+  ];
+
+  // Reactive states
+  RxString searchQuery = ''.obs;
+  RxString selectedVehicleId = ''.obs;
+
+  // Filtered list
+  List<Map<String, String>> get filteredVehicles {
+    if (searchQuery.value.isEmpty) return vehicles;
+    return vehicles
+        .where((v) =>
+    v["name"]!.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
+        v["number"]!.toLowerCase().contains(searchQuery.value.toLowerCase()))
+        .toList();
+  }
+
   @override
   void onInit() {
     super.onInit();
     _seedStaticData();
   }
 
-  // --- Intent
-  void onGoLaterTap() {}
-
-  void onSearchTap() {}
-
-  void onTileTap(ServiceTile tile) {}
-
   void onTripTap(Trip t) {}
 
-  void onPromoRouteTap(PromoRoute p) {}
-
-  void onCampaignTap(Campaign c) {}
-
-  void onSupportNow() {Get.toNamed(Routes.donateMoney);
+  // === ONLINE/OFFLINE TOGGLE ===
+  void toggleOnlineOffline() {
+    if (isOnline.value) {
+      Get.bottomSheet(
+        const GoOfflineBottomSheet(),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+      );
+    } else {
+      Get.bottomSheet(
+        const GoOnlineBottomSheet(),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+      );
+    }
   }
 
-  void onRequestSupport() {Get.toNamed(Routes.requestSupport);
+  // === CONFIRM ACTIONS ===
+  void confirmGoOnline() {
+    if (selectedVehicleId.value.isEmpty) {
+      Get.snackbar(
+        "Select Vehicle",
+        "Please select a vehicle before going online.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        colorText: Colors.black87,
+        margin: const EdgeInsets.all(10),
+      );
+      return;
+    }
+    isOnline.value = true;
+    Get.back();
   }
 
+  void confirmGoOffline() {
+    isOnline.value = false;
+    Get.back();
+  }
 
-
-
-
-  // --- Mock / seed
+  // === STATIC TRIPS ===
   void _seedStaticData() {
-    emergencyTiles.assignAll([
-      ServiceTile('Ac Ambulance',
-          'assets/icon/home_page_icon/ambulance_icon.png', 'home_emergency_ac_ambulance'),
-      ServiceTile('Non Ac Ambulance',
-          'assets/icon/home_page_icon/ambulance_icon.png', 'home_emergency_non_ac_ambulance'),
-      ServiceTile('ICU/CCU Ambulance',
-          'assets/icon/home_page_icon/ambulance_icon.png', 'home_emergency_icu_ambulance'),
-      ServiceTile('Freezing Van',
-          'assets/icon/home_page_icon/ambulance_icon.png', 'home_emergency_freezing_van'),
-    ]);
-
-    nonEmergencyTiles.assignAll([
-      ServiceTile('moto', 'assets/icon/home_page_icon/motorcycle_icon.png',
-          'home_non_emergency_motorcycle'),
-      ServiceTile('cng', 'assets/icon/home_page_icon/cng_icon.png',
-          'home_non_emergency_cng'),
-      ServiceTile('micro', 'assets/icon/home_page_icon/moto_saver_icon.png',
-          'home_non_emergency_micro'),
-      ServiceTile('Freezing Van',
-          'assets/icon/home_page_icon/ambulance_icon.png', 'home_emergency_freezing_van'),
-    ]);
-
     upcomingTrips.assignAll([
       Trip(
         title: 'PV urgent care clinic (10 min)',
@@ -87,37 +136,5 @@ class HomeController extends GetxController {
         statusBadge: 'home_upcoming',
       ),
     ]);
-
-    lowCostIntraCity.assignAll([
-      PromoRoute(
-        imageAsset: 'assets/ambulance_written.png',
-        title: 'Naogaon to Dhaka',
-        subtitle: '30% discount',
-        dateText: '02 Jul, 10:00 PM',
-        meta: '2hour after',
-      ),
-      PromoRoute(
-        imageAsset: 'assets/ambulance_written.png',
-        title: 'Naogaon to Dhaka',
-        subtitle: '30% discount',
-        dateText: '02 Jul, 10:00 PM',
-        meta: '2hour after',
-      ),
-    ]);
-
-    campaigns.assignAll([
-      Campaign('assets/pregnant_girl.png', 'home_offer_sub', '30% discount'),
-      Campaign('assets/heart_attack.png', 'home_campaign_heart_attack', '30% discount'),
-      Campaign('assets/heart_attack.png', 'home_campaign_dialysis', '30% discount'),
-      Campaign('assets/heart_attack.png', 'home_campaign_disabled', '30% discount'),
-    ]);
   }
-}
-
-// simple campaign model (unchanged)
-class Campaign {
-  final String imageAsset;
-  final String titleKey;
-  final String subtitle;
-  Campaign(this.imageAsset, this.titleKey, this.subtitle);
 }

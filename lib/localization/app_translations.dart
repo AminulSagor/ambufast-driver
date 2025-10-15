@@ -701,14 +701,79 @@ class AppTranslations extends Translations {
           'trip.misc.single': 'Single trip',
           "trip.actions.reportIssue": "Report an Issue",
           "trip.field.rating": "Rating",
+          'home.not_approved_message':
+              'Your account is not approved yet. You will be able to use the service once the admin approves it.',
+          'home.greeting': 'Welcome back, @name!',
+
+          "home.account_not_approved_title": "Your account are not approved",
+          "home.account_not_approved_subtitle":
+              "The details you submitted are invalid or incorrect, hence wasn't approved.\nPlease resubmit your details",
+          "home.vehicle_info": "Vehicle: @number (@type)",
+          "home.rating_trips": "Rating: ★ @rating   Trips Today: @trips",
+          "home.status_offline": "Offline",
+          "home.balance": "৳ @amount",
+          "bottomsheet.go_online_title": "You're about to go Online.",
+          "bottomsheet.go_online_desc":
+              "This means you'll start receiving trip requests. Please ensure your phone is charged and your GPS is active.",
+          "bottomsheet.go_offline_title": "You're about to go Offline.",
+          "bottomsheet.go_offline_desc":
+              "You won’t receive any new trip requests. Ongoing trips (if any) will remain active.",
+          "bottomsheet.search_vehicle": "Search vehicle",
+          "bottomsheet.go_online_btn": "Go Online",
+          "bottomsheet.go_offline_btn": "Go Offline",
+          "bottomsheet.cancel_btn": "Cancel",
+          "home.status_online": "Online",
+
+          "down.trip.title": "Down Trip",
+          "down.trip.description":
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+          "down.trip.cta": "I want down trip",
+
+          "downtrip.title": "Down Trip",
+          "downtrip.search_hint": "Search down trip",
+          "downtrip.discount": "discount",
+
+          "searchtrip.title": "Search Trip",
         },
 
-        // ======================= BANGLA =======================
         'bn_BD': {
-          "trip.field.rating": "রেটিং",
-          "trip.rating.none": "রেটিং দেওয়া হয়নি",
 
-          "trip.actions.reportIssue": "Report an Issue",
+          "searchtrip.title": "ট্রিপ অনুসন্ধান করুন",
+          "downtrip.title": "ডাউন ট্রিপ",
+          "downtrip.search_hint": "ডাউন ট্রিপ অনুসন্ধান করুন",
+          "downtrip.discount": "ছাড়",
+          "down.trip.title": "ডাউন ট্রিপ",
+          "down.trip.description":
+              "আপনার গন্তব্যে ফেরার জন্য সহজ ও নির্ভরযোগ্য ডাউন ট্রিপ বুক করুন। পেশাদার ড্রাইভার ও নিরাপদ যাত্রার নিশ্চয়তা আমাদের প্রতিশ্রুতি।",
+          "down.trip.cta": "আমি ডাউন ট্রিপ চাই",
+          "home.status_online": "অনলাইন",
+          "bottomsheet.go_online_title": "আপনি অনলাইনে যেতে চলেছেন।",
+          "bottomsheet.go_online_desc":
+              "এর অর্থ হল আপনি ট্রিপের অনুরোধ পেতে শুরু করবেন। অনুগ্রহ করে নিশ্চিত করুন যে আপনার ফোনটি চার্জ করা আছে এবং আপনার জিপিএস সক্রিয় আছে।",
+          "bottomsheet.go_offline_title": "তুমি অফলাইনে যেতে চলেছো।",
+          "bottomsheet.go_offline_desc":
+              "আপনি কোনও নতুন ট্রিপের অনুরোধ পাবেন না। চলমান ট্রিপ (যদি থাকে) সক্রিয় থাকবে।",
+          "bottomsheet.search_vehicle": "যানবাহন অনুসন্ধান করুন",
+          "bottomsheet.go_online_btn": "অনলাইনে যান",
+          "bottomsheet.go_offline_btn": "অফলাইনে যান",
+          "bottomsheet.cancel_btn": "বাতিল করুন",
+
+          "home.greeting": "শুভ সকাল, @name!",
+          "home.vehicle_info": "গাড়ি: @number (@type)",
+          "home.rating_trips": "রেটিং: ★ @rating   আজকের ট্রিপ: @trips",
+          "home.status_offline": "অফলাইন",
+          "home.balance": "৳ @amount",
+          "home.account_not_approved_title": "আপনার অ্যাকাউন্ট অনুমোদিত নয়",
+          "home.account_not_approved_subtitle":
+              "আপনি যে তথ্য দিয়েছেন তা ভুল বা অসম্পূর্ণ, তাই এটি অনুমোদিত হয়নি।\nঅনুগ্রহ করে আপনার তথ্য আবার জমা দিন",
+          'trip.rating.none': 'রেটিং দেওয়া হয়নি',
+          'trip.rating.count.singular': 'রেটিং',
+          'trip.rating.count.plural': 'রেটিংসমূহ',
+          'trip.field.rating': 'রেটিং',
+          'trip.actions.reportIssue': 'সমস্যা রিপোর্ট করুন',
+          'home_upcoming_trips': 'আপকামিং ট্রিপসমূহ',
+          'home.not_approved_message':
+              'আপনার অ্যাকাউন্ট এখনো অনুমোদিত নয়। অ্যাডমিন অনুমোদনের পর আপনি এই সার্ভিস ব্যবহার করতে পারবেন।',
 
           'trip.title': 'ট্রিপ বিস্তারিত',
           'trip.section.distanceTime': 'দূরত্ব ও আনুমানিক সময়:',
@@ -733,8 +798,7 @@ class AppTranslations extends Translations {
           'trip.badge.cancelled': 'বাতিল',
           'trip.badge.paid': 'Paid',
           'trip.badge.unpaid': 'Unpaid',
-          'trip.rating.count.singular': 'রেটিং',
-          'trip.rating.count.plural': 'রেটিংস',
+
           'trip.misc.forMe': 'আমার জন্য',
           'trip.misc.single': 'সিঙ্গেল ট্রিপ',
 
@@ -1002,8 +1066,6 @@ class AppTranslations extends Translations {
           'home_non_emergency_motorcycle': 'মোটরসাইকেল',
           'home_non_emergency_cng': 'সিএনজি',
           'home_non_emergency_micro': 'মাইক্রো',
-
-          'home_upcoming_trips': 'আসন্ন ভ্রমণ',
           'home_upcoming': 'আসছে',
 
           'home_offer_title': '৩০% সেভিংস',

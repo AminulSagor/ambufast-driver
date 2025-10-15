@@ -25,6 +25,8 @@ import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
 import '../module/donate_payment_setection/support_payment_view.dart';
+import '../module/down_trip/down_trip_controller.dart';
+import '../module/down_trip/down_trip_view.dart';
 import '../module/edit_profile_details/edit_profile_details_controller.dart';
 import '../module/edit_profile_details/edit_profile_details_view.dart';
 import '../module/emergency_sos/emergency_sos_controller.dart';
@@ -57,6 +59,8 @@ import '../module/request_submission_success/request_submission_success_controll
 import '../module/request_submission_success/request_submission_success_view.dart';
 import '../module/ride/request_ride_controller.dart';
 import '../module/ride/request_ride_view.dart';
+import '../module/search_trip/search_trip_controller.dart';
+import '../module/search_trip/search_trip_view.dart';
 import '../module/set_password/set_password_controller.dart';
 import '../module/set_password/set_password_view.dart';
 import '../module/support_request/support_request_controller.dart';
@@ -395,6 +399,22 @@ class AppPages {
       page: () => const TripDetailsView(),
       binding: BindingsBuilder(() {
         Get.lazyPut<TripDetailsController>(() => TripDetailsController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.downTrip,
+      page: () => const DownTripView(),
+      binding: BindingsBuilder(() {
+        Get.put(DownTripController());
+      }),
+    ),
+
+    GetPage(
+      name: Routes.searchTrip,
+      page: () => const SearchTripView(),
+      binding: BindingsBuilder(() {
+        Get.put(SearchTripController());
       }),
     ),
 

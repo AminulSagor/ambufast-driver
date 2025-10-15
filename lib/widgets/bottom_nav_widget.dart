@@ -18,12 +18,12 @@ class BottomNavBar extends StatelessWidget {
     switch (index) {
       case 0: Get.offAllNamed('/home'); break;
       case 1: Get.offAllNamed('/activity'); break;
-      case 2: Get.offAllNamed('/down-trips'); break;
+      case 2: Get.offAllNamed('/down-trip'); break;
       case 3: Get.offAllNamed('/account'); break;
     }
   }
 
-  void _defaultCenterAction() => Get.offAllNamed('/service');
+  void _defaultCenterAction() => Get.offAllNamed('/search-trip');
 
   @override
   Widget build(BuildContext context) {
