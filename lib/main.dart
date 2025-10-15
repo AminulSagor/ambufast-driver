@@ -20,7 +20,7 @@ Future<Locale> _loadInitialLocale() async {
 Future<String> _loadInitialRoute() async {
   final token = await TokenStorage.getAccessToken();
   if (token != null && token.isNotEmpty) {
-    return Routes.home;
+    return Routes.tripDetails;
   } else {
     return Routes.language;
   }

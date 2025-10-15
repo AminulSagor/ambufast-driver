@@ -88,9 +88,9 @@ class TripDetailsController extends GetxController {
   void onInit() {
     super.onInit();
     // Pick one:
-    setScenario(TripState.upcoming);
+    //setScenario(TripState.upcoming);
     //setScenario(TripState.scheduled);
-     //setScenario(TripState.completed);
+     setScenario(TripState.completed);
      //setScenario(TripState.completedNoRating);
     //setScenario(TripState.cancelled);
   }

@@ -1,4 +1,5 @@
 // lib/modules/trip_details/trip_details_view.dart
+import 'package:ambufast_driver/module/trip_details/trip_details_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -375,7 +376,7 @@ class TripDetailsView extends GetView<TripDetailsController> {
                 side: BorderSide(color: black),
                 padding: EdgeInsets.symmetric(vertical: 14.h),
               ),
-              onPressed: controller.onPrimaryAction,
+              onPressed: controller.downloadReceipt,
               child: Text('trip.actions.download'.tr),
             ),
           ),
