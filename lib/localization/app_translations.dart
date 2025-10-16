@@ -526,8 +526,8 @@ class AppTranslations extends Translations {
               'Are you sure you want to change this vehicle?',
           'confirm_change_vehicle_body_1':
               "You’re about to switch your active ambulance",
-          'from': 'from:',
-          'to': 'to:',
+          'from': 'From:',
+          'to': 'To:',
           'confirm_note':
               'This change will take effect immediately for new trip requests.',
           'go_back': 'Go Back',
@@ -734,10 +734,118 @@ class AppTranslations extends Translations {
           "downtrip.discount": "discount",
 
           "searchtrip.title": "Search Trip",
+
+          //Trip Request
+          'respond_title': 'You have 15 seconds to respond.',
+          'respond_sub':
+              'If no action is taken, the request will be auto-cancelled and sent to another driver.',
+          'date_time': 'Date & Time:',
+          'contact': 'Contact:',
+          'ambulance': 'Ambulance:',
+          'trip_type': 'Trip type:',
+          'category': 'Category:',
+          'distance_time': 'Distance & Est. Time:',
+          'mins': 'Mins',
+          'estimated_fare': 'Estimated fare',
+          'cash': 'Cash',
+          'accept_trip': 'Accept Trip',
+          'ratings': '{n} ratings',
+          'accept_trip_title': 'Are You Sure You Want to Accept This Trip?',
+          'accept_b1': 'You must arrive on time once the trip is accepted.',
+          'accept_b2':
+              'If you cancel or no-show after accepting, penalties will apply.',
+          'accept_b3':
+              "Client’s full pickup address and contact will be shown only after advance payment is confirmed.",
+          'accept_b4': 'GPS must remain active during the trip.',
+          'await_payment_title': '⏳ Waiting for Payment...',
+          'await_payment_desc':
+              'Client must complete advance payment to confirm the trip. Pickup location and phone number will be unlocked after payment.',
+          'navigate_to_pickup': 'Navigate to Pickup',
+          'see_trip_details': 'See Trip Details',
+          'start_trip': 'Start the trip',
+
+          'confirm_cancel_title': 'Are you sure you want to cancel this trip?',
+          'cancel_reason': 'Cancel Reason',
+          'reason_cannot_reach_pickup': "Can't reach the pickup location",
+          'reason_vehicle_issue': 'Vehicle issue / breakdown',
+          'reason_emergency_personal': 'Emergency / Personal issue',
+          'reason_passenger_unreachable': 'Passenger unreachable',
+          'reason_delayed_previous_trip': 'Delayed by previous trip',
+          'cancel_warning':
+              'Frequent cancellations can lead to suspension or permanent removal of your driver account.',
+          'confirm_cancel': 'Confirm Cancel',
+
+          // trip track
+          'driver_arriving': 'Driver is arriving',
+          'meet_driver_hint': 'Meet your driver at the pickup spot',
+          'pickup_address': 'Pick-up address',
+          'dropoff_address': 'Drop-off address',
+          'due': 'Due',
+          'change_destination': 'Change Destination',
+          'cancel_trip': 'Cancel trip',
+          'cancel_trip_title': 'Cancel this trip?',
+          'cancel_trip_confirm': 'Are you sure you want to cancel?',
+          'no_keep': 'No, keep',
+          'driver_arrived': 'Driver is arrived',
+          'reach_pickup_in_5min':
+              'Reach the pick-up spot within 5 min to avoid waiting charges.',
+          'ride_in_progress': 'Ride in Progress',
+          'reach_destination_by': "You'll reach the destination by @time",
+          'ride_complete': 'Ride in Complete',
+          'reached_destination': "You've reached your destination",
+          'amount_breakdown': 'Amount Breakdown',
+          'client_will_pay': 'Client Will Pay',
+          'confirm_payment': 'Confirm payment',
+          'emergency_assistance': 'Emergency assistance',
+          'emergency_assistance_desc':
+              'Once you call for assistance, your location and vehicle details will be automatically shared.',
+          'your_current_location': 'Your current location',
+          'vehicle_details': 'Vehicle details',
+          'share_my_trip': 'Share my trip',
+          'call_999': 'Call 999',
+          'change_destination_title': 'Change Destination',
+          'change_destination_intro':
+              'AmbuFast allows customers to change their drop-off location once during a live trip, '
+                  'or add additional stops (e.g., for hospital hopping), ensuring flexibility during critical medical situations.',
+          'when_you_can_change': 'When You Can Change or Add Locations',
+          'rule_after_trip_started_before_dest':
+              'After the trip has started, but before reaching the original destination.',
+          'rule_cannot_change_pickup':
+              'You cannot change the pickup location once the trip has started.',
+          'rule_change_drop_once':
+              'You can change the drop-off only once per trip.',
+          'rule_add_multiple_stops':
+              'You can add multiple stops (up to 2 additional hospitals/locations), subject to driver and system approval.',
+          'change_add_destination_once':
+              'Change/Add Destination (One-Time Only)',
+          'step_open_live': 'Open Live Trip screen.',
+          'step_tap_change': 'Tap “Change Destination”.',
+          'step_enter_new_drop': 'Enter or select the new drop-off location.',
+          'step_view_fare': 'View updated fare estimate.',
+          'step_tap_confirm': 'Tap Confirm Change.',
+          'cta_change_add_destination': 'Change/add Destination',
+          'request_driver': 'Request to driver',
+          'edit_trip': 'Edit Trip',
+          'track_trip': 'Track trip',
+          'report_issue': 'Report an issue',
+          'rebook_trip': 'Rebook this trip',
+
+          'end_trip': 'End Trip',
+          'trip_start_conf_title': 'Want to the start ride',
+          'trip_end_conf_title': 'Want to the END trip',
+          'waiting_for_passenger': 'Waiting for passenger ',
+          'collect_cash': 'Collect Cash',
+          'collected_cash': 'I Have Collected @amount BDT',
+          'base_fare': 'Base fare',
+          'per_km_rate': '+ Per KM rate',
+          'waiting_charges': '+ Waiting Charges',
+          'booking_fee': 'Booking fee',
+          'vat_tax': 'VAT & TAX',
+          'close': 'Close',
+          'bdt_currency': 'BDT',
         },
 
         'bn_BD': {
-
           "searchtrip.title": "ট্রিপ অনুসন্ধান করুন",
           "downtrip.title": "ডাউন ট্রিপ",
           "downtrip.search_hint": "ডাউন ট্রিপ অনুসন্ধান করুন",
@@ -1444,6 +1552,118 @@ class AppTranslations extends Translations {
           'edit_profile_details': 'রোফাইলের এডিট করুন',
           'enter_full_name': 'পূর্ণ নাম লিখুন',
           'select_gender': 'লিঙ্গ নির্বাচন করুন',
+
+          //Trip Request
+          'respond_title': 'তোমার উত্তর দেওয়ার জন্য ১৫ সেকেন্ড সময় আছে।',
+          'respond_sub':
+              'যদি কোনো ব্যবস্থা না নেওয়া হয়, অনুরোধটি স্বয়ংক্রিয়ভাবে বাতিল হয়ে যাবে এবং অন্য ড্রাইভারের কাছে পাঠানো হবে।',
+          'date_time': 'তারিখ ও সময়:',
+          'contact': 'যোগাযোগ:',
+          'ambulance': 'অ্যাম্বুলেন্স:',
+          'trip_type': 'যাত্রার ধরন:',
+          'category': 'বিভাগ:',
+          'distance_time': 'দূরত্ব এবং আনুমানিক সময়:',
+          'mins': 'মিনিট',
+          'estimated_fare': 'আনুমানিক ভাড়া',
+          'cash': 'নগদ',
+          'accept_trip': 'ট্রিপ গ্রহণ করুন',
+          'ratings': '{n} রেটিং',
+          'accept_trip_title':
+              'তুমি কি নিশ্চিত যে তুমি এই ট্রিপটি গ্রহণ করতে চাও?',
+          'accept_b1': 'গ্রহণের পর আপনাকে অবশ্যই সময়মতো উপস্থিত হতে হবে।',
+          'accept_b2':
+              'গ্রহণের পর আপনি বাতিল করবেন না, করলে জরিমানা প্রযোজ্য হবে।',
+          'accept_b3':
+              'অগ্রিম অর্থ প্রদান নিশ্চিত হওয়ার পরেই গ্রাহকের সম্পূর্ণ পিকআপ ঠিকানা এবং যোগাযোগ দেখানো হবে।',
+          'accept_b4': 'ভ্রমণের সময় জিপিএস সক্রিয় রাখতে হবে।',
+          'await_payment_title': '⏳ পেমেন্টের জন্য অপেক্ষা করছি...',
+          'await_payment_desc':
+              'ট্রিপ নিশ্চিত করার জন্য ক্লায়েন্টকে অগ্রিম অর্থ প্রদান করতে হবে। প্রদানের পর পিকআপের অবস্থান এবং ফোন নম্বর আনলক করা হবে।',
+          'navigate_to_pickup': 'পিকআপে নেভিগেট করুন',
+          'see_trip_details': 'যাত্রার বিবরণ দেখুন',
+          'start_trip': 'যাত্রা শুরু করুন',
+
+          'confirm_cancel_title':
+              'আপনি কি নিশ্চিত যে আপনি এই ট্রিপ বাতিল করতে চান?',
+          'cancel_reason': 'বাতিল করার কারণ',
+          'reason_cannot_reach_pickup': 'পিকআপ লোকেশনে পৌঁছানো যাচ্ছে না',
+          'reason_vehicle_issue': 'গাড়ির সমস্যা / ব্রেকডাউন',
+          'reason_emergency_personal': 'জরুরি / ব্যক্তিগত সমস্যা',
+          'reason_passenger_unreachable': 'যাত্রীর কাছে পৌঁছানো যাচ্ছে না',
+          'reason_delayed_previous_trip': 'আগের ট্রিপের কারণে বিলম্বিত',
+          'cancel_warning':
+              'ঘন ঘন বাতিলের ফলে আপনার ড্রাইভার অ্যাকাউন্ট স্থগিত বা স্থায়ীভাবে বন্ধ হয়ে যেতে পারে।',
+          'confirm_cancel': 'বাতিল নিশ্চিত করুন',
+
+          // trip track
+          'driver_arriving': 'ড্রাইভার আসছে',
+          'meet_driver_hint': 'পিকআপ স্পটে ড্রাইভারের সাথে দেখা করুন',
+          'pickup_address': 'পিক-আপ ঠিকানা',
+          'dropoff_address': 'ড্রপ-অফ ঠিকানা',
+          'due': 'বকেয়া',
+          'change_destination': 'গন্তব্য পরিবর্তন করুন',
+          'cancel_trip': 'ট্রিপ বাতিল করুন',
+          'cancel_trip_title': 'ট্রিপ বাতিল করবেন?',
+          'cancel_trip_confirm': 'আপনি কি নিশ্চিত যে বাতিল করতে চান?',
+          'no_keep': 'না, রাখুন',
+          'driver_arrived': 'ড্রাইভার এসেছে',
+          'reach_pickup_in_5min':
+              'অপেক্ষার চার্জ এড়াতে ৫ মিনিটের মধ্যে পিক-আপ স্পটে পৌঁছান।',
+          'ride_in_progress': 'যাত্রা চলছে',
+          'reach_destination_by': 'আপনি {time} নাগাদ গন্তব্যে পৌঁছাবেন',
+          'ride_complete': 'সম্পূর্ণ যাত্রা',
+          'reached_destination': 'আপনি গন্তব্যে পৌঁছে গেছেন',
+          'amount_breakdown': 'খরচের বিবরণ',
+          'client_will_pay': 'ক্লায়েন্ট টাকা দেবে',
+          'confirm_payment': 'বুকিং পেমেন্ট',
+          'emergency_assistance': 'জরুরি সহায়তা',
+          'emergency_assistance_desc':
+              'আপনি সাহায্যের জন্য কল করলে, আপনার অবস্থান এবং গাড়ির বিবরণ স্বয়ংক্রিয়ভাবে শেয়ার করা হবে।',
+          'your_current_location': 'আপনার বর্তমান অবস্থান',
+          'vehicle_details': 'গাড়ির বিবরণ',
+          'share_my_trip': 'আমার ট্রিপ শেয়ার করুন',
+          'call_999': '৯৯৯ নম্বরে কল করুন',
+          'change_destination_title': 'গন্তব্য পরিবর্তন',
+          'change_destination_intro':
+              'অ্যাম্বুফাস্ট গ্রাহকদের লাইভ ট্রিপে একবার ড্রপ-অফ লোকেশন পরিবর্তন করতে বা অতিরিক্ত স্টপ যোগ করতে দেয় '
+                  '(যেমন হাসপাতাল পরিবর্তনের জন্য), জরুরি পরিস্থিতিতে নমনীয়তা নিশ্চিত করে।',
+          'when_you_can_change':
+              'যখন আপনি গন্তব্য/স্টপ পরিবর্তন বা যোগ করতে পারবেন',
+          'rule_after_trip_started_before_dest':
+              'যাত্রা শুরু হওয়ার পরে, কিন্তু মূল গন্তব্যে পৌঁছানোর আগে।',
+          'rule_cannot_change_pickup':
+              'ট্রিপ শুরু হওয়ার পরে পিকআপ লোকেশন পরিবর্তন করা যাবে না।',
+          'rule_change_drop_once':
+              'প্রতি ট্রিপে ড্রপ-অফ ঠিকানা কেবল একবার পরিবর্তন করা যাবে।',
+          'rule_add_multiple_stops':
+              'ড্রাইভার ও সিস্টেম অনুমোদনসাপেক্ষে একাধিক স্টপ (সর্বোচ্চ ২টি) যোগ করা যাবে।',
+          'change_add_destination_once':
+              'গন্তব্য পরিবর্তন/যোগ করুন (একবারের জন্য)',
+          'step_open_live': 'লাইভ ট্রিপ স্ক্রিন খুলুন।',
+          'step_tap_change': '“গন্তব্য পরিবর্তন করুন” এ ট্যাপ করুন।',
+          'step_enter_new_drop': 'নতুন ড্রপ-অফ লোকেশন লিখুন/নির্বাচন করুন।',
+          'step_view_fare': 'আপডেটেড ভাড়ার হিসাব দেখুন।',
+          'step_tap_confirm': 'পরিবর্তন নিশ্চিত করুন।',
+          'cta_change_add_destination': 'গন্তব্য পরিবর্তন/যোগ করুন',
+          'request_driver': 'ড্রাইভারের কাছে অনুরোধ',
+          'edit_trip': 'ট্রিপ এডিট করুন',
+          'track_trip': 'ট্রিপ ট্র্যাক করুন',
+          'report_issue': 'রিপোর্ট করুন',
+          'rebook_trip': 'পুনরায় বুক করুন',
+
+          'end_trip': 'ট্রিপ শেষ করুন',
+          'trip_start_conf_title': 'যাত্রা শুরু করতে চাই',
+          'trip_end_conf_title': 'যাত্রা শেষ করতে চাই',
+          'waiting_for_passenger': 'যাত্রীর জন্য অপেক্ষা করছি',
+          'collect_cash': 'নগদ টাকা সংগ্রহ করুন',
+          'collected_cash': 'আমি @amount টাকা সংগ্রহ করেছি।',
+          'base_fare': 'মূল ভাড়া',
+          'per_km_rate': '+ প্রতি কিলোমিটার ভাড়া',
+          'waiting_charges': '+ অপেক্ষার চার্জ',
+          'booking_fee': 'বুকিং ফি',
+          'vat_tax': 'ভ্যাট এবং ট্যাক্স',
+          'close': 'বন্ধ করুন',
+          'taka_currency': 'টাকা',
         },
       };
 }

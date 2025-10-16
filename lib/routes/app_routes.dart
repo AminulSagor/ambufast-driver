@@ -1,11 +1,11 @@
 abstract class Routes {
   Routes._();
-  static const launch  = '/';
-  static const login    = '/login';
+  static const launch = '/';
+  static const login = '/login';
   static const register = '/register';
-  static const language  = '/language';
-  static const recover  = '/recover';
-  static const verify   = '/verify';
+  static const language = '/language';
+  static const recover = '/recover';
+  static const verify = '/verify';
   static const setPassword = '/set-password';
   static const createAccount = '/create-account';
   static const home = '/home';
@@ -42,4 +42,8 @@ abstract class Routes {
   static const downTrip = '/down-trip';
   static const searchTrip = '/search-trip';
 
+  static const tripRequest = '/trip-request';
+  static const tripAwaitPayment = '/trip-await-payment';
+  static const tripStart = '/trip-start';
+  static const tripPayment = '/trip-payment';
 }

@@ -1,10 +1,12 @@
 // lib/modules/rating/rating_controller.dart
+import 'package:ambufast_driver/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class RatingController extends GetxController {
-  String driverName   = 'Md Kamrul Hasan';
-  String avatarUrl    = 'https://images.freejpg.com.ar/900/2106/young-woman-with-hands-painted-blue-in-artistic-expression-F100038922.jpg';
-  String vehicleLine  = 'Toyota | Dhaka Metro 12 5896';
+  String driverName = 'Md Kamrul Hasan';
+  String avatarUrl =
+      'https://images.freejpg.com.ar/900/2106/young-woman-with-hands-painted-blue-in-artistic-expression-F100038922.jpg';
+  String vehicleLine = 'Toyota | Dhaka Metro 12 5896';
   double driverRating = 5.0;
   double totalRatings = 1.2;
 
@@ -19,18 +21,34 @@ class RatingController extends GetxController {
 
   // Tag pools (i18n keys)
   static const _tags5 = [
-    'rating.tags.safeDriving','rating.tags.politeHelpful','rating.tags.cleanCar',
-    'rating.tags.onTimePickup','rating.tags.efficientRoute','rating.tags.comfortableRide',
+    'rating.tags.safeDriving',
+    'rating.tags.politeHelpful',
+    'rating.tags.cleanCar',
+    'rating.tags.onTimePickup',
+    'rating.tags.efficientRoute',
+    'rating.tags.comfortableRide',
   ];
   static const _tags4 = [
-    'rating.tags.minorDelay','rating.tags.slightDetour','rating.tags.acCouldImprove','rating.tags.priceBitHigh',
+    'rating.tags.minorDelay',
+    'rating.tags.slightDetour',
+    'rating.tags.acCouldImprove',
+    'rating.tags.priceBitHigh',
   ];
   static const _tags3 = [
-    'rating.tags.latePickup','rating.tags.longRoute','rating.tags.unclearCommunication','rating.tags.uncomfortableRide','rating.tags.priceHigh',
+    'rating.tags.latePickup',
+    'rating.tags.longRoute',
+    'rating.tags.unclearCommunication',
+    'rating.tags.uncomfortableRide',
+    'rating.tags.priceHigh',
   ];
   static const _tags12 = [
-    'rating.tags.unsafeDriving','rating.tags.rudeBehavior','rating.tags.dirtyCar',
-    'rating.tags.wrongRoute','rating.tags.overcharged','rating.tags.acNotWorking','rating.tags.refusedOrCancelled',
+    'rating.tags.unsafeDriving',
+    'rating.tags.rudeBehavior',
+    'rating.tags.dirtyCar',
+    'rating.tags.wrongRoute',
+    'rating.tags.overcharged',
+    'rating.tags.acNotWorking',
+    'rating.tags.refusedOrCancelled',
   ];
   static const _others = 'rating.tags.others';
 
@@ -38,13 +56,20 @@ class RatingController extends GetxController {
 
   String get subtitleKey {
     switch (stars.value) {
-      case 0: return 'rating.sub.rate';
-      case 1: return 'rating.sub.1';
-      case 2: return 'rating.sub.2';
-      case 3: return 'rating.sub.3';
-      case 4: return 'rating.sub.4';
-      case 5: return 'rating.sub.5';
-      default: return 'rating.sub.rate';
+      case 0:
+        return 'rating.sub.rate';
+      case 1:
+        return 'rating.sub.1';
+      case 2:
+        return 'rating.sub.2';
+      case 3:
+        return 'rating.sub.3';
+      case 4:
+        return 'rating.sub.4';
+      case 5:
+        return 'rating.sub.5';
+      default:
+        return 'rating.sub.rate';
     }
   }
 
@@ -65,12 +90,21 @@ class RatingController extends GetxController {
   void _rebuildVisibleTags() {
     List<String> base;
     switch (stars.value) {
-      case 5: base = _tags5; break;
-      case 4: base = _tags4; break;
-      case 3: base = _tags3; break;
+      case 5:
+        base = _tags5;
+        break;
+      case 4:
+        base = _tags4;
+        break;
+      case 3:
+        base = _tags3;
+        break;
       case 2:
-      case 1: base = _tags12; break;
-      default: base = const []; // 0 stars -> show nothing
+      case 1:
+        base = _tags12;
+        break;
+      default:
+        base = const []; // 0 stars -> show nothing
     }
 
     // Only include "Others" AFTER at least one star is chosen
@@ -92,6 +126,7 @@ class RatingController extends GetxController {
       await Future.delayed(const Duration(milliseconds: 650));
       Get.back(result: true);
       Get.snackbar('👍', 'Thanks for your feedback!');
+      Get.offAllNamed(Routes.home);
     } finally {
       submitting.value = false;
     }

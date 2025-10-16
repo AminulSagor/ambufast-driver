@@ -5,7 +5,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"   # adjust to match your local Dart version
+  sdk: ">=3.5.0 <4.0.0" # adjust to match your local Dart version
 
 dependencies:
   flutter:
@@ -27,6 +27,7 @@ dependencies:
   http:
   google_maps_flutter:
   maplibre_gl: ^0.24.0
+  share_plus:
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +43,7 @@ flutter:
     - assets/icon/home_page_icon/
     - assets/bottom_navigation/
     - assets/ride_icons/
+    - assets/trip/
     - .env
     - assets/account/
     - assets/notification/

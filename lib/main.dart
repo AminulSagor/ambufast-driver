@@ -10,7 +10,6 @@ import 'combine_controller/location_controller.dart';
 import 'combine_service/location_service.dart';
 import 'localization/app_translations.dart';
 
-
 Future<Locale> _loadInitialLocale() async {
   final sp = await SharedPreferences.getInstance();
   final code = sp.getString('lang_code') ?? 'en';
@@ -22,7 +21,7 @@ Future<String> _loadInitialRoute() async {
   if (token != null && token.isNotEmpty) {
     return Routes.home;
   } else {
-    return Routes.language;
+    return Routes.tripRequest;
   }
 }
 
@@ -57,7 +56,7 @@ class AmbuFastApp extends StatelessWidget {
           final bkKey = dotenv.env['BARIKOI_API_KEY'] ?? '';
 
           Get.put<LocationService>(
-            LocationService(barikoiApiKey: bkKey),  // <-- pass key here
+            LocationService(barikoiApiKey: bkKey), // <-- pass key here
             permanent: true,
           );
           Get.put<LocationController>(

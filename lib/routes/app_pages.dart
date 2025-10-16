@@ -1,3 +1,11 @@
+import 'package:ambufast_driver/module/trip_request/trip_await_payment_controller.dart';
+import 'package:ambufast_driver/module/trip_request/trip_await_payment_view.dart';
+import 'package:ambufast_driver/module/trip_request/trip_request_controller.dart';
+import 'package:ambufast_driver/module/trip_request/trip_request_view.dart';
+import 'package:ambufast_driver/module/trip_track/trip_payment_controller.dart';
+import 'package:ambufast_driver/module/trip_track/trip_payment_view.dart';
+import 'package:ambufast_driver/module/trip_track/trip_track_controller.dart';
+import 'package:ambufast_driver/module/trip_track/trip_track_view.dart';
 import 'package:get/get.dart';
 import '../legal/legal_policy_controller.dart';
 import '../legal/legal_policy_view.dart';
@@ -77,10 +85,8 @@ import '../module/waiting_approval/waiting_approval_controller.dart';
 import '../module/waiting_approval/waiting_approval_view.dart';
 import 'app_routes.dart';
 
-
 class AppPages {
   AppPages._();
-
 
   static final routes = <GetPage>[
     GetPage(
@@ -90,7 +96,6 @@ class AppPages {
         Get.lazyPut<LaunchScreenController>(() => LaunchScreenController());
       }),
     ),
-
     GetPage(
       name: Routes.language,
       page: () => const LanguageView(),
@@ -98,7 +103,6 @@ class AppPages {
         Get.lazyPut<LanguageController>(() => LanguageController());
       }),
     ),
-
     GetPage(
       name: Routes.login,
       page: () => const LoginView(),
@@ -107,8 +111,6 @@ class AppPages {
         Get.lazyPut<LoginController>(() => LoginController());
       }),
     ),
-
-
     GetPage(
       name: Routes.recover,
       page: () => const RecoverView(),
@@ -116,7 +118,6 @@ class AppPages {
         Get.lazyPut<RecoverController>(() => RecoverController());
       }),
     ),
-
     GetPage(
       name: Routes.verify,
       page: () => const VerifyView(),
@@ -124,7 +125,6 @@ class AppPages {
         Get.lazyPut<VerifyController>(() => VerifyController());
       }),
     ),
-
     GetPage(
       name: Routes.setPassword,
       page: () => const SetPasswordView(),
@@ -137,7 +137,6 @@ class AppPages {
       page: () => const CreateAccountView(),
       binding: BindingsBuilder.put(() => CreateAccountController()),
     ),
-
     GetPage(
       name: Routes.home,
       page: () => const HomeView(),
@@ -145,7 +144,6 @@ class AppPages {
         Get.lazyPut<HomeController>(() => HomeController());
       }),
     ),
-
     GetPage(
       name: Routes.donateMoney,
       page: () => const DonateMoneyView(),
@@ -153,7 +151,6 @@ class AppPages {
         Get.lazyPut<DonateMoneyController>(() => DonateMoneyController());
       }),
     ),
-
     GetPage(
       name: Routes.supportPayment,
       page: () => const SupportPaymentView(),
@@ -161,7 +158,6 @@ class AppPages {
         Get.lazyPut<SupportPaymentController>(() => SupportPaymentController());
       }),
     ),
-
     GetPage(
       name: Routes.bkashPayment,
       page: () => const BkashPaymentView(),
@@ -169,7 +165,6 @@ class AppPages {
         Get.lazyPut<BkashPaymentController>(() => BkashPaymentController());
       }),
     ),
-
     GetPage(
       name: Routes.paymentSuccessful,
       page: () => const PaymentSuccessView(),
@@ -177,7 +172,6 @@ class AppPages {
         Get.lazyPut<PaymentSuccessController>(() => PaymentSuccessController());
       }),
     ),
-
     GetPage(
       name: Routes.requestSupport,
       page: () => const SupportRequestView(),
@@ -185,27 +179,24 @@ class AppPages {
         Get.lazyPut<SupportRequestController>(() => SupportRequestController());
       }),
     ),
-
     GetPage(
       name: Routes.supportRequestReview,
       page: () => const SupportRequestReviewView(),
       binding: BindingsBuilder(() {
         Get.lazyPut<SupportRequestReviewController>(
-              () => SupportRequestReviewController(),
+          () => SupportRequestReviewController(),
         );
       }),
     ),
-
     GetPage(
       name: Routes.requestSubmissionSuccess,
       page: () => const RequestSubmissionSuccessView(),
       binding: BindingsBuilder(() {
         Get.lazyPut<RequestSubmissionSuccessController>(
-              () => RequestSubmissionSuccessController(),
+          () => RequestSubmissionSuccessController(),
         );
       }),
     ),
-
     GetPage(
       name: Routes.requestRide,
       page: () => const RequestRideView(),
@@ -213,13 +204,12 @@ class AppPages {
         Get.lazyPut<RequestRideController>(() => RequestRideController());
       }),
     ),
-
     GetPage(
       name: Routes.inputProfileDetails,
       page: () => const InputProfileDetailsView(),
       binding: BindingsBuilder(() {
         Get.lazyPut<InputProfileDetailsController>(
-              () => InputProfileDetailsController(),
+          () => InputProfileDetailsController(),
         );
       }),
     ),
@@ -230,8 +220,6 @@ class AppPages {
         Get.put(LicenceDetailsController());
       }),
     ),
-
-
     GetPage(
       name: Routes.carDetails,
       page: () => const CarDetailsView(),
@@ -239,7 +227,6 @@ class AppPages {
         Get.put(CarDetailsController());
       }),
     ),
-
     GetPage(
       name: Routes.waitingApproval,
       page: () => const WaitingApprovalView(),
@@ -247,8 +234,8 @@ class AppPages {
         Get.put(WaitingApprovalController());
       }),
     ),
-    GetPage(name: Routes.profileCreating, page: () => const ProfileCreatingView()),
-
+    GetPage(
+        name: Routes.profileCreating, page: () => const ProfileCreatingView()),
     GetPage(
       name: Routes.account,
       page: () => const AccountView(),
@@ -256,7 +243,6 @@ class AppPages {
         Get.lazyPut<AccountController>(() => AccountController());
       }),
     ),
-
     GetPage(
       name: Routes.profileDetails,
       page: () => const ProfileDetailsView(),
@@ -267,7 +253,6 @@ class AppPages {
         Get.put(ProfileDetailsController());
       }),
     ),
-
     GetPage(
       name: Routes.editProfileDetails,
       page: () => const EditProfileDetailsView(),
@@ -278,7 +263,6 @@ class AppPages {
         Get.put(EditProfileDetailsController());
       }),
     ),
-
     GetPage(
       name: Routes.allReview,
       page: () => const AllReviewView(),
@@ -289,7 +273,6 @@ class AppPages {
         Get.put(AllReviewController());
       }),
     ),
-
     GetPage(
       name: Routes.emergencySos,
       page: () => const EmergencySosView(),
@@ -300,7 +283,6 @@ class AppPages {
         Get.put(EmergencySosController());
       }),
     ),
-
     GetPage(
       name: Routes.myVehicles,
       page: () => const MyVehiclesView(),
@@ -312,7 +294,6 @@ class AppPages {
         Get.put(MyVehiclesController());
       }),
     ),
-
     GetPage(
       name: Routes.helpCenter,
       page: () => const HelpCenterView(),
@@ -320,7 +301,6 @@ class AppPages {
         Get.lazyPut<HelpCenterController>(() => HelpCenterController());
       }),
     ),
-
     GetPage(
       name: Routes.contactSupport,
       page: () => const ContactSupportView(),
@@ -328,7 +308,6 @@ class AppPages {
         Get.lazyPut<ContactSupportController>(() => ContactSupportController());
       }),
     ),
-
     GetPage(
       name: Routes.legalPolicy,
       page: () => const LegalPolicyView(),
@@ -341,7 +320,6 @@ class AppPages {
       name: Routes.cancellationPaymentInfo,
       page: () => const PaymentCancellationInfoView(),
     ),
-
     GetPage(
       name: Routes.changePassword,
       page: () => const ChangePasswordView(),
@@ -352,7 +330,6 @@ class AppPages {
         Get.put(ChangePasswordController());
       }),
     ),
-
     GetPage(
       name: Routes.deleteAccount,
       page: () => const DeleteAccountView(),
@@ -363,7 +340,6 @@ class AppPages {
         Get.put(DeleteAccountController());
       }),
     ),
-
     GetPage(
       name: Routes.notification,
       page: () => const NotificationView(),
@@ -374,8 +350,6 @@ class AppPages {
         Get.put(NotificationController());
       }),
     ),
-
-
     GetPage(
       name: Routes.activity,
       page: () => const ActivityView(),
@@ -383,8 +357,6 @@ class AppPages {
         Get.lazyPut<ActivityController>(() => ActivityController());
       }),
     ),
-
-
     GetPage(
       name: Routes.rating,
       page: () => const RatingView(),
@@ -392,8 +364,6 @@ class AppPages {
         Get.lazyPut<RatingController>(() => RatingController());
       }),
     ),
-
-
     GetPage(
       name: Routes.tripDetails,
       page: () => const TripDetailsView(),
@@ -401,7 +371,6 @@ class AppPages {
         Get.lazyPut<TripDetailsController>(() => TripDetailsController());
       }),
     ),
-
     GetPage(
       name: Routes.downTrip,
       page: () => const DownTripView(),
@@ -409,7 +378,6 @@ class AppPages {
         Get.put(DownTripController());
       }),
     ),
-
     GetPage(
       name: Routes.searchTrip,
       page: () => const SearchTripView(),
@@ -417,6 +385,33 @@ class AppPages {
         Get.put(SearchTripController());
       }),
     ),
-
+    GetPage(
+      name: Routes.tripRequest,
+      page: () => const TripRequestView(),
+      binding: BindingsBuilder(() {
+        Get.put(TripRequestController());
+      }),
+    ),
+    GetPage(
+      name: Routes.tripAwaitPayment,
+      page: () => const TripAwaitPaymentView(),
+      binding: BindingsBuilder(() {
+        Get.put(TripAwaitPaymentController());
+      }),
+    ),
+    GetPage(
+      name: Routes.tripStart,
+      page: () => const TripTrackView(),
+      binding: BindingsBuilder(() {
+        Get.put(TripTrackController());
+      }),
+    ),
+    GetPage(
+      name: Routes.tripPayment,
+      page: () => const TripPaymentView(),
+      binding: BindingsBuilder(() {
+        Get.put(TripPaymentController());
+      }),
+    ),
   ];
 }
