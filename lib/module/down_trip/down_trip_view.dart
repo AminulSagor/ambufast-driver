@@ -111,7 +111,6 @@ class DownTripView extends GetView<DownTripController> {
                             bottomLeft: Radius.circular(12.r),
                             topRight: Radius.circular(12.r),
                             bottomRight: Radius.circular(12.r),
-
                           ),
                           child: Image.asset(
                             trip["image"],
@@ -182,11 +181,23 @@ class DownTripView extends GetView<DownTripController> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.edit,
-                                  color: Colors.grey.shade500, size: 18),
+                              GestureDetector(
+                                onTap: controller.onEdit,
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.grey.shade500,
+                                  size: 18,
+                                ),
+                              ),
                               SizedBox(height: 12.h),
-                              const Icon(Icons.delete,
-                                  color: Colors.redAccent, size: 18),
+                              GestureDetector(
+                                onTap: controller.onDel,
+                                child: const Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                  size: 18,
+                                ),
+                              ),
                             ],
                           ),
                         ),

@@ -46,4 +46,6 @@ abstract class Routes {
   static const tripAwaitPayment = '/trip-await-payment';
   static const tripStart = '/trip-start';
   static const tripPayment = '/trip-payment';
+  static const createDownTripMessage = '/create-down-trip-message';
+  static const downTripCreate = '/down-trip-create';
 }

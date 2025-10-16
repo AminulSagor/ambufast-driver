@@ -843,6 +843,27 @@ class AppTranslations extends Translations {
           'vat_tax': 'VAT & TAX',
           'close': 'Close',
           'bdt_currency': 'BDT',
+
+          //down trip
+          'down_create_title': 'Create Down trip',
+          'select_pickup': 'Select pickup address',
+          'select_dropoff': 'Select dropoff address',
+          'estimated_pickup': 'Estimated pickup date & time',
+          'create_trip': 'Create trip',
+          'select_address_title': 'Select Address',
+          'down_pick_errors_title': 'Missing info',
+          'down_pick_errors_msg': 'Please select both addresses to continue.',
+          'down_created_title': 'Down trip created',
+          'down_created_msg': 'Scheduled for @when',
+          'sure_create_down_trip': 'Are you sure create a Down trip?',
+
+          'delete': 'Delete',
+
+          'success_title': 'Trip created successfully!',
+          'success_subtitle':
+              'Your down trip request has been published. Tap “View Post” to see details.',
+          'view_post': 'View Post',
+          'back_home': 'Back to home',
         },
 
         'bn_BD': {
@@ -1664,6 +1685,28 @@ class AppTranslations extends Translations {
           'vat_tax': 'ভ্যাট এবং ট্যাক্স',
           'close': 'বন্ধ করুন',
           'taka_currency': 'টাকা',
+
+          //down trip
+          'down_create_title': 'ডাউন ট্রিপ তৈরি করুন',
+          'select_pickup': 'পিকআপ ঠিকানা নির্বাচন করুন',
+          'select_dropoff': 'ড্রপঅফ ঠিকানা নির্বাচন করুন',
+          'estimated_pickup': 'আনুমানিক পিকআপের তারিখ এবং সময়',
+          'create_trip': 'ট্রিপ তৈরি করুন',
+          'select_address_title': 'ঠিকানা নির্বাচন করুন',
+          'down_pick_errors_title': 'তথ্য অসম্পূর্ণ',
+          'down_pick_errors_msg':
+              'অগ্রসর হতে পিকআপ ও ড্রপঅফ দুটোই নির্বাচন করুন।',
+          'down_created_title': 'ডাউন ট্রিপ তৈরি হয়েছে',
+          'down_created_msg': '@when সময়ের জন্য নির্ধারিত',
+          'sure_create_down_trip': 'আপনি কি নিশ্চিত যে ডাউন ট্রিপ তৈরি করবে?',
+
+          'delete': 'মুছে ফেলুন',
+
+          'success_title': 'আপনার ট্রিপ সফলভাবে তৈরি হয়েছে!',
+          'success_subtitle':
+              'আপনার ডাউন ট্রিপ অনুরোধ প্রকাশিত হয়েছে। বিস্তারিত দেখতে “পোস্ট দেখুন” চাপুন।',
+          'view_post': 'পোস্ট দেখুন',
+          'back_home': 'বাড়ি ফিরে যান',
         },
       };
 }

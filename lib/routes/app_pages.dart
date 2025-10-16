@@ -1,3 +1,5 @@
+import 'package:ambufast_driver/module/down_trip/create_down_trip_controller.dart';
+import 'package:ambufast_driver/module/down_trip/create_down_trip_view.dart';
 import 'package:ambufast_driver/module/trip_request/trip_await_payment_controller.dart';
 import 'package:ambufast_driver/module/trip_request/trip_await_payment_view.dart';
 import 'package:ambufast_driver/module/trip_request/trip_request_controller.dart';
@@ -33,6 +35,7 @@ import '../module/donate/donate_money_controller.dart';
 import '../module/donate/donate_money_view.dart';
 import '../module/donate_payment_setection/support_payment_controller.dart';
 import '../module/donate_payment_setection/support_payment_view.dart';
+import '../module/down_trip/create_down_trip_messsage.dart';
 import '../module/down_trip/down_trip_controller.dart';
 import '../module/down_trip/down_trip_view.dart';
 import '../module/edit_profile_details/edit_profile_details_controller.dart';
@@ -411,6 +414,20 @@ class AppPages {
       page: () => const TripPaymentView(),
       binding: BindingsBuilder(() {
         Get.put(TripPaymentController());
+      }),
+    ),
+    GetPage(
+      name: Routes.createDownTripMessage,
+      page: () => const CreateDownTripMessage(),
+      binding: BindingsBuilder(() {
+        Get.put(DownTripController());
+      }),
+    ),
+    GetPage(
+      name: Routes.downTripCreate,
+      page: () => const CreateDownTripView(),
+      binding: BindingsBuilder(() {
+        Get.put(CreateDownTripController());
       }),
     ),
   ];
