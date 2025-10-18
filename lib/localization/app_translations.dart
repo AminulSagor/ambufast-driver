@@ -864,6 +864,52 @@ class AppTranslations extends Translations {
               'Your down trip request has been published. Tap “View Post” to see details.',
           'view_post': 'View Post',
           'back_home': 'Back to home',
+
+          //subscription
+          'subscription_title': 'Subscription',
+          'priority_label': 'Priority Subscription',
+          'subscription_hero_title':
+              'Get More Trips with\nPriority Subscription',
+          'subscription_hero_subtitle':
+              'Subscribed drivers receive higher priority in trip assignments and special benefits.',
+          'benefit_priority': 'Priority in trip requests',
+          'benefit_earning': 'More earning opportunities',
+          'benefit_insights': 'Access to trip insights & analytics',
+          'benefit_discount': 'Special discounts on service charges',
+          'subscribe_now': 'Subscribe Now',
+          'subscription_active': 'Already Subscribed',
+          'terms_prefix': 'By placing this order, you agree to the ',
+          'terms_tos': 'Terms of Service',
+          'terms_and': ' and ',
+          'terms_privacy': 'Privacy Policy',
+          'terms_suffix':
+              '. Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period.',
+          'open_link_placeholder': 'Open link',
+          'subscription_success_snack': 'Priority subscription activated!',
+          'choose_plan_title': 'Choose Your Subscription Plan',
+          'basic_plan': 'Basic Plan',
+          'price_per_month': '@price/month',
+          'feat_one_request': 'One request at a time',
+          'feat_two_weeks': 'Two weeks design sprint',
+          'feat_unlimited_requests': 'Unlimited requests & revisions',
+          'feat_one_meeting': 'Up to 1 meeting per week',
+          'feat_dev_ready_figma': 'Dev ready Figma files',
+          'feat_unlimited_stock': 'Unlimited Stock Photos',
+          'get_started': 'Get Started',
+          'powered_by': 'Powered By SafeCare24/7 Medical Services Limited',
+          'beta_version': 'Beta Version @v',
+          'payment_history_title': 'Payment History',
+          'bkash_success': 'bKash payment successful',
+
+          'select_payment_method': 'Select Payment Method',
+          'pay_with_bkash': 'Pay with bKash',
+          'pay_with_nagad': 'Get 10% discount',
+          'pay_with_city_bank': 'Get 10% discount',
+          'visa_master_card': 'Visa/Master Card',
+          'pay_success_title': 'Payment Successful!',
+          'pay_success_message':
+              'Your subscription has been activated successfully. '
+                  'You will now receive trip priority and exclusive benefits.',
         },
 
         'bn_BD': {
@@ -1707,6 +1753,53 @@ class AppTranslations extends Translations {
               'আপনার ডাউন ট্রিপ অনুরোধ প্রকাশিত হয়েছে। বিস্তারিত দেখতে “পোস্ট দেখুন” চাপুন।',
           'view_post': 'পোস্ট দেখুন',
           'back_home': 'বাড়ি ফিরে যান',
+
+          //subscription
+          'subscription_title': 'সাবস্ক্রিপশন',
+          'priority_label': 'অগ্রাধিকারের সাবস্ক্রিপশন',
+          'subscription_hero_title':
+              'অগ্রাধিকারের সাবস্ক্রিপশন সহ\nআরও ট্রিপ পান',
+          'subscription_hero_subtitle':
+              'সাবস্ক্রাইব করা ড্রাইভাররা ট্রিপ অ্যাসাইনমেন্টে উচ্চ অগ্রাধিকার এবং বিশেষ সুবিধা পান।',
+          'benefit_priority': 'অনুরোধে অগ্রাধিকার',
+          'benefit_earning': 'আরও আয়ের সুযোগ',
+          'benefit_insights': 'ট্রিপ ইনসাইটস এবং এনালিটিক্সে প্রবেশাধিকার',
+          'benefit_discount': 'সার্ভিস চার্জে বিশেষ ছাড়',
+          'subscribe_now': 'এখন সাবস্ক্রাইব করুন',
+          'subscription_active': 'ইতিমধ্যেই সাবস্ক্রাইব করা আছে',
+          'terms_prefix': 'এই অর্ডারটি দেওয়ার মাধ্যমে, আপনি ',
+          'terms_tos': 'টার্মস অফ সার্ভিস',
+          'terms_and': ' এবং ',
+          'terms_privacy': 'প্রাইভেসি পলিসি',
+          'terms_suffix':
+              ' এর সাথে সম্মত হচ্ছেন। সাবস্ক্রিপশন স্বয়ংক্রিয়ভাবে নবায়ন হয় যদি না বর্তমান সময়সীমা শেষ হওয়ার কমপক্ষে ২৪ ঘন্টা আগে অটো-রিনিউ বন্ধ করা হয়।',
+          'open_link_placeholder': 'লিংক খুলুন',
+          'subscription_success_snack':
+              'প্রায়োরিটি সাবস্ক্রিপশন সক্রিয় হয়েছে!',
+          'choose_plan_title': 'আপনার সাবস্ক্রিপশন প্ল্যান বেছে নিন',
+          'basic_plan': 'বেসিক পরিকল্পনা',
+          'price_per_month': '@price/মাস',
+          'feat_one_request': 'একসের পর এক অনুরোধ',
+          'feat_two_weeks': 'দুই সপ্তাহের ডিজাইন স্প্রিন্ট',
+          'feat_unlimited_requests': 'সীমাহীন অনুরোধ এবং সংশোধন',
+          'feat_one_meeting': 'প্রতি সপ্তাহে সর্বোচ্চ ১টি মিটিং',
+          'feat_dev_ready_figma': 'ডেভেলপারদের জন্য প্রস্তুত ফিগমা ফাইল',
+          'feat_unlimited_stock': 'আনলিমিটেড স্টক ফটো',
+          'get_started': 'শুরু করুন',
+          'powered_by': 'Powered By SafeCare24/7 Medical Services Limited',
+          'beta_version': 'Beta Version @v',
+          'payment_history_title': 'পেমেন্ট ইতিহাস',
+          'bkash_success': 'বিকাশ পেমেন্ট সফল হয়েছে',
+
+          'select_payment_method': 'পেমেন্ট পদ্ধতি নির্বাচন করুন',
+          'pay_with_bkash': 'বিকাশ দিয়ে পেমেন্ট করুন',
+          'pay_with_nagad': '১০% ছাড় পান',
+          'pay_with_city_bank': '১০% ছাড় পান',
+          'visa_master_card': 'ভিসা/মাস্টার কার্ড',
+          'pay_success_title': 'পেমেন্ট সফল!',
+          'pay_success_message':
+              'আপনার সাবস্ক্রিপশন সফলভাবে সক্রিয় করা হয়েছে। '
+                  'আপনি এখন ট্রিপের অগ্রাধিকার এবং এক্সক্লুসিভ সুবিধা পাবেন।',
         },
       };
 }

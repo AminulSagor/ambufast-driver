@@ -48,4 +48,6 @@ abstract class Routes {
   static const tripPayment = '/trip-payment';
   static const createDownTripMessage = '/create-down-trip-message';
   static const downTripCreate = '/down-trip-create';
+  static const subscription = '/subscription';
+  static const paymentHistory = '/payment-history';
 }

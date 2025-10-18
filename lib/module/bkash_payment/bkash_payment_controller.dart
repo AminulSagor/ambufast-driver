@@ -4,21 +4,23 @@ import 'package:get/get.dart';
 
 import '../../routes/app_routes.dart';
 
-
 class BkashPaymentController extends GetxController {
   late final String merchant;
   late final String invoice;
   late final int amount; // minor units not used; show as 2dp
+  late final String paymentFor;
   final phoneCtrl = TextEditingController();
 
-  String get amountText => '${amount.toStringAsFixed(0)}.00'; // 10000 -> 10000.00
+  String get amountText =>
+      '${amount.toStringAsFixed(0)}.00'; // 10000 -> 10000.00
 
   @override
   void onInit() {
     final args = (Get.arguments as Map?) ?? const {};
     merchant = (args['merchant'] as String?) ?? 'AmbuFast';
-    invoice  = (args['invoice'] as String?) ?? '0000000000000';
-    amount   = (args['amount'] as int?) ?? 0;
+    invoice = (args['invoice'] as String?) ?? '0000000000000';
+    amount = (args['amount'] as int?) ?? 0;
+    paymentFor = (args['paymentFor'] as String?) ?? 'default';
     super.onInit();
   }
 
@@ -32,7 +34,7 @@ class BkashPaymentController extends GetxController {
     }
     Get.offNamed(
       Routes.paymentSuccessful,
-      arguments: {'amount': amount}, // int
+      arguments: {'amount': amount, 'paymentFor': paymentFor}, // int
     );
     Get.snackbar('done'.tr, 'Processing bKash payment for $merchant...');
   }

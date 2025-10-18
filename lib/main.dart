@@ -21,7 +21,7 @@ Future<String> _loadInitialRoute() async {
   if (token != null && token.isNotEmpty) {
     return Routes.home;
   } else {
-    return Routes.downTrip;
+    return Routes.subscription;
   }
 }
 

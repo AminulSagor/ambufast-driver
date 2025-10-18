@@ -7,13 +7,14 @@ import 'payment_success_controller.dart';
 class PaymentSuccessView extends GetView<PaymentSuccessController> {
   const PaymentSuccessView({super.key});
 
-  static const _titleColor = Color(0xFF0F1728);  // close to mock dark title
-  static const _bodyColor  = Color(0xFF6B7280);  // subtle gray
+  static const _titleColor = Color(0xFF0F1728); // close to mock dark title
+  static const _bodyColor = Color(0xFF6B7280); // subtle gray
   static const _primaryRed = Color(0xFFE53935);
-  static const _border     = Color(0xFFE6E6E9);
+  static const _border = Color(0xFFE6E6E9);
 
   @override
   Widget build(BuildContext context) {
+    final isSubscription = controller.paymentFor.value == 'subscription';
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -23,12 +24,15 @@ class PaymentSuccessView extends GetView<PaymentSuccessController> {
             children: [
               16.h.verticalSpace,
               // Success icon
-              Image.asset('assets/icon/done_mark.png', width: 112.w, height: 112.w),
+              Image.asset('assets/icon/done_mark.png',
+                  width: 112.w, height: 112.w),
               18.h.verticalSpace,
 
               // Title
               Text(
-                'payment_success_title'.tr,
+                isSubscription
+                    ? 'pay_success_title'.tr
+                    : 'payment_success_title'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 22.sp,
@@ -43,7 +47,10 @@ class PaymentSuccessView extends GetView<PaymentSuccessController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.w),
                 child: Text(
-                  'payment_success_body'.trParams({'amount': controller.amount.toString()}),
+                  isSubscription
+                      ? 'pay_success_message'.tr
+                      : 'payment_success_body'
+                          .trParams({'amount': controller.amount.toString()}),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -56,23 +63,24 @@ class PaymentSuccessView extends GetView<PaymentSuccessController> {
               24.h.verticalSpace,
 
               // Primary CTA
-              SizedBox(
-                width: double.infinity,
-                height: 48.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _primaryRed,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
+              if (!isSubscription)
+                SizedBox(
+                  width: double.infinity,
+                  height: 48.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _primaryRed,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                    ),
+                    onPressed: controller.goToActivity,
+                    child: Text(
+                      'go_to_my_activity'.tr,
+                      style: TextStyle(fontSize: 16.sp, color: Colors.white),
                     ),
                   ),
-                  onPressed: controller.goToActivity,
-                  child: Text(
-                    'go_to_my_activity'.tr,
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                  ),
                 ),
-              ),
 
               12.h.verticalSpace,
 
