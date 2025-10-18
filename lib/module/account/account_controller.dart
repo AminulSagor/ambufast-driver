@@ -34,7 +34,7 @@ class AccountController extends GetxController {
         Get.toNamed(Routes.myVehicles);
         break;
       case 'driving_license':
-        Get.snackbar('Open', 'Driving License');
+        Get.toNamed(Routes.drivingLicense);
         break;
       case 'vehicle_papers':
         Get.snackbar('Open', 'Vehicle Papers');

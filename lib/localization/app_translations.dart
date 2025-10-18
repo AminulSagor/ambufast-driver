@@ -931,6 +931,49 @@ class AppTranslations extends Translations {
           'start_date': 'Start date',
           'end_date': 'End date',
           'filter': 'Filter',
+
+          //driving license
+          'license_no': 'License No',
+          'expiry_date': 'Expiry Date',
+          'unverified': 'Unverified',
+          'Professional': 'Professional',
+          'drivers_license_information': "Driver's License Information",
+          'license_number': 'License Number',
+          'license_expiry_date': 'License Expiry Date',
+          'license_category': 'License Category',
+          'upload_license': 'Upload License',
+          'front_side_of_card': 'Front Side of Card',
+          'back_side_of_card': 'Back Side of Card',
+          'upload_front_hint': 'Click to Upload Front Side of Card',
+          'upload_back_hint': 'Click to Upload Back Side of Card',
+          '(max_file_size_25mb)': '(Max. File size: 25 MB)',
+          'update_information': 'Update Information',
+          'required_field': 'This field is required',
+          'please_upload_both_sides':
+              'Please upload both front and back sides.',
+          'license_updated_successfully': 'License updated successfully.',
+
+          'confirm_change_title':
+              'Are you sure you want to Changing Your Professional Information?',
+          'important_notes': 'Important Notes:',
+          'note_1':
+              'Your profile will be temporarily under review after this change.',
+          'note_3':
+              'Submitting false or misleading information may lead to account suspension.',
+          'submit_for_review': 'Submit for Review',
+          'confirm_change_intro':
+              'You are about to update your Work ID and National ID. Please ensure that:',
+          'confirm_point_1': 'The documents belong to you and are valid.',
+          'confirm_point_2':
+              'All details (ID number, name, etc.) are correct and clearly readable.',
+          'confirm_point_3':
+              'Upload a clear photo/scan — National ID (front & back) and Work ID.',
+          'note_2':
+              'You may not receive trip requests until your new documents are approved.',
+
+          'license_not_approved_title': 'Your driving license are not approved',
+          'license_not_approved_desc':
+              "Your submitted license details are invalid or incorrect and couldn't be approved. Please resubmit valid details.",
         },
 
         'bn_BD': {
@@ -1842,6 +1885,50 @@ class AppTranslations extends Translations {
           'start_date': 'শুরুর তারিখ',
           'end_date': 'শেষ তারিখ',
           'filter': 'ফিল্টার',
+
+          //driving license
+          'license_no': 'লাইসেন্স নম্বর',
+          'expiry_date': 'মেয়াদ শেষ হওয়ার তারিখ',
+          'unverified': 'Unverified',
+          'Professional': 'পেশাদার',
+          'drivers_license_information': 'ড্রাইভিং লাইসেন্স তথ্য',
+          'license_number': 'লাইসেন্স নম্বর',
+          'license_expiry_date': 'লাইসেন্সের মেয়াদ শেষ হওয়ার তারিখ',
+          'license_category': 'লাইসেন্স বিভাগ',
+          'upload_license': 'আপলোড লাইসেন্স',
+          'front_side_of_card': 'কার্ডের সামনের দিক',
+          'back_side_of_card': 'কার্ডের পিছনের দিক',
+          'upload_front_hint': 'কার্ডের সামনের দিকটি আপলোড করতে ক্লিক করুন',
+          'upload_back_hint': 'কার্ডের পিছনের দিকটি আপলোড করতে ক্লিক করুন',
+          '(max_file_size_25mb)': '(সর্বোচ্চ ফাইলের আকার: ২৫ মেগাবাইট)',
+          'update_information': 'আপডেট তথ্য',
+          'required_field': 'এই ঘরটি পূরণ করা বাধ্যতামূলক',
+          'please_upload_both_sides':
+              'দয়া করে সামনের ও পিছনের ছবি আপলোড করুন।',
+          'license_updated_successfully': 'লাইসেন্স সফলভাবে আপডেট হয়েছে।',
+
+          'confirm_change_title':
+              'আপনি কি নিশ্চিত যে আপনার পেশাগত তথ্য পরিবর্তন করতে চান?',
+
+          'important_notes': 'গুরুত্বপূর্ণ নোট:',
+          'note_1':
+              'এই পরিবর্তনের পরে আপনার প্রোফাইল সাময়িকভাবে পর্যালোচনার অধীনে থাকবে।',
+          'note_3':
+              'ভুল বা বিভ্রান্তিকর তথ্য জমা দিলে অ্যাকাউন্ট স্থগিত হতে পারে।',
+          'submit_for_review': 'পর্যালোচনার জন্য জমা দিন',
+          'confirm_change_intro':
+              'আপনি আপনার ওয়ার্ক আইডি এবং জাতীয় পরিচয়পত্র (NID) আপডেট করতে চলেছেন। অনুগ্রহ করে নিশ্চিত করুন:',
+          'confirm_point_1': 'ডকুমেন্টগুলো আপনার এবং বৈধ।',
+          'confirm_point_2':
+              'সব তথ্য (আইডি নম্বর, নাম ইত্যাদি) সঠিক এবং স্পষ্টভাবে পড়া যায়।',
+          'confirm_point_3':
+              'স্পষ্ট ছবি/স্ক্যান আপলোড করা হয়েছে — জাতীয় পরিচয়পত্রের সামনে ও পেছন, এবং ওয়ার্ক আইডি।',
+          'note_2':
+              'আপনার নতুন ডকুমেন্ট অনুমোদিত না হওয়া পর্যন্ত আপনি ট্রিপ অনুরোধ নাও পেতে পারেন।',
+
+          'license_not_approved_title': 'তোমার ড্রাইভিং লাইসেন্স অনুমোদিত নয়।',
+          'license_not_approved_desc':
+              "আপনার জমা দেওয়া লাইসেন্সের বিবরণ অবৈধ বা ভুল এবং অনুমোদিত হতে পারে না। অনুগ্রহ করে বৈধ বিবরণ পুনরায় জমা দিন।",
         },
       };
 }

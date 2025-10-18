@@ -1,5 +1,9 @@
 import 'package:ambufast_driver/module/down_trip/create_down_trip_controller.dart';
 import 'package:ambufast_driver/module/down_trip/create_down_trip_view.dart';
+import 'package:ambufast_driver/module/driving_license/driving_license_controller.dart';
+import 'package:ambufast_driver/module/driving_license/driving_license_view.dart';
+import 'package:ambufast_driver/module/driving_license/update_driving_license_controller.dart';
+import 'package:ambufast_driver/module/driving_license/update_driving_license_view.dart';
 import 'package:ambufast_driver/module/earnings/earnings_controller.dart';
 import 'package:ambufast_driver/module/earnings/earnings_view.dart';
 import 'package:ambufast_driver/module/subscription/payment_history_controller.dart';
@@ -455,6 +459,20 @@ class AppPages {
       page: () => const EarningsView(),
       binding: BindingsBuilder(() {
         Get.put(EarningsController());
+      }),
+    ),
+    GetPage(
+      name: Routes.drivingLicense,
+      page: () => const DrivingLicenseView(),
+      binding: BindingsBuilder(() {
+        Get.put(DrivingLicenseController());
+      }),
+    ),
+    GetPage(
+      name: Routes.updateDrivingLicense,
+      page: () => const UpdateDrivingLicenseView(),
+      binding: BindingsBuilder(() {
+        Get.put(UpdateDrivingLicenseController());
       }),
     ),
   ];

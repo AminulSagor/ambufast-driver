@@ -51,4 +51,6 @@ abstract class Routes {
   static const subscription = '/subscription';
   static const paymentHistory = '/payment-history';
   static const earnings = '/earnings';
+  static const drivingLicense = '/driving-license';
+  static const updateDrivingLicense = '/update-driving-license';
 }
