@@ -50,4 +50,5 @@ abstract class Routes {
   static const downTripCreate = '/down-trip-create';
   static const subscription = '/subscription';
   static const paymentHistory = '/payment-history';
+  static const earnings = '/earnings';
 }

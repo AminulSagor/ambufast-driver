@@ -1,5 +1,7 @@
 import 'package:ambufast_driver/module/down_trip/create_down_trip_controller.dart';
 import 'package:ambufast_driver/module/down_trip/create_down_trip_view.dart';
+import 'package:ambufast_driver/module/earnings/earnings_controller.dart';
+import 'package:ambufast_driver/module/earnings/earnings_view.dart';
 import 'package:ambufast_driver/module/subscription/payment_history_controller.dart';
 import 'package:ambufast_driver/module/subscription/payment_history_view.dart';
 import 'package:ambufast_driver/module/trip_request/trip_await_payment_controller.dart';
@@ -446,6 +448,13 @@ class AppPages {
       page: () => const PaymentHistoryView(),
       binding: BindingsBuilder(() {
         Get.put(PaymentHistoryController());
+      }),
+    ),
+    GetPage(
+      name: Routes.earnings,
+      page: () => const EarningsView(),
+      binding: BindingsBuilder(() {
+        Get.put(EarningsController());
       }),
     ),
   ];

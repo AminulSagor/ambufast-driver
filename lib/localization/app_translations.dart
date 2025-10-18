@@ -909,7 +909,28 @@ class AppTranslations extends Translations {
           'pay_success_title': 'Payment Successful!',
           'pay_success_message':
               'Your subscription has been activated successfully. '
-                  'You will now receive trip priority and exclusive benefits.',
+                  'You will now receive trip priority ad exclusive benefits.',
+
+          //earnings
+          'earnings_title': 'My Earning',
+          'earn_trips_title': 'Earning & Trips',
+          'filter_last_year': 'Last year',
+          'filter_this_year': 'This year',
+          'filter_last_30_days': 'Last 30 days',
+          'total_trips': 'Total Trips',
+          'total_hours': 'Total Driving Hrs',
+          'total_earning': 'Total Earning',
+          'your_earning': 'Your Earning',
+          'reference_id': 'Reference ID',
+          'hrs_short': 'Hrs',
+          'filter_today': 'Today',
+          'filter_yesterday': 'Yesterday',
+          'filter_last_week': 'Last Week',
+          'filter_last_month': 'Last Month',
+          'filter_custom': 'Custom range',
+          'start_date': 'Start date',
+          'end_date': 'End date',
+          'filter': 'Filter',
         },
 
         'bn_BD': {
@@ -1800,6 +1821,27 @@ class AppTranslations extends Translations {
           'pay_success_message':
               'আপনার সাবস্ক্রিপশন সফলভাবে সক্রিয় করা হয়েছে। '
                   'আপনি এখন ট্রিপের অগ্রাধিকার এবং এক্সক্লুসিভ সুবিধা পাবেন।',
+
+          //earnings
+          'earnings_title': 'আমার উপার্জন',
+          'earn_trips_title': 'উপার্জন এবং ট্রিপ',
+          'filter_last_year': 'গত বছর',
+          'filter_this_year': 'চলতি বছর',
+          'filter_last_30_days': 'শেষ ৩০ দিন',
+          'total_trips': 'মোট ট্রিপ',
+          'total_hours': 'মোট ড্রাইভিং ঘন্টা',
+          'total_earning': 'মোট আয়',
+          'your_earning': 'মোট আয়',
+          'reference_id': 'রেফারেন্স আইডি',
+          'hrs_short': 'ঘন্টা',
+          'filter_today': 'আজ',
+          'filter_yesterday': 'গতকাল',
+          'filter_last_week': 'গত সপ্তাহ',
+          'filter_last_month': 'গত মাস',
+          'filter_custom': 'কাস্টম রেঞ্জ',
+          'start_date': 'শুরুর তারিখ',
+          'end_date': 'শেষ তারিখ',
+          'filter': 'ফিল্টার',
         },
       };
 }

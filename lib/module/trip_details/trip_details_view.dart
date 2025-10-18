@@ -1,4 +1,5 @@
 // lib/modules/trip_details/trip_details_view.dart
+import 'package:ambufast_driver/module/trip_details/trip_details_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -265,7 +266,8 @@ class TripDetailsView extends GetView<TripDetailsController> {
           Row(
             children: [
               Text('trip.section.tripStatus'.tr,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp)),
+                  style:
+                      TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp)),
               const Spacer(),
               _badge(controller.tripStatusBadge, c),
             ],
@@ -283,7 +285,8 @@ class TripDetailsView extends GetView<TripDetailsController> {
                 children: [
                   Expanded(
                     child: Text('trip.field.rating'.tr,
-                        style: TextStyle(color: Colors.black54, fontSize: 14.sp)),
+                        style:
+                            TextStyle(color: Colors.black54, fontSize: 14.sp)),
                   ),
                   Row(
                     children: [
@@ -305,7 +308,6 @@ class TripDetailsView extends GetView<TripDetailsController> {
               ),
             ),
 
-
           // Remaining trip details
           _row('trip.field.contact'.tr, controller.contact.value),
           _row('trip.field.ambulance'.tr, controller.ambulance.value),
@@ -314,7 +316,6 @@ class TripDetailsView extends GetView<TripDetailsController> {
         ],
       ),
     );
-
   }
 
   Widget _paymentCard({
@@ -375,7 +376,7 @@ class TripDetailsView extends GetView<TripDetailsController> {
                 side: BorderSide(color: black),
                 padding: EdgeInsets.symmetric(vertical: 14.h),
               ),
-              onPressed: controller.onPrimaryAction,
+              onPressed: controller.downloadReceipt,
               child: Text('trip.actions.download'.tr),
             ),
           ),
@@ -411,7 +412,7 @@ class TripDetailsView extends GetView<TripDetailsController> {
         ),
         if (controller.showCancelLink)
           Padding(
-            padding: EdgeInsets.only(bottom: 14.h,top: 8.h),
+            padding: EdgeInsets.only(bottom: 14.h, top: 8.h),
             child: GestureDetector(
               onTap: controller.onCancelTrip,
               child: Text('trip.actions.cancel'.tr,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../combine_controller/location_controller.dart';
 import '../../model/booking_model.dart';
 import '../../model/trip_model.dart';
+import '../../routes/app_routes.dart';
 import '../../widgets/ambu_app_bar_widget.dart';
 import '../../widgets/upcoming_trip_card_widget.dart';
 import '../../widgets/bottom_nav_widget.dart';
@@ -32,16 +33,16 @@ class ActivityView extends GetView<ActivityController> {
     return Scaffold(
       appBar: AmbuAppBar(
         locationBuilder: (ctx) => Obx(() => Text(
-          loc.locationText.value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 12.sp,               // <-- was missing
-            color: Colors.black54,
-            fontWeight: FontWeight.w500,
-            height: 1.2,
-          ),
-        )),
+              loc.locationText.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12.sp, // <-- was missing
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+              ),
+            )),
         isLocationMissing: () {
           final v = loc.locationText.value.trim();
           return v.isEmpty || v.contains('not available');
@@ -49,13 +50,8 @@ class ActivityView extends GetView<ActivityController> {
         onRequestDeviceLocation: loc.refreshFromDevice,
         showNotificationDot: true,
       ),
-
-
       body: Column(
         children: [
-
-
-
           // tabs
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
@@ -103,7 +99,8 @@ class ActivityView extends GetView<ActivityController> {
               padding: EdgeInsets.symmetric(horizontal: 18.w),
               child: Row(
                 children: [
-                  Icon(Icons.search, size: 22.sp, color: const Color(0xFF3B3F4F)),
+                  Icon(Icons.search,
+                      size: 22.sp, color: const Color(0xFF3B3F4F)),
                   SizedBox(width: 10.w),
                   Expanded(
                     child: TextField(
@@ -152,8 +149,6 @@ class ActivityView extends GetView<ActivityController> {
               ),
             ),
           ),
-
-
 
           // list + pagination
           Expanded(
@@ -205,7 +200,10 @@ class ActivityView extends GetView<ActivityController> {
                         return UpcomingTripCardWidget(
                           trip: trip,
                           status: _flagFor(b.status),
-                          // onTap: (_) => Get.toNamed(Routes.activityDetails, arguments: b.id),
+                          onTap: (_) => Get.toNamed(
+                            Routes.tripDetails,
+                            arguments: b.id,
+                          ),
                         );
                       }
 
@@ -255,21 +253,21 @@ class _TabButton extends StatelessWidget {
         child: Container(
           // was: alignment: Alignment.center, height: double.infinity,
           // Give the white pill some breathing room inside the grey track:
-          margin: EdgeInsets.all(4.w),                  // ← CHANGED
+          margin: EdgeInsets.all(4.w), // ← CHANGED
           padding: EdgeInsets.symmetric(horizontal: 8.w), // ← CHANGED
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: selected ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(12.r),  // ← CHANGED (was 10.r)
+            borderRadius: BorderRadius.circular(12.r), // ← CHANGED (was 10.r)
           ),
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 14.sp,                          // ← CHANGED (clearer size)
+              fontSize: 14.sp, // ← CHANGED (clearer size)
               fontWeight: FontWeight.w700,
               color: selected
-                  ? const Color(0xFF0B1B2E)             // dark when selected
-                  : const Color(0xFF8F95A3),            // grey when not selected
+                  ? const Color(0xFF0B1B2E) // dark when selected
+                  : const Color(0xFF8F95A3), // grey when not selected
             ),
           ),
         ),
@@ -277,4 +275,3 @@ class _TabButton extends StatelessWidget {
     );
   }
 }
-

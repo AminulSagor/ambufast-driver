@@ -22,13 +22,13 @@ class AccountController extends GetxController {
         Get.toNamed(Routes.profileDetails);
         break;
       case 'subscription':
-        Get.snackbar('Open', 'Subscription');
+        Get.toNamed(Routes.subscription);
         break;
       case 'reviews':
         Get.toNamed(Routes.allReview);
         break;
       case 'my_earning':
-        Get.snackbar('Open', 'My Earning');
+        Get.toNamed(Routes.earnings);
         break;
       case 'my_vehicles':
         Get.toNamed(Routes.myVehicles);
@@ -73,13 +73,13 @@ class AccountController extends GetxController {
 
       default:
         break;
-
     }
   }
 
   void _openPolicy(PolicyType type) {
     Get.toNamed(Routes.legalPolicy, arguments: {'type': type.name});
   }
+
   void _openDeleteAccountSheet() {
     Get.bottomSheet(
       DeleteAccountSheet(
@@ -94,6 +94,7 @@ class AccountController extends GetxController {
       barrierColor: Colors.black.withOpacity(0.35),
     );
   }
+
   Future<void> logout() async {
     try {
       Get.dialog(

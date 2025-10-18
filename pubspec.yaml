@@ -28,6 +28,10 @@ dependencies:
   google_maps_flutter:
   maplibre_gl: ^0.24.0
   share_plus:
+  pdf:
+  printing:
+  path_provider:
+  open_filex:
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +52,8 @@ flutter:
     - assets/account/
     - assets/notification/
     - assets/icon/home_page_icon/toggle_icon/
+    - assets/pdf/
+    - assets/fonts/
 
 flutter_native_splash:
   # Common (Android + iOS)
